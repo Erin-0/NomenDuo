@@ -255,12 +255,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   font-size:14px; color:var(--muted); font-weight:700; margin-top:6px;
   line-height:1.5;
 }
-.q-hint{
-  display:inline-block; margin-top:10px;
-  padding:5px 12px; background:#E8F6FF; color:var(--blue-d);
-  border-radius:8px; font-size:12px; font-weight:900;
-  letter-spacing:.03em;
-}
+
 .stage{
   flex:1; min-height:200px;
   display:flex; align-items:center; justify-content:center;
@@ -449,6 +444,159 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .world-section.collapsed .world-title {
   opacity: .65;
   transition: opacity .2s ease;
+}
+
+/* ====== ANIMATIONS & FX (ajout) ====== */
+.snd-toggle{
+  width:34px; height:34px; border-radius:50%; flex:none;
+  display:flex; align-items:center; justify-content:center;
+  font-size:17px; background:var(--bg-soft); transition:transform .15s, background .15s;
+}
+.snd-toggle:active{transform:scale(.88)}
+.snd-toggle.off{opacity:.55}
+.home-hero{position:relative}
+.home-hero .snd-toggle{position:absolute; top:18px; right:18px}
+
+/* entrée de page */
+.home-hero h1{animation:heroIn .55s cubic-bezier(.34,1.4,.5,1) both}
+.home-hero p{animation:fadeIn .8s .2s both}
+@keyframes heroIn{from{transform:translateY(-14px) scale(.92); opacity:0}}
+.stat-chip{animation:chipIn .5s cubic-bezier(.34,1.4,.5,1) both}
+.stat-chip:nth-child(2){animation-delay:.08s}
+@keyframes chipIn{from{transform:translateY(14px) scale(.85); opacity:0}}
+.random-card,.section-banner,.world-section{animation:cardIn .5s cubic-bezier(.34,1.3,.5,1) both}
+.world-section:nth-of-type(2){animation-delay:.05s}
+@keyframes cardIn{from{transform:translateY(22px); opacity:0}}
+.level-row{animation:rowIn .4s cubic-bezier(.34,1.3,.5,1) both}
+.level-row:nth-child(2){animation-delay:.04s}.level-row:nth-child(3){animation-delay:.08s}
+.level-row:nth-child(4){animation-delay:.12s}.level-row:nth-child(5){animation-delay:.16s}
+.level-row:nth-child(n+6){animation-delay:.2s}
+@keyframes rowIn{from{transform:translateX(-18px); opacity:0}}
+.random-card .btn-3d{animation:pulseBtn 2.2s ease-in-out infinite}
+@keyframes pulseBtn{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+.random-card h2{display:inline-block}
+.random-card:hover h2{animation:wobble .6s}
+@keyframes wobble{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+
+/* écran de jeu */
+.play{animation:playIn .35s cubic-bezier(.4,0,.2,1)}
+@keyframes playIn{from{opacity:0; transform:translateX(24px)}}
+.q-block h2{animation:fadeIn .4s .05s both}
+.stage svg{animation:molIn .5s cubic-bezier(.34,1.3,.5,1) both}
+@keyframes molIn{from{transform:scale(.85); opacity:0}}
+.chip{animation:chipPop .35s cubic-bezier(.34,1.5,.5,1) both}
+.chip:nth-child(2){animation-delay:.04s}.chip:nth-child(3){animation-delay:.08s}
+.chip:nth-child(4){animation-delay:.12s}.chip:nth-child(5){animation-delay:.16s}
+.chip:nth-child(n+6){animation-delay:.2s}
+@keyframes chipPop{from{transform:scale(.6) translateY(10px); opacity:0}}
+.name-slot .piece:active{transform:scale(.92)}
+
+/* barre de progression brillante */
+.progress-fill{position:relative; overflow:hidden; transition:width .6s cubic-bezier(.34,1.3,.5,1)}
+.progress-fill::after{
+  content:''; position:absolute; left:8px; right:8px; top:3px; height:4px;
+  border-radius:99px; background:rgba(255,255,255,.35);
+}
+.progress-fill.boost{animation:fillBoost .7s ease-out}
+@keyframes fillBoost{0%{filter:brightness(1)}40%{filter:brightness(1.35)}100%{filter:brightness(1)}}
+
+/* clic atome */
+.atom-tap{animation:atomTap .35s cubic-bezier(.34,1.6,.5,1)}
+@keyframes atomTap{0%{transform:scale(1)}40%{transform:scale(1.28)}100%{transform:scale(1)}}
+.atom-hit{transform-box:fill-box; transform-origin:center}
+
+/* feedback */
+.sheet.good{animation:slideUp .35s cubic-bezier(.34,1.3,.5,1)}
+.sheet.bad{animation:slideUp .3s cubic-bezier(.4,0,.2,1), shakeX .5s .25s}
+@keyframes shakeX{
+  0%,100%{transform:translateX(0)}
+  15%{transform:translateX(-10px)}30%{transform:translateX(9px)}
+  45%{transform:translateX(-7px)}60%{transform:translateX(5px)}
+  75%{transform:translateX(-3px)}
+}
+.sheet.good .sheet-icon{animation:iconPop .6s .1s cubic-bezier(.34,1.8,.5,1) both; position:relative}
+.sheet.good .sheet-icon::before,.sheet.good .sheet-icon::after{
+  content:''; position:absolute; inset:-4px; border-radius:50%;
+  border:3px solid var(--green); opacity:0; animation:ring .8s .15s ease-out;
+}
+.sheet.good .sheet-icon::after{animation-delay:.3s}
+@keyframes ring{0%{transform:scale(.8); opacity:.9}100%{transform:scale(1.9); opacity:0}}
+@keyframes iconPop{0%{transform:scale(0) rotate(-40deg)}60%{transform:scale(1.25) rotate(8deg)}100%{transform:scale(1) rotate(0)}}
+.sheet.bad .sheet-icon{animation:iconDrop .55s .1s cubic-bezier(.34,1.5,.5,1) both}
+@keyframes iconDrop{0%{transform:translateY(-30px) scale(.4); opacity:0}70%{transform:translateY(4px) scale(1.1); opacity:1}100%{transform:none}}
+.sheet-title{animation:titleIn .4s .2s both}
+.sheet-text{animation:titleIn .4s .3s both}
+@keyframes titleIn{from{transform:translateY(10px); opacity:0}}
+.sheet-actions .btn-3d{animation:titleIn .4s .4s both}
+.sheet.good .sheet-actions .btn-3d:not(.btn-secondary){animation:titleIn .4s .4s both, pulseBtn 1.8s 1s ease-in-out infinite}
+
+/* flash plein écran */
+.flash{position:fixed; inset:0; pointer-events:none; z-index:90; animation:flashA .55s ease-out forwards}
+.flash.good{background:radial-gradient(circle at 50% 80%, rgba(88,204,2,.35), transparent 65%)}
+.flash.bad{background:radial-gradient(circle at 50% 80%, rgba(255,75,75,.35), transparent 65%)}
+@keyframes flashA{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
+
+/* secousse de l'app */
+.app-shake{animation:shakeX .45s}
+
+/* cœurs */
+.heart.lose{display:inline-block; animation:heartLose .8s ease-out}
+@keyframes heartLose{
+  0%{transform:scale(1)}15%{transform:scale(1.5)}
+  30%{transform:scale(.8) rotate(-14deg)}45%{transform:scale(1.2) rotate(10deg)}
+  70%{transform:scale(.9) rotate(-5deg)}100%{transform:scale(1)}
+}
+.hearts .hnum.lose{display:inline-block; animation:numDrop .6s ease-out}
+@keyframes numDrop{0%{transform:translateY(-12px); opacity:0; color:#FF4B4B}100%{transform:none; opacity:1}}
+.broken-heart{font-size:58px; display:inline-block; animation:breakHeart 1.2s cubic-bezier(.34,1.4,.5,1) both}
+@keyframes breakHeart{
+  0%{transform:scale(0)}30%{transform:scale(1.35)}
+  45%{transform:scale(1) rotate(-8deg)}60%{transform:rotate(8deg)}
+  75%{transform:rotate(-4deg)}100%{transform:none}
+}
+
+/* confettis */
+.fx-layer{position:fixed; inset:0; pointer-events:none; z-index:150; overflow:hidden}
+.confetti{position:absolute; will-change:transform,opacity}
+
+/* étoiles de fin */
+.star-row{display:flex; justify-content:center; gap:8px; margin:16px 0 4px; font-size:40px; line-height:1}
+.star-row .st{display:inline-block; color:#E5E5E5; transform:scale(.3); opacity:0}
+.star-row .st.on{color:#FFC800; text-shadow:0 3px 0 #E5A400; animation:starIn .7s cubic-bezier(.34,1.8,.5,1) forwards}
+.star-row .st.off{animation:starOff .4s forwards}
+@keyframes starIn{0%{transform:scale(0) rotate(-120deg); opacity:0}60%{transform:scale(1.5) rotate(15deg); opacity:1}100%{transform:scale(1) rotate(0); opacity:1}}
+@keyframes starOff{to{transform:scale(1); opacity:1}}
+.trophy-bounce{display:inline-block; animation:trophy 1.1s cubic-bezier(.34,1.5,.5,1) both}
+@keyframes trophy{
+  0%{transform:translateY(-60px) scale(.2) rotate(-30deg); opacity:0}
+  50%{transform:translateY(8px) scale(1.2) rotate(10deg); opacity:1}
+  70%{transform:translateY(-10px) rotate(-6deg)}
+  100%{transform:none}
+}
+.sheet.finish{position:relative; overflow:hidden}
+.sheet.finish::before{
+  content:''; position:absolute; left:50%; top:-60px; width:340px; height:340px; margin-left:-170px;
+  background:conic-gradient(from 0deg, rgba(255,200,0,.0), rgba(255,200,0,.28), rgba(255,200,0,0) 25%, rgba(255,200,0,.28) 50%, rgba(255,200,0,0) 75%, rgba(255,200,0,.28));
+  border-radius:50%; animation:spinRays 9s linear infinite; pointer-events:none;
+}
+@keyframes spinRays{to{transform:rotate(360deg)}}
+.sheet.finish > *{position:relative}
+
+/* flottant "+1" / combo */
+.float-msg{
+  position:fixed; left:50%; top:38%; z-index:160; pointer-events:none;
+  transform:translateX(-50%); font-weight:900; font-size:30px; color:var(--green);
+  text-shadow:0 3px 0 rgba(0,0,0,.08); animation:floatUp 1s ease-out forwards;
+}
+@keyframes floatUp{0%{transform:translate(-50%,10px) scale(.4); opacity:0}25%{transform:translate(-50%,-10px) scale(1.2); opacity:1}100%{transform:translate(-50%,-70px) scale(1); opacity:0}}
+
+/* boutons */
+.btn-3d:not(:disabled){transition:transform .08s, border-bottom-width .08s, filter .15s}
+#btn-verify:not(:disabled){animation:readyPop .35s cubic-bezier(.34,1.8,.5,1)}
+@keyframes readyPop{0%{transform:scale(.96)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
 }
 </style>
 </head>
@@ -1314,6 +1462,231 @@ const WORLDS = [
     ]},
 ];
 
+
+/* ============================================================
+   SONS (Web Audio — aucun fichier externe) & EFFETS
+   ============================================================ */
+const SFX = (function(){
+  let ctx = null, master = null;
+  let enabled = true;
+  try{ enabled = localStorage.getItem('nomenduo_sound') !== '0'; }catch(e){}
+
+  function init(){
+    if(!ctx){
+      try{
+        ctx = new (window.AudioContext || window.webkitAudioContext)();
+        master = ctx.createGain();
+        master.gain.value = .5;
+        const comp = ctx.createDynamicsCompressor();
+        master.connect(comp); comp.connect(ctx.destination);
+      }catch(e){ ctx = null; }
+    }
+    if(ctx && ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+  /* note simple avec enveloppe */
+  function tone(freq, t0, dur, o){
+    o = o || {};
+    const c = init(); if(!c || !enabled) return;
+    const osc = c.createOscillator(), g = c.createGain();
+    osc.type = o.type || 'sine';
+    const start = c.currentTime + t0;
+    osc.frequency.setValueAtTime(freq, start);
+    if(o.slideTo) osc.frequency.exponentialRampToValueAtTime(o.slideTo, start + dur);
+    const vol = o.vol == null ? .35 : o.vol;
+    g.gain.setValueAtTime(0.0001, start);
+    g.gain.exponentialRampToValueAtTime(vol, start + (o.attack || .012));
+    g.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+    osc.connect(g); g.connect(master);
+    osc.start(start); osc.stop(start + dur + .05);
+  }
+  /* bruit court (pour "whoosh" / impact) */
+  function noise(t0, dur, vol, hp){
+    const c = init(); if(!c || !enabled) return;
+    const len = Math.max(1, Math.floor(c.sampleRate * dur));
+    const buf = c.createBuffer(1, len, c.sampleRate);
+    const d = buf.getChannelData(0);
+    for(let i=0;i<len;i++) d[i] = (Math.random()*2-1) * (1 - i/len);
+    const src = c.createBufferSource(); src.buffer = buf;
+    const f = c.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = hp || 800;
+    const g = c.createGain(); g.gain.value = vol || .15;
+    src.connect(f); f.connect(g); g.connect(master);
+    src.start(c.currentTime + t0);
+  }
+  const N = {C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392,A4:440,B4:493.88,
+             C5:523.25,D5:587.33,E5:659.25,F5:698.46,G5:783.99,A5:880,B5:987.77,C6:1046.5,E6:1318.5,G6:1568};
+
+  const sounds = {
+    tap(){ tone(620, 0, .07, {type:'triangle', vol:.22}); },
+    select(){ tone(540, 0, .06, {type:'triangle', vol:.22}); tone(810, .05, .09, {type:'sine', vol:.2}); },
+    unselect(){ tone(520, 0, .07, {type:'triangle', vol:.18, slideTo:380}); },
+    chip(n){
+      const base = 480 + Math.min(n||0, 8) * 38;
+      tone(base, 0, .08, {type:'triangle', vol:.25});
+      tone(base*1.5, .04, .1, {type:'sine', vol:.12});
+    },
+    pop(){ tone(300, 0, .1, {type:'sine', vol:.3, slideTo:700}); },
+    ready(){ tone(N.E5, 0, .08, {type:'sine', vol:.18}); tone(N.A5, .06, .12, {type:'sine', vol:.16}); },
+    whoosh(){ noise(0, .22, .12, 1200); },
+    correct(){
+      /* petit "ding-ding" ascendant */
+      tone(N.C5, 0,   .16, {type:'triangle', vol:.3});
+      tone(N.E5, .09, .16, {type:'triangle', vol:.3});
+      tone(N.G5, .18, .30, {type:'triangle', vol:.32});
+      tone(N.C6, .18, .38, {type:'sine',     vol:.2});
+    },
+    wrong(){
+      tone(220, 0,   .18, {type:'sawtooth', vol:.2, slideTo:170});
+      tone(165, .15, .32, {type:'sawtooth', vol:.2, slideTo:110});
+      noise(0, .08, .08, 300);
+    },
+    heartLoss(){ tone(660, 0, .22, {type:'sine', vol:.25, slideTo:140}); noise(.02, .12, .06, 600); },
+    gameOver(){
+      [N.G4, N.E4, N.C4].forEach((f,i)=> tone(f, i*.22, .38, {type:'triangle', vol:.3}));
+      tone(110, .7, .8, {type:'sine', vol:.35, slideTo:70});
+    },
+    star(i){
+      const f = [N.C5, N.E5, N.G5][i||0] * 1.0;
+      tone(f, 0, .3, {type:'triangle', vol:.3});
+      tone(f*2, 0, .35, {type:'sine', vol:.14});
+    },
+    fanfare(){
+      const seq = [[N.C5,0],[N.E5,.11],[N.G5,.22],[N.C6,.33]];
+      seq.forEach(([f,t])=> tone(f, t, .22, {type:'triangle', vol:.3}));
+      [N.E5,N.G5,N.C6].forEach(f=> tone(f, .5, .7, {type:'triangle', vol:.22}));
+      tone(N.E6, .55, .6, {type:'sine', vol:.15});
+      tone(N.G6, .8, .5, {type:'sine', vol:.12});
+    },
+    sparkle(){ [N.E6,N.G6,N.C6].forEach((f,i)=> tone(f, i*.05, .12, {type:'sine', vol:.1})); },
+    open(){ tone(400, 0, .08, {type:'triangle', vol:.18, slideTo:600}); },
+    close(){ tone(600, 0, .08, {type:'triangle', vol:.18, slideTo:400}); },
+    start(){ [N.G4,N.C5,N.E5].forEach((f,i)=> tone(f, i*.07, .14, {type:'triangle', vol:.25})); }
+  };
+
+  return {
+    play(name, arg){ try{ if(!enabled) return; init(); sounds[name] && sounds[name](arg); }catch(e){} },
+    unlock(){ init(); },
+    get enabled(){ return enabled; },
+    toggle(){
+      enabled = !enabled;
+      try{ localStorage.setItem('nomenduo_sound', enabled ? '1' : '0'); }catch(e){}
+      if(enabled){ init(); sounds.pop(); }
+      return enabled;
+    }
+  };
+})();
+/* débloque l'audio dès la 1re interaction (exigé par les navigateurs) */
+['pointerdown','touchstart','keydown'].forEach(ev =>
+  document.addEventListener(ev, ()=> SFX.unlock(), {once:true, passive:true}));
+
+/* Bouton son : on/off */
+function sndButtonHTML(){
+  return '<button class="snd-toggle'+(SFX.enabled?'':' off')+'" data-snd aria-label="Son">'+(SFX.enabled?'🔊':'🔇')+'</button>';
+}
+document.addEventListener('click', (e)=>{
+  const b = e.target.closest && e.target.closest('[data-snd]');
+  if(!b) return;
+  e.stopPropagation();
+  const on = SFX.toggle();
+  document.querySelectorAll('[data-snd]').forEach(x=>{
+    x.textContent = on ? '🔊' : '🔇';
+    x.classList.toggle('off', !on);
+  });
+}, true);
+
+/* Sons génériques sur les boutons (délégation) */
+document.addEventListener('pointerdown', (e)=>{
+  const t = e.target.closest && e.target.closest('button');
+  if(!t || t.disabled || t.hasAttribute('data-snd')) return;
+  if(t.id === 'btn-verify' || t.id === 'sheet-btn' || t.id === 'btn-next') return; /* sons dédiés */
+  if(t.classList.contains('level-row') || t.id === 'btn-random') SFX.play('start');
+  else if(t.classList.contains('world-toggle')) SFX.play('tap');
+  else if(t.id === 'btn-close' || t.id === 'btn-cancel') SFX.play('close');
+  else if(t.id === 'btn-rappel') SFX.play('open');
+  else if(t.id === 'btn-home' || t.id === 'btn-quit') SFX.play('close');
+}, true);
+
+/* ---------- Confettis ---------- */
+function confetti(opts){
+  opts = opts || {};
+  const n = opts.count || 70;
+  const colors = opts.colors || ['#58CC02','#89E219','#1CB0F6','#FFC800','#FF4B4B','#CE82FF','#FF9600'];
+  const layer = document.createElement('div');
+  layer.className = 'fx-layer';
+  document.body.appendChild(layer);
+  const ox = (opts.x != null ? opts.x : .5) * window.innerWidth;
+  const oy = (opts.y != null ? opts.y : .75) * window.innerHeight;
+  const spread = opts.spread || 1;
+  for(let i=0;i<n;i++){
+    const p = document.createElement('div');
+    p.className = 'confetti';
+    const size = 6 + Math.random()*8;
+    const shape = Math.random();
+    p.style.cssText = 'left:'+ox+'px;top:'+oy+'px;width:'+size+'px;height:'+(shape>.6?size:size*.5)+'px;background:'
+      + colors[(Math.random()*colors.length)|0] + ';border-radius:'+(shape>.8?'50%':'2px');
+    layer.appendChild(p);
+    const ang = (-Math.PI/2) + (Math.random()-.5) * Math.PI * 1.15 * spread;
+    const vel = (opts.power || 1) * (260 + Math.random()*420);
+    const dx = Math.cos(ang) * vel, dy = Math.sin(ang) * vel;
+    const rot = (Math.random()-.5) * 1080;
+    const fall = 500 + Math.random()*300;
+    p.animate([
+      {transform:'translate(0,0) rotate(0deg) scale(1)', opacity:1},
+      {transform:'translate('+(dx*.55)+'px,'+(dy*.55)+'px) rotate('+(rot*.5)+'deg) scale(1)', opacity:1, offset:.45},
+      {transform:'translate('+dx*.85+'px,'+(dy*.55 + fall)+'px) rotate('+rot+'deg) scale(.8)', opacity:0}
+    ], {duration: 1300 + Math.random()*900, easing:'cubic-bezier(.2,.7,.4,1)', fill:'forwards'});
+  }
+  setTimeout(()=> layer.remove(), 2500);
+}
+/* ---------- Étincelles autour d'un point ---------- */
+function sparkBurst(x, y, color){
+  const layer = document.createElement('div');
+  layer.className = 'fx-layer';
+  document.body.appendChild(layer);
+  for(let i=0;i<10;i++){
+    const p = document.createElement('div');
+    p.className = 'confetti';
+    p.style.cssText = 'left:'+x+'px;top:'+y+'px;width:6px;height:6px;border-radius:50%;background:'+(color||'#58CC02');
+    layer.appendChild(p);
+    const a = (i/10) * Math.PI*2, d = 28 + Math.random()*22;
+    p.animate([
+      {transform:'translate(0,0) scale(1)', opacity:1},
+      {transform:'translate('+Math.cos(a)*d+'px,'+Math.sin(a)*d+'px) scale(0)', opacity:0}
+    ], {duration:520, easing:'ease-out', fill:'forwards'});
+  }
+  setTimeout(()=> layer.remove(), 650);
+}
+function flashScreen(kind){
+  const f = document.createElement('div');
+  f.className = 'flash '+kind;
+  document.body.appendChild(f);
+  setTimeout(()=> f.remove(), 600);
+}
+function floatMsg(text, color){
+  const m = document.createElement('div');
+  m.className = 'float-msg';
+  if(color) m.style.color = color;
+  m.textContent = text;
+  document.body.appendChild(m);
+  setTimeout(()=> m.remove(), 1000);
+}
+function shakeApp(){
+  const a = document.getElementById('app');
+  if(!a) return;
+  a.classList.remove('app-shake'); void a.offsetWidth; a.classList.add('app-shake');
+  setTimeout(()=> a.classList.remove('app-shake'), 500);
+}
+function vibrate(p){ try{ navigator.vibrate && navigator.vibrate(p); }catch(e){} }
+/* animation du tap sur un atome (SVG) */
+function tapAtomFx(g){
+  if(!g) return;
+  g.classList.remove('atom-tap'); void g.getBoundingClientRect(); g.classList.add('atom-tap');
+  try{
+    const r = g.getBoundingClientRect();
+    sparkBurst(r.left + r.width/2, r.top + r.height/2, '#1CB0F6');
+  }catch(e){}
+}
+
 /* ============================================================
    ÉTAT
    ============================================================ */
@@ -1380,6 +1753,7 @@ function pickRandomLevel(excludeW, excludeL){
   return all[Math.floor(Math.random()*all.length)];
 }
 function startRandom(fromW, fromL){
+  state._lastPct = null;
   const [wi,li] = pickRandomLevel(fromW, fromL);
   openLevel(wi, li, true);
 }
@@ -1816,6 +2190,7 @@ worldsHTML += '<section class="world-section'+(isCollapsed?' collapsed':'')+'" d
   const home = el(
     '<div class="home">'
     + '<div class="home-hero">'
+    +   sndButtonHTML()
     +   '<h1>Nomen<span class="accent">Duo</span></h1>'
     +   '<p>Atelier nomenclature IUPAC</p>'
     + '</div>'
@@ -1853,10 +2228,20 @@ worldsHTML += '<section class="world-section'+(isCollapsed?' collapsed':'')+'" d
    OUVERTURE D'UN NIVEAU
    ============================================================ */
 function openLevel(wi, li, isRandom=false){
+  state._lastPct = null;
   const world = WORLDS[wi];
   const level = world.levels[li];
+  const mol = MOLECULES[level.mol];
+
+  /* 🔧 FIX : ignorer l'étape "chain" s'il n'y a pas de chaîne à choisir
+     (molécule à 1 seul carbone : méthane et dérivés) */
+  const carbonCount = mol.atoms.filter(a => a.el === 'C').length;
+  const needChainStep = carbonCount > 1;
+
   let steps = level.steps.filter(s => s !== 'chain');
-  steps.unshift('chain');
+  if(needChainStep){
+    steps.unshift('chain');
+  }
 
   state.worldIdx = wi;
   state.levelIdx = li;
@@ -1867,6 +2252,13 @@ function openLevel(wi, li, isRandom=false){
   state.chainSequence = [];
   state.confirmedSubs = [];
   state.mistakes = 0;
+
+  /* 🔧 Pré-remplir la "chaîne" avec l'unique carbone pour que les étapes
+     suivantes (subs, name) sachent quelle chaîne utiliser */
+  if(!needChainStep){
+    state.chainSequence = mol.atoms.filter(a => a.el === 'C').map(a => a.id);
+  }
+
   renderPlay();
 }
 
@@ -1897,14 +2289,14 @@ function renderPlay(){
     +   '<button class="close-x" id="btn-close">✕</button>'
     +   '<div class="progress-track"><div class="progress-fill" style="width:'+progress+'%"></div></div>'
     +   (state.random ? '<span class="rnd-tag">🎲</span>' : '')
-    +   '<div class="hearts"><span class="heart">❤️</span> '+state.hearts+'</div>'
+    +   sndButtonHTML()
+    +   '<div class="hearts"><span class="heart">❤️</span> <span class="hnum">'+state.hearts+'</span></div>'
     + '</div>'
     + '<div class="play-body">'
     +   '<div class="q-block">'
-    +     '<h2>'+content.title+'</h2>'
-    +     '<p>'+content.subtitle+'</p>'
-    +     (content.hint ? '<span class="q-hint">'+content.hint+'</span>' : '')
-    +   '</div>'
++     '<h2>'+content.title+'</h2>'
++     '<p>'+content.subtitle+'</p>'
++   '</div>'
     +   '<div class="stage" id="stage">'+content.molecule+'</div>'
     +   '<div class="answer" id="answer">'+content.answers+'</div>'
     + '</div>'
@@ -1922,6 +2314,25 @@ function renderPlay(){
 
   attachStepListeners(step, mol);
   updateVerifyState();
+
+  /* barre de progression qui avance avec animation */
+  const fill = document.querySelector('.progress-fill');
+  if(fill){
+    const prevPct = state._lastPct == null ? progress : state._lastPct;
+    fill.style.width = prevPct + '%';
+    requestAnimationFrame(()=> requestAnimationFrame(()=>{
+      fill.style.width = progress + '%';
+      if(progress > prevPct){ fill.classList.add('boost'); }
+    }));
+    state._lastPct = progress;
+  }
+  /* cœur perdu : animation juste après le rendu */
+  if(state._heartLost){
+    state._heartLost = false;
+    const h = document.querySelector('.hearts .heart'), n = document.querySelector('.hearts .hnum');
+    if(h) h.classList.add('lose');
+    if(n) n.classList.add('lose');
+  }
 }
 
 /* ============================================================
@@ -2012,10 +2423,12 @@ function attachStepListeners(step, mol){
         if(!atom) return;
 
         if(atom.el !== 'C'){
+          SFX.play('wrong'); shakeApp(); vibrate(40);
           toast('❌ <b>'+atom.el+'</b> est un halogène : il ne peut jamais faire partie de la chaîne principale. C\'est un substituant (préfixe <b>'+HALOGENS[atom.el]+'-</b>).');
           return;
         }
         if(mol.ringOrder && !mol.ringOrder.includes(id)){
+          SFX.play('unselect');
           toast('Dans un cycloalcane substitué, la chaîne principale est le cycle : les substituants viennent après.');
           return;
         }
@@ -2024,13 +2437,20 @@ function attachStepListeners(step, mol){
         const idx = seq.indexOf(id);
         if(idx >= 0){
           state.stepState.tapped = seq.slice(0, idx);
+          SFX.play('unselect');
         } else if(seq.length === 0){
           state.stepState.tapped = [id];
+          SFX.play('chip', 0); tapAtomFx(g); vibrate(8);
         } else {
           const last = seq[seq.length-1];
           const bonded = mol.bonds.some(b=>
             (b[0]===last && b[1]===id) || (b[1]===last && b[0]===id));
-          if(bonded) state.stepState.tapped = [...seq, id];
+          if(bonded){
+            state.stepState.tapped = [...seq, id];
+            SFX.play('chip', seq.length); tapAtomFx(g); vibrate(8);
+          } else {
+            SFX.play('unselect');
+          }
         }
         const tapped = state.stepState.tapped || [];
         stage.innerHTML = renderMolecule(mol, {chain:tapped, interactive:true});
@@ -2051,8 +2471,8 @@ function attachStepListeners(step, mol){
 
         const arr = (state.stepState.subs || []).slice();
         const idx = arr.indexOf(id);
-        if(idx>=0) arr.splice(idx,1);
-        else arr.push(id);
+        if(idx>=0){ arr.splice(idx,1); SFX.play('unselect'); }
+        else { arr.push(id); SFX.play('select'); tapAtomFx(g); vibrate(8); }
         state.stepState.subs = arr;
 
         stage.innerHTML = renderMolecule(mol, {chain:state.chainSequence, subs:arr, interactive:true});
@@ -2081,6 +2501,7 @@ function attachStepListeners(step, mol){
           const cur = (state.stepState.namePieces || []).slice();
           const i = cur.indexOf(tok);
           if(i >= 0) cur.splice(i, 1);
+          SFX.play('unselect');
           state.stepState.namePieces = cur;
           refreshSlot();
           updateVerifyState();
@@ -2096,6 +2517,7 @@ function attachStepListeners(step, mol){
         const arr = (state.stepState.namePieces || []).slice();
         if(arr.includes(tok)) return;
         arr.push(tok);
+        SFX.play('chip', arr.length - 1); vibrate(8);
         state.stepState.namePieces = arr;
         refreshSlot();
         updateVerifyState();
@@ -2113,12 +2535,14 @@ function updateVerifyState(){
   const mol = currentMol();
   let ready = false;
   if(step==='chain'){
-    ready = mol.ringOrder
-      ? (q.tapped||[]).length === mol.ringOrder.length
-      : (q.tapped||[]).length >= 2;
+    const carbonCount = mol.atoms.filter(a => a.el === 'C').length;
+ready = mol.ringOrder
+  ? (q.tapped||[]).length === mol.ringOrder.length
+  : (q.tapped||[]).length >= Math.min(2, carbonCount);
   }
   else if(step==='subs') ready = (q.subs||[]).length >= 1;
   else if(step==='name') ready = (q.namePieces||[]).length >= 1;
+  if(ready && btn.disabled){ SFX.play('ready'); }
   btn.disabled = !ready;
 }
 
@@ -2284,6 +2708,7 @@ function verifyStep(){
   if(!ok){
     state.mistakes = (state.mistakes||0) + 1;
     state.hearts = Math.max(0, state.hearts - 1);
+    state._heartLost = true;
     saveAll();
     if(state.hearts <= 0){
       showHeartsOut();
@@ -2314,7 +2739,21 @@ function showSheet({ok, title, text, hint, diag, onContinue}){
   );
   document.body.appendChild(wrap);
 
+  /* effets de réussite / d'échec */
+  if(ok){
+    SFX.play('correct'); flashScreen('good'); vibrate([15,30,15]);
+    confetti({count:46, y:.78, power:.85});
+    floatMsg('+1 ✨');
+    setTimeout(()=> SFX.play('sparkle'), 260);
+    const fill = document.querySelector('.progress-fill');
+    if(fill) fill.classList.add('boost');
+  } else {
+    SFX.play('wrong'); setTimeout(()=> SFX.play('heartLoss'), 220);
+    flashScreen('bad'); shakeApp(); vibrate([60,40,60]);
+  }
+
   wrap.querySelector('#sheet-btn').addEventListener('click', ()=>{
+    SFX.play(ok ? 'whoosh' : 'tap');
     wrap.remove();
     if(onContinue) onContinue();
     else {
@@ -2328,7 +2767,7 @@ function showHeartsOut(){
   const wrap = el(
     '<div class="sheet-wrap">'
     + '<div class="sheet bad">'
-    +   '<div class="sheet-icon">💔</div>'
+    +   '<div class="sheet-icon"><span class="broken-heart">💔</span></div>'
     +   '<div class="sheet-title">Plus de cœurs !</div>'
     +   '<div class="sheet-text">Tu as utilisé tous tes cœurs. Reviens plus tard pour réessayer.</div>'
     +   '<div class="sheet-actions"><button class="btn-3d" id="sheet-btn">Retour aux missions</button></div>'
@@ -2336,7 +2775,10 @@ function showHeartsOut(){
     + '</div>'
   );
   document.body.appendChild(wrap);
+  SFX.play('wrong'); setTimeout(()=> SFX.play('gameOver'), 250);
+  flashScreen('bad'); shakeApp(); vibrate([80,50,80,50,160]);
   wrap.querySelector('#sheet-btn').addEventListener('click', ()=>{
+    SFX.play('tap');
     wrap.remove();
     state.hearts = 5;
     saveAll();
@@ -2358,22 +2800,11 @@ function showRappel(){
   PREFIXES.forEach(([n,txt])=>{
     gridHTML += '<div class="prefix-item"><span class="num">'+n+'</span><span class="txt">'+txt+'</span></div>';
   });
-  const world = WORLDS[state.worldIdx];
-  const tipHTML = world.tip
-    ? '<div class="tipbox">📌 <b>Règle de l\'étape</b><br>'+world.tip+'</div>'
-    : '';
 
   const wrap = el(
     '<div class="sheet-wrap">'
     + '<div class="sheet neutral">'
-    +   '<div class="sheet-icon" style="color:#1CB0F6">📖</div>'
-    +   '<div class="sheet-title">Rappel</div>'
-    +   tipHTML
-    +   '<div class="sheet-text" style="color:#AFAFAF;margin-top:16px">Nombre de carbones dans la chaîne principale</div>'
-    +   '<div class="prefix-grid">'+gridHTML+'</div>'
-    +   '<div class="sheet-hint" style="background:#F7F7F7;color:#4B4B4B;margin-top:16px">'
-    +     '💡 <b>Astuce :</b> pour un cycle, commence la numérotation à un carbone portant un substituant, puis va dans le sens qui donne les plus petits indices.'
-    +   '</div>'
+    +   '<div class="prefix-grid" style="margin-top:0">'+gridHTML+'</div>'
     +   '<div class="sheet-actions"><button class="btn-3d" id="sheet-btn">Fermer</button></div>'
     + '</div>'
     + '</div>'
@@ -2382,7 +2813,6 @@ function showRappel(){
   wrap.querySelector('#sheet-btn').addEventListener('click', ()=> wrap.remove());
   wrap.addEventListener('click', (e)=>{ if(e.target === wrap) wrap.remove(); });
 }
-
 /* ============================================================
    CONFIRMATION DE SORTIE
    ============================================================ */
@@ -2439,11 +2869,11 @@ function finishLevel(){
 
   const wrap = el(
     '<div class="sheet-wrap">'
-    + '<div class="sheet good">'
-    +   '<div class="sheet-icon">🏆</div>'
+    + '<div class="sheet good finish">'
+    +   '<div class="sheet-icon"><span class="trophy-bounce">🏆</span></div>'
     +   '<div class="sheet-title">Niveau terminé !</div>'
     +   '<div class="sheet-text">Tu maîtrises <b>'+escapeHtml(mol.name)+'</b></div>'
-    +   '<div style="text-align:center;font-size:34px;color:#FFC800;letter-spacing:8px;margin:16px 0 4px">'+starsStr+'</div>'
+    +   '<div class="star-row">'+[0,1,2].map(i=>'<span class="st '+(i<stars?'on':'off')+'" data-i="'+i+'">★</span>').join('')+'</div>'
     +   '<div class="sheet-actions" style="display:flex;gap:10px">'
     +     '<button class="btn-3d btn-secondary" id="btn-home" style="flex:1">Missions</button>'
     +     '<button class="btn-3d'+(isRandom?' btn-gold':'')+'" id="btn-next" style="flex:1">'+nextLabel+'</button>'
@@ -2452,8 +2882,23 @@ function finishLevel(){
     + '</div>'
   );
   document.body.appendChild(wrap);
+
+  /* célébration : fanfare, étoiles une à une, confettis */
+  state._lastPct = null;
+  SFX.play('fanfare'); vibrate([30,40,30,40,80]);
+  confetti({count:120, y:.45, power:1.15, spread:1.3});
+  setTimeout(()=> confetti({count:70, x:.15, y:.6, power:.9, spread:.6}), 350);
+  setTimeout(()=> confetti({count:70, x:.85, y:.6, power:.9, spread:.6}), 550);
+  wrap.querySelectorAll('.st.on').forEach((s, i)=>{
+    s.style.animationDelay = (.55 + i*.38) + 's';
+    setTimeout(()=>{ SFX.play('star', i); const r = s.getBoundingClientRect(); sparkBurst(r.left+r.width/2, r.top+r.height/2, '#FFC800'); }, (.55 + i*.38)*1000);
+  });
+  wrap.querySelectorAll('.st.off').forEach(s=>{ s.style.animationDelay = '1.4s'; });
+  if(stars === 3) setTimeout(()=>{ SFX.play('sparkle'); confetti({count:90, y:.4, power:1.3}); floatMsg('PARFAIT ! 🌟', '#E5A400'); }, 1500);
+
   wrap.querySelector('#btn-home').addEventListener('click', ()=>{ wrap.remove(); renderHome(); });
   wrap.querySelector('#btn-next').addEventListener('click', ()=>{
+    SFX.play('start');
     wrap.remove();
     if(isRandom) startRandom(curW, curL);            /* autre défi ALÉATOIRE */
     else if(hasNext) openLevel(curW, curL+1, false);  /* niveau suivant de la liste */
