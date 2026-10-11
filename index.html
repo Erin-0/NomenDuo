@@ -246,7 +246,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   overflow-y:auto; -webkit-overflow-scrolling:touch;
   padding:0 0 8px;
 }
-.q-block{padding:4px 20px 10px}
+.q-block{padding:2px 20px 6px}   /* ← كان 4px 20px 10px */
 .q-block h2{
   font-size:22px; font-weight:900; letter-spacing:-.5px; color:var(--ink);
   line-height:1.25;
@@ -259,7 +259,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .stage{
   flex:1; min-height:200px;
   display:flex; align-items:center; justify-content:center;
-  padding:6px 12px; position:relative;
+  padding:2px 4px; position:relative;   /* ← حشو أصغر = مساحة أكبر */
 }
 .stage svg{width:100%; height:100%; max-height:100%; overflow:visible}
 .stage .atom-hit{cursor:pointer}
@@ -573,11 +573,63 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   70%{transform:translateY(-10px) rotate(-6deg)}
   100%{transform:none}
 }
-.sheet.finish{position:relative; overflow:hidden}
-.sheet.finish::before{
-  content:''; position:absolute; left:50%; top:-60px; width:340px; height:340px; margin-left:-170px;
-  background:conic-gradient(from 0deg, rgba(255,200,0,.0), rgba(255,200,0,.28), rgba(255,200,0,0) 25%, rgba(255,200,0,.28) 50%, rgba(255,200,0,0) 75%, rgba(255,200,0,.28));
-  border-radius:50%; animation:spinRays 9s linear infinite; pointer-events:none;
+
+/* ===== Effet "vent d'énergie" derrière la carte de fin ===== */
+/* ===== Effet "vent d'énergie" derrière la carte de fin (CORRIGÉ) ===== */
+/* ===== Effet "vent d'énergie" (CORRIGÉ & TESTÉ) ===== */
+.sheet.finish {
+  position: relative !important;
+  overflow: hidden !important;
+  background: linear-gradient(180deg, #E8FFD0 0%, #D7FFB8 100%) !important;
+}
+
+/* رفع محتوى البطاقة ليكون فوق الرياح */
+.sheet.finish > *:not(.wind-line) {
+  position: relative;
+  z-index: 2;
+}
+
+/* خطوط الرياح - تم تفكيك animation لمنع تصفير الوقت */
+.sheet.finish .wind-line {
+  position: absolute !important;
+  display: block !important;
+  bottom: -90px;
+  width: 3.5px; /* خط أعرض وأوضح */
+  border-radius: 99px;
+  pointer-events: none;
+  z-index: 1 !important;
+  opacity: 0;
+
+  /* تدرج ساطع: أبيض ناصع مع توهج زمردي مشع */
+  background: linear-gradient(to top,
+    rgba(88, 204, 2, 0) 0%,
+    rgba(88, 204, 2, 0.95) 25%,
+    #FFFFFF 70%,
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+  box-shadow: 0 0 10px rgba(88, 204, 2, 0.9), 0 0 4px #FFFFFF !important;
+
+  /* ⚠️ هنا السر: حددنا الحركة والتكرار فقط دون كتابة animation shorthand */
+  animation-name: windRise !important;
+  animation-timing-function: linear !important;
+  animation-iteration-count: infinite !important;
+}
+
+@keyframes windRise {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-560px);
+    opacity: 0;
+  }
 }
 @keyframes spinRays{to{transform:rotate(360deg)}}
 .sheet.finish > *{position:relative}
@@ -598,6 +650,44 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
 }
+/* --- Comparaison de réponses --- */
+.cmp-wrap{
+  display:flex; align-items:stretch; gap:8px;
+  margin:16px 0 4px;
+}
+.cmp-box{
+  flex:1; border-radius:14px; padding:12px 14px;
+  background:rgba(255,255,255,.75);
+  text-align:center;
+}
+.cmp-label{
+  font-size:10.5px; font-weight:900; letter-spacing:.12em;
+  text-transform:uppercase; opacity:.65; margin-bottom:6px;
+}
+.cmp-text{
+  font-family:Georgia,serif; font-size:17px; font-weight:900;
+  line-height:1.25; word-break:break-word;
+}
+.cmp-wrong .cmp-text{ color:#E53935; text-decoration:line-through; text-decoration-thickness:2px; text-decoration-color:rgba(229,57,53,.4); }
+.cmp-good .cmp-text{ color:#46A302; }
+.cmp-vs{
+  align-self:center; font-size:20px; font-weight:900;
+  color:#E53935; opacity:.6;
+}
+
+/* --- Nouvelles règles fixes en bas de la feuille rouge --- */
+.fixed-tips{
+  margin-top:18px; padding:14px 16px;
+  background:rgba(255,255,255,.65);
+  border-radius:14px; border-left:4px solid #FF4B4B;
+  font-size:12.5px; line-height:1.55; color:#7A1A1A;
+  text-align:left;
+}
+.fixed-tips .ft-title{
+  font-size:11px; font-weight:900; letter-spacing:.1em;
+  text-transform:uppercase; color:#E53935; margin-bottom:6px;
+}
+.fixed-tips .ft-body b{ color:#5C0000; font-weight:900; }
 </style>
 </head>
 <body>
@@ -1595,17 +1685,37 @@ document.addEventListener('click', (e)=>{
 }, true);
 
 /* Sons génériques sur les boutons (délégation) */
-document.addEventListener('pointerdown', (e)=>{
+/* Sons uniquement sur CLICK réel (pas au toucher/scroll) */
+document.addEventListener('click', (e)=>{
   const t = e.target.closest && e.target.closest('button');
   if(!t || t.disabled || t.hasAttribute('data-snd')) return;
-  if(t.id === 'btn-verify' || t.id === 'sheet-btn' || t.id === 'btn-next') return; /* sons dédiés */
-  if(t.classList.contains('level-row') || t.id === 'btn-random') SFX.play('start');
+  /* boutons avec sons dédiés — on ignore */
+  if(t.id === 'btn-verify' || t.id === 'sheet-btn' || t.id === 'btn-next') return;
+  /* le reste : sons très légers */
+  if(t.classList.contains('level-row') || t.id === 'btn-random') SFX.play('tap');
   else if(t.classList.contains('world-toggle')) SFX.play('tap');
-  else if(t.id === 'btn-close' || t.id === 'btn-cancel') SFX.play('close');
+  else if(t.id === 'btn-close' || t.id === 'btn-cancel' || t.id === 'btn-home' || t.id === 'btn-quit') SFX.play('close');
   else if(t.id === 'btn-rappel') SFX.play('open');
-  else if(t.id === 'btn-home' || t.id === 'btn-quit') SFX.play('close');
 }, true);
-
+/* Lignes de vent/énergie qui montent derrière une carte */
+/* Lignes de vent/énergie qui montent derrière une carte */
+function windLines(container, n){
+  if(!container) return;
+  for(let i=0; i<(n||26); i++){
+    const l = document.createElement('span');
+    l.className = 'wind-line';
+    const h = 45 + Math.random() * 65; // طول الخطوط بين 45px و 110px
+    l.style.left = (Math.random() * 94 + 3) + '%';
+    l.style.height = h + 'px';
+    
+    // تفعيل الوقت والتأخير بأولوية قصوى
+    l.style.setProperty('animation-duration', (1.2 + Math.random() * 1.3) + 's', 'important');
+    l.style.setProperty('animation-delay', (Math.random() * 1.4) + 's', 'important');
+    
+    if(Math.random() > 0.5) l.style.width = '4.5px'; // تنويع السُمك ليعطي عمق ثلاثي الأبعاد
+    container.appendChild(l);
+  }
+}
 /* ---------- Confettis ---------- */
 function confetti(opts){
   opts = opts || {};
@@ -2021,7 +2131,7 @@ function renderMolecule(mol, opts={}){
     chainBondKeys.add([chain[0], chain[chain.length-1]].sort().join('-'));
   }
 
-  const pad = 65;
+  const pad = 42;
   const xs = mol.atoms.map(a=>a.x);
   const ys = mol.atoms.map(a=>a.y);
   const minX = Math.min(...xs)-pad, maxX = Math.max(...xs)+pad;
@@ -2554,7 +2664,7 @@ function verifyStep(){
   const mol = currentMol();
   const q = state.stepState;
 
-  let ok = false, title = '', text = '', hint = '', diag = '';
+  let ok = false, title = '', text = '', hint = '', diag = '', compare = null;
 
   if(step==='chain'){
     const tapped = q.tapped || [];
@@ -2691,18 +2801,24 @@ function verifyStep(){
       title = 'Excellent !';
       text = 'Le nom est bien <b>'+mol.name+'</b>.';
     } else {
-      title = 'Presque…';
-      text = 'La bonne réponse était <b>'+mol.name+'</b>.';
-      const sortedP = pieces.slice().sort().join('|');
-      const sortedC = mol.tokens.slice().sort().join('|');
-      if(sortedP === sortedC){
-        diag = 'Ordre alphabétique';
-        hint = 'Tous les bons morceaux, mais dans le mauvais ordre. Substituants par ordre alphabétique (bromo, chloro, éthyl, fluoro, iodo, méthyl), puis la chaîne, puis les insaturations.';
-      } else {
-        diag = 'Assemblage du nom';
-        hint = 'Compare les morceaux : commence toujours par les substituants (ordre alphabétique), puis le nom de la chaîne, puis le(s) suffixe(s) d\'insaturation.';
-      }
-    }
+  title = 'Presque…';
+  text = 'Compare les deux formulations :';
+  const studentStr = pieces.join('');
+  const sortedP = pieces.slice().sort().join('|');
+  const sortedC = mol.tokens.slice().sort().join('|');
+  if(sortedP === sortedC){
+    diag = 'Ordre alphabétique';
+    hint = 'Tous les bons morceaux, mais dans le mauvais ordre. Substituants par ordre alphabétique (bromo, chloro, éthyl, fluoro, iodo, méthyl), puis la chaîne, puis les insaturations.';
+  } else {
+    diag = 'Assemblage du nom';
+    
+  }
+  /* ✨ Nouvelle comparaison structurée */
+  compare = {
+    student: studentStr || '(vide)',
+    correct: mol.name
+  };
+}
   }
 
   if(!ok){
@@ -2716,13 +2832,32 @@ function verifyStep(){
     }
   }
 
-  showSheet({ ok, title, text, hint, diag, onContinue: ok ? nextStep : null });
+  showSheet({ ok, title, text, hint, diag, onContinue: ok ? nextStep : null, compare });
 }
 
 /* ============================================================
    FEEDBACK
    ============================================================ */
-function showSheet({ok, title, text, hint, diag, onContinue}){
+function showSheet({ok, title, text, hint, diag, onContinue, compare}){
+  const world = WORLDS[state.worldIdx];
+  const tipHTML = world && world.tip
+    ? '<div class="fixed-tips"><div class="ft-title">📌 Règles à retenir</div><div class="ft-body">'+world.tip+'</div></div>'
+    : '';
+
+  const cmpHTML = compare
+    ? '<div class="cmp-wrap">'
+      + '<div class="cmp-box cmp-wrong">'
+      +   '<div class="cmp-label">Ta réponse</div>'
+      +   '<div class="cmp-text">'+escapeHtml(compare.student || '(vide)')+'</div>'
+      + '</div>'
+      + '<div class="cmp-vs">→</div>'
+      + '<div class="cmp-box cmp-good">'
+      +   '<div class="cmp-label">Bonne réponse</div>'
+      +   '<div class="cmp-text">'+escapeHtml(compare.correct)+'</div>'
+      + '</div>'
+      + '</div>'
+    : '';
+
   const wrap = el(
     '<div class="sheet-wrap">'
     + '<div class="sheet '+(ok?'good':'bad')+'">'
@@ -2730,7 +2865,9 @@ function showSheet({ok, title, text, hint, diag, onContinue}){
     +   (!ok && diag ? '<div style="text-align:center;margin-bottom:10px"><span class="diag">Diagnostic : '+diag+'</span></div>' : '')
     +   '<div class="sheet-title">'+title+'</div>'
     +   '<div class="sheet-text">'+text+'</div>'
+    +   cmpHTML
     +   (hint ? '<div class="sheet-hint">💡 '+hint+'</div>' : '')
+    +   (!ok ? tipHTML : '')
     +   '<div class="sheet-actions">'
     +     '<button class="btn-3d" id="sheet-btn">'+(onContinue ? 'Continuer' : 'Réessayer')+'</button>'
     +   '</div>'
@@ -2747,13 +2884,12 @@ function showSheet({ok, title, text, hint, diag, onContinue}){
     setTimeout(()=> SFX.play('sparkle'), 260);
     const fill = document.querySelector('.progress-fill');
     if(fill) fill.classList.add('boost');
-  } else {
+    } else {
     SFX.play('wrong'); setTimeout(()=> SFX.play('heartLoss'), 220);
     flashScreen('bad'); shakeApp(); vibrate([60,40,60]);
   }
 
   wrap.querySelector('#sheet-btn').addEventListener('click', ()=>{
-    SFX.play(ok ? 'whoosh' : 'tap');
     wrap.remove();
     if(onContinue) onContinue();
     else {
@@ -2882,6 +3018,8 @@ function finishLevel(){
     + '</div>'
   );
   document.body.appendChild(wrap);
+  /* ✨ Effet de vent d'énergie derrière la carte */
+windLines(wrap.querySelector('.sheet.finish'), 22);
 
   /* célébration : fanfare, étoiles une à une, confettis */
   state._lastPct = null;
