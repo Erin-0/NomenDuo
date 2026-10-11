@@ -688,6 +688,130 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   text-transform:uppercase; color:#E53935; margin-bottom:6px;
 }
 .fixed-tips .ft-body b{ color:#5C0000; font-weight:900; }
+/* طبقة تأثيرات الصدمة والموجة */
+.victory-wave-layer {
+  position: fixed; inset: 0; pointer-events: none;
+  z-index: 120; overflow: hidden;
+}
+
+/* توهج أخضر يغمر الشاشة بالكامل */
+.screen-radiance {
+  position: absolute; border-radius: 50%;
+  left: 50%; bottom: 20%;
+  width: 140vmax; height: 140vmax;
+  transform: translate(-50%, 50%) scale(0.1);
+  background: radial-gradient(circle, rgba(88,204,2,0.45) 0%, rgba(88,204,2,0.15) 50%, transparent 75%);
+  animation: radianceExpand 1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+@keyframes radianceExpand {
+  0% { transform: translate(-50%, 50%) scale(0.05); opacity: 1; }
+  60% { opacity: 0.8; }
+  100% { transform: translate(-50%, 50%) scale(1.4); opacity: 0; }
+}
+
+/* الحلقات الثلاث المتتالية المنبثقة من البطاقة */
+.shockwave-ring {
+  position: absolute; border-radius: 50%;
+  left: 50%; bottom: 30%;
+  transform: translate(-50%, 50%) scale(0);
+  border: 4px solid #58CC02;
+  box-shadow: 0 0 16px rgba(88,204,2,0.8), inset 0 0 12px rgba(255,255,255,0.6);
+  animation: ringSurge 1.1s cubic-bezier(0.1, 0.7, 0.2, 1) forwards;
+}
+.shockwave-ring:nth-child(2) {
+  border-color: #89E219; animation-delay: 0.15s; border-width: 5px;
+}
+.shockwave-ring:nth-child(3) {
+  border-color: #FFFFFF; animation-delay: 0.3s; border-width: 3px;
+}
+
+@keyframes ringSurge {
+  0% { width: 30px; height: 30px; opacity: 1; transform: translate(-50%, 50%) scale(0.2); }
+  70% { opacity: 0.85; }
+  100% { width: 1200px; height: 1200px; opacity: 0; transform: translate(-50%, 50%) scale(2.2); }
+}
+/* أنيميشن تموج أزرق فوق الذرة المضغوطة */
+@keyframes svgRippleAnim {
+  0% { r: 12px; stroke-width: 6px; opacity: 1; }
+  100% { r: 42px; stroke-width: 0px; opacity: 0; }
+}
+.svg-click-ripple {
+  fill: none; stroke: #1CB0F6;
+  animation: svgRippleAnim 0.45s ease-out forwards;
+  pointer-events: none;
+}
+/* مقبض السحب أعلى البطاقة */
+.sheet-drag-handle {
+  width: 44px; height: 5px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 99px;
+  margin: -14px auto 16px;
+  cursor: grab;
+  touch-action: none; /* منع السحب الافتراضي للمتصفح */
+}
+.sheet {
+  touch-action: pan-y;
+  will-change: transform, opacity;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.3, 1), opacity 0.25s ease;
+}
+.sheet.dragging {
+  transition: none !important; /* استجابة فورية وحية أثناء حركة الإصبع */
+}
+/* شاشة التحميل الترحيبية */
+#splash-screen {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--green); color: #fff;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s ease;
+}
+
+/* رموز كيميائية طافية متناثرة في الخلفية */
+.floating-formula {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.18);
+  font-family: monospace; font-weight: 900;
+  pointer-events: none; user-select: none;
+  animation: floatFormula 7s ease-in-out infinite alternate;
+}
+@keyframes floatFormula {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-35px) rotate(18deg); }
+}
+
+/* شعار التطبيق مع حركة نبض */
+.splash-center {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 14px; z-index: 2;
+  animation: splashPulse 1.8s ease-in-out infinite alternate;
+}
+@keyframes splashPulse {
+  0% { transform: scale(0.96); }
+  100% { transform: scale(1.04); }
+}
+
+.splash-icon {
+  width: 82px; height: 82px; background: #fff;
+  border-radius: 24px; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 42px; box-shadow: 0 8px 0 var(--green-d);
+}
+
+.splash-title {
+  font-size: 32px; font-weight: 900; letter-spacing: -0.5px;
+}
+
+/* شريط التحميل */
+.splash-loader-bar {
+  width: 170px; height: 10px; background: rgba(0,0,0,0.18);
+  border-radius: 99px; overflow: hidden; margin-top: 18px;
+}
+.splash-loader-fill {
+  height: 100%; width: 0%; background: #fff;
+  border-radius: 99px;
+  transition: width 1.8s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
 </style>
 </head>
 <body>
@@ -2525,52 +2649,99 @@ function renderStep(step, mol){
 function attachStepListeners(step, mol){
   const stage = document.getElementById('stage');
 
-  if(step==='chain'){
-    stage.querySelectorAll('[data-atom]').forEach(g=>{
-      g.addEventListener('click', ()=>{
-        const id = g.dataset.atom;
-        const atom = mol.atoms.find(a=>a.id===id);
-        if(!atom) return;
+  if(step === 'chain' || step === 'subs') {
+  const svg = stage.querySelector('svg');
+  stage.querySelectorAll('[data-atom]').forEach(g => {
+    g.addEventListener('click', (e) => {
+      const id = g.dataset.atom;
+      const atom = mol.atoms.find(a => a.id === id);
+      if(!atom) return;
 
-        if(atom.el !== 'C'){
+      // تأثير التموج الأزرق فوق النقطة مباشرة دون إعادة رسم
+      triggerSvgAtomRipple(svg, atom.x, atom.y);
+      tapAtomFx(g);
+
+      if(step === 'chain') {
+        if(atom.el !== 'C') {
           SFX.play('wrong'); shakeApp(); vibrate(40);
-          toast('❌ <b>'+atom.el+'</b> est un halogène : il ne peut jamais faire partie de la chaîne principale. C\'est un substituant (préfixe <b>'+HALOGENS[atom.el]+'-</b>).');
+          toast('❌ <b>'+atom.el+'</b> est un halogène : il ne peut pas faire partie de la chaîne principale.');
           return;
         }
-        if(mol.ringOrder && !mol.ringOrder.includes(id)){
-          SFX.play('unselect');
-          toast('Dans un cycloalcane substitué, la chaîne principale est le cycle : les substituants viennent après.');
-          return;
-        }
-
-        const seq = (state.stepState.tapped || []).slice();
+        
+        let seq = (state.stepState.tapped || []).slice();
         const idx = seq.indexOf(id);
-        if(idx >= 0){
-          state.stepState.tapped = seq.slice(0, idx);
+        if(idx >= 0) {
+          seq = seq.slice(0, idx);
           SFX.play('unselect');
-        } else if(seq.length === 0){
-          state.stepState.tapped = [id];
-          SFX.play('chip', 0); tapAtomFx(g); vibrate(8);
+        } else if(seq.length === 0) {
+          seq = [id];
+          SFX.play('chip', 0);
         } else {
-          const last = seq[seq.length-1];
-          const bonded = mol.bonds.some(b=>
-            (b[0]===last && b[1]===id) || (b[1]===last && b[0]===id));
-          if(bonded){
-            state.stepState.tapped = [...seq, id];
-            SFX.play('chip', seq.length); tapAtomFx(g); vibrate(8);
+          const last = seq[seq.length - 1];
+          const bonded = mol.bonds.some(b => (b[0]===last && b[1]===id) || (b[1]===last && b[0]===id));
+          if(bonded) {
+            seq.push(id);
+            SFX.play('chip', seq.length);
           } else {
             SFX.play('unselect');
+            return;
           }
         }
-        const tapped = state.stepState.tapped || [];
-        stage.innerHTML = renderMolecule(mol, {chain:tapped, interactive:true});
-        attachStepListeners('chain', mol);
+        state.stepState.tapped = seq;
+        
+        // تحديث المظهر البصري للعناصر فقط في الـ DOM الحالي
+        stage.querySelectorAll('[data-atom]').forEach(elG => {
+          const aId = elG.dataset.atom;
+          const shape = elG.querySelector('.atom-shape');
+          const isSelected = seq.includes(aId);
+          if(shape) {
+            shape.setAttribute('fill', isSelected ? '#58CC02' : '#3C3C3C');
+            shape.setAttribute('stroke', isSelected ? '#fff' : 'transparent');
+            shape.setAttribute('stroke-width', isSelected ? '3' : '0');
+          }
+          // تحديث أو إزالة شارة الترقيم
+          const existingBadge = elG.querySelector('.num-badge');
+          if(existingBadge) existingBadge.remove();
+          
+          const orderNum = seq.indexOf(aId) + 1;
+          if(orderNum > 0) {
+            const at = mol.atoms.find(x => x.id === aId);
+            const badgeG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            badgeG.setAttribute('class', 'num-badge');
+            badgeG.innerHTML = `<circle cx="${at.x}" cy="${at.y - 24}" r="14" fill="#fff" stroke="#58CC02" stroke-width="3"/>
+                                <text x="${at.x}" y="${at.y - 19}" text-anchor="middle" font-size="14" font-weight="900" fill="#58CC02">${orderNum}</text>`;
+            elG.appendChild(badgeG);
+          }
+        });
+        
         const cnt = document.getElementById('chain-count');
-        if(cnt) cnt.textContent = tapped.length;
+        if(cnt) cnt.textContent = seq.length;
         updateVerifyState();
-      });
+      }
+
+      if(step === 'subs') {
+        const chainSet = new Set(state.chainSequence);
+        if(chainSet.has(id)) return;
+
+        let arr = (state.stepState.subs || []).slice();
+        const idx = arr.indexOf(id);
+        if(idx >= 0) { arr.splice(idx, 1); SFX.play('unselect'); }
+        else { arr.push(id); SFX.play('select'); }
+        state.stepState.subs = arr;
+
+        const shape = g.querySelector('.atom-shape');
+        if(shape) {
+          const isSub = arr.includes(id);
+          shape.setAttribute('fill', isSub ? '#FFC800' : (atom.el !== 'C' ? '#0D9488' : '#3C3C3C'));
+        }
+
+        const cnt = document.getElementById('subs-count');
+        if(cnt) cnt.textContent = arr.length;
+        updateVerifyState();
+      }
     });
-  }
+  });
+}
 
   if(step==='subs'){
     stage.querySelectorAll('[data-atom]').forEach(g=>{
@@ -2946,8 +3117,11 @@ function showRappel(){
     + '</div>'
   );
   document.body.appendChild(wrap);
+  // تفعيل السحب للأسفل لإغلاق نافذة التذكير
+enableSheetSwipeDown(wrap, wrap.querySelector('.sheet'), () => SFX.play('close'));
   wrap.querySelector('#sheet-btn').addEventListener('click', ()=> wrap.remove());
   wrap.addEventListener('click', (e)=>{ if(e.target === wrap) wrap.remove(); });
+
 }
 /* ============================================================
    CONFIRMATION DE SORTIE
@@ -3019,7 +3193,8 @@ function finishLevel(){
   );
   document.body.appendChild(wrap);
   /* ✨ Effet de vent d'énergie derrière la carte */
-windLines(wrap.querySelector('.sheet.finish'), 22);
+// استدعاء موجة الفوز الشاملة
+triggerVictoryShockwave(wrap.querySelector('.sheet.finish'));
 
   /* célébration : fanfare, étoiles une à une, confettis */
   state._lastPct = null;
@@ -3044,10 +3219,144 @@ windLines(wrap.querySelector('.sheet.finish'), 22);
   });
 }
 
+function triggerVictoryShockwave(originEl) {
+  const layer = document.createElement('div');
+  layer.className = 'victory-wave-layer';
+  
+  // 1. التوهج الشامل
+  const rad = document.createElement('div');
+  rad.className = 'screen-radiance';
+  layer.appendChild(rad);
+
+  // 2. الحلقات الثلاث المتتابعة
+  for(let i=0; i<3; i++){
+    const ring = document.createElement('div');
+    ring.className = 'shockwave-ring';
+    layer.appendChild(ring);
+  }
+  document.body.appendChild(layer);
+
+  // حذف العنصر تلقائياً بعد اكتمال الأنيميشن
+  setTimeout(() => layer.remove(), 1600);
+}
+function triggerSvgAtomRipple(svg, cx, cy) {
+  const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  circle.setAttribute('cx', cx);
+  circle.setAttribute('cy', cy);
+  circle.setAttribute('class', 'svg-click-ripple');
+  svg.appendChild(circle);
+  setTimeout(() => circle.remove(), 500);
+}
+function enableSheetSwipeDown(sheetWrap, sheetEl, onDismiss) {
+  let startY = 0, currentY = 0, isDragging = false;
+
+  // إضافة المقبض البصري
+  const handle = document.createElement('div');
+  handle.className = 'sheet-drag-handle';
+  sheetEl.insertBefore(handle, sheetEl.firstChild);
+
+  const onPointerDown = (e) => {
+    // نسمح بالسحب من المقبض أو الجزء العلوي من البطاقة
+    if(sheetEl.scrollTop > 5 && e.target !== handle) return;
+    startY = e.clientY || (e.touches && e.touches[0].clientY);
+    isDragging = true;
+    sheetEl.classList.add('dragging');
+  };
+
+  const onPointerMove = (e) => {
+    if(!isDragging) return;
+    currentY = e.clientY || (e.touches && e.touches[0].clientY);
+    const diffY = currentY - startY;
+
+    if(diffY > 0) { // سحب للأسفل فقط
+      sheetEl.style.transform = `translateY(${diffY}px)`;
+      sheetWrap.style.backgroundColor = `rgba(60,60,60,${Math.max(0.05, 0.5 - diffY/600)})`;
+    }
+  };
+
+  const onPointerUp = (e) => {
+    if(!isDragging) return;
+    isDragging = false;
+    sheetEl.classList.remove('dragging');
+    const diffY = currentY - startY;
+
+    if(diffY > 110) { // إذا تجاوز السحب 110 بكسل -> إغلاق
+      sheetEl.style.transform = 'translateY(100%)';
+      sheetWrap.style.opacity = '0';
+      setTimeout(() => {
+        sheetWrap.remove();
+        if(onDismiss) onDismiss();
+      }, 250);
+    } else { // العودة للوضع الطبيعي إذا لم تكن المسافة كافية
+      sheetEl.style.transform = '';
+      sheetWrap.style.backgroundColor = '';
+    }
+  };
+
+  handle.addEventListener('pointerdown', onPointerDown);
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerUp);
+}
+function launchSplashScreen(onComplete) {
+  const formulas = [
+    'CH₄', 'C₂H₆', '⬡', 'CH₃-CH₂-OH', 'C≡C', 'IUPAC',
+    '-COOH', 'CH₃', 'Cl', 'Br', 'C=C', '⬡-CH₃', 'C₄H₁₀'
+  ];
+
+  const splash = document.createElement('div');
+  splash.id = 'splash-screen';
+  
+  // توزيع الصيغ الكيميائية الطافية عشوائياً في الخلفية
+  formulas.forEach((txt, idx) => {
+    const span = document.createElement('span');
+    span.className = 'floating-formula';
+    span.textContent = txt;
+    span.style.left = (Math.random() * 86 + 7) + '%';
+    span.style.top = (Math.random() * 86 + 7) + '%';
+    span.style.fontSize = (18 + Math.random() * 22) + 'px';
+    span.style.animationDelay = (Math.random() * 3) + 's';
+    span.style.animationDuration = (5 + Math.random() * 4) + 's';
+    splash.appendChild(span);
+  });
+
+  splash.innerHTML += `
+    <div class="splash-center">
+      <div class="splash-icon">🧪</div>
+      <div class="splash-title">NomenDuo</div>
+      <div class="splash-loader-bar">
+        <div class="splash-loader-fill" id="splash-fill"></div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(splash);
+
+  // تشغيل شريط التحميل تدريجياً
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      const bar = document.getElementById('splash-fill');
+      if(bar) bar.style.width = '100%';
+    }, 100);
+  });
+
+  // إخفاء الشاشة بعد اكتمال التحميل والانتقال للتطبيق
+  setTimeout(() => {
+    splash.style.opacity = '0';
+    splash.style.transform = 'scale(1.06)';
+    setTimeout(() => {
+      splash.remove();
+      if(onComplete) onComplete();
+    }, 500);
+  }, 2100);
+}
 /* ============================================================
    LANCEMENT
    ============================================================ */
-renderHome();
+// تشغيل شاشة الدخول أولاً ثم فتح الشاشة الرئيسية
+launchSplashScreen(() => {
+  renderHome();
+  SFX.play('start');
+});
 </script>
 </body>
 </html>
