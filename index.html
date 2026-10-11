@@ -2791,7 +2791,13 @@
 
             but2yne: {
                 id: 'but2yne', name: 'but-2-yne', formula: 'C₄H₆', family: 'alcyne',
-                atoms: [{ id: 'a', el: 'C', x: 70, y: 200 }, { id: 'b', el: 'C', x: 160, y: 150 }, { id: 'c', el: 'C', x: 250, y: 200 }, { id: 'd', el: 'C', x: 340, y: 150 }],
+                // ✅ خط مستقيم 180° للكربونات الأربعة
+                atoms: [
+                    { id: 'a', el: 'C', x: 60, y: 180 },
+                    { id: 'b', el: 'C', x: 150, y: 180 },
+                    { id: 'c', el: 'C', x: 240, y: 180 },
+                    { id: 'd', el: 'C', x: 330, y: 180 }
+                ],
                 bonds: [['a', 'b', 1], ['b', 'c', 3], ['c', 'd', 1]],
                 tokens: ['but', '-2-yne'], distractors: ['-1-yne', 'pent', '-3-yne', 'prop', '-2-ène', 'hex']
             },
@@ -2826,7 +2832,7 @@
 
             hexadiyne14: {
                 id: 'hexadiyne14', name: 'hexa-1,4-diyne', formula: 'C₆H₆', family: 'alcyne (diyne)',
-                atoms: [{ id: 'a', el: 'C', x: 45, y: 190 }, { id: 'b', el: 'C', x: 125, y: 190 }, { id: 'c', el: 'C', x: 205, y: 190 }, { id: 'd', el: 'C', x: 285, y: 190 }, { id: 'e', el: 'C', x: 365, y: 190 }, { id: 'f', el: 'C', x: 445, y: 140 }],
+                atoms: [{ id: 'a', el: 'C', x: 45, y: 190 }, { id: 'b', el: 'C', x: 125, y: 190 }, { id: 'c', el: 'C', x: 205, y: 190 }, { id: 'd', el: 'C', x: 285, y: 190 }, { id: 'e', el: 'C', x: 365, y: 190 }, { id: 'f', el: 'C', x: 445, y: 190 }],
                 bonds: [['a', 'b', 3], ['b', 'c', 1], ['c', 'd', 1], ['d', 'e', 3], ['e', 'f', 1]],
                 tokens: ['hexa', '-1,4-diyne'], distractors: ['-2,5-diyne', '-1,5-diyne', 'hepta', 'penta']
             },
@@ -3047,7 +3053,7 @@
 
             pentenyne: {
                 id: 'pentenyne', name: 'pent-1-èn-4-yne', formula: 'C₅H₆', family: 'alcène-alcyne',
-                atoms: [{ id: 'a', el: 'C', x: 50, y: 200 }, { id: 'b', el: 'C', x: 140, y: 150 }, { id: 'c', el: 'C', x: 230, y: 200 }, { id: 'd', el: 'C', x: 320, y: 150 }, { id: 'e', el: 'C', x: 410, y: 200 }],
+                atoms: [{ id: 'a', el: 'C', x: 50, y: 200 }, { id: 'b', el: 'C', x: 140, y: 150 }, { id: 'c', el: 'C', x: 230, y: 200 }, { id: 'd', el: 'C', x: 320, y: 200 }, { id: 'e', el: 'C', x: 410, y: 200 }],
                 bonds: [['a', 'b', 2], ['b', 'c', 1], ['c', 'd', 1], ['d', 'e', 3]],
                 tokens: ['pent', '-1-èn', '-4-yne'], distractors: ['-4-èn', '-1-yne', 'hex', '-2-èn', '-3-yne']
             },
@@ -3061,28 +3067,44 @@
 
             hexenyne: {
                 id: 'hexenyne', name: 'hex-1-èn-5-yne', formula: 'C₆H₈', family: 'alcène-alcyne',
-                atoms: [{ id: 'a', el: 'C', x: 50, y: 200 }, { id: 'b', el: 'C', x: 130, y: 150 }, { id: 'c', el: 'C', x: 210, y: 200 }, { id: 'd', el: 'C', x: 290, y: 150 }, { id: 'e', el: 'C', x: 370, y: 200 }, { id: 'f', el: 'C', x: 450, y: 150 }],
+                atoms: [
+                    { id: 'a', el: 'C', x: 50, y: 200 },
+                    { id: 'b', el: 'C', x: 130, y: 150 },
+                    { id: 'c', el: 'C', x: 210, y: 200 },
+                    { id: 'd', el: 'C', x: 290, y: 150 },
+                    // ✅ C4 - C5 ≡ C6 على استقامة واحدة (y = 150)
+                    { id: 'e', el: 'C', x: 370, y: 150 },
+                    { id: 'f', el: 'C', x: 450, y: 150 }
+                ],
                 bonds: [['a', 'b', 2], ['b', 'c', 1], ['c', 'd', 1], ['d', 'e', 1], ['e', 'f', 3]],
                 tokens: ['hex', '-1-èn', '-5-yne'], distractors: ['-5-èn', '-1-yne', 'hept', '-2-èn', '-4-yne', 'pent']
             },
 
             hex1en4yne: {
                 id: 'hex1en4yne', name: 'hex-1-èn-4-yne', formula: 'C₆H₈', family: 'alcène-alcyne',
-                atoms: [{ id: 'a', el: 'C', x: 50, y: 200 }, { id: 'b', el: 'C', x: 130, y: 150 }, { id: 'c', el: 'C', x: 210, y: 200 }, { id: 'd', el: 'C', x: 290, y: 150 }, { id: 'e', el: 'C', x: 370, y: 200 }, { id: 'f', el: 'C', x: 450, y: 150 }],
+                atoms: [
+                    { id: 'a', el: 'C', x: 50, y: 200 },
+                    { id: 'b', el: 'C', x: 130, y: 150 },
+                    { id: 'c', el: 'C', x: 210, y: 200 },
+                    // ✅ C3 - C4 ≡ C5 - C6 كلها مستقيمة خطياً (y = 200)
+                    { id: 'd', el: 'C', x: 290, y: 200 },
+                    { id: 'e', el: 'C', x: 370, y: 200 },
+                    { id: 'f', el: 'C', x: 450, y: 200 }
+                ],
                 bonds: [['a', 'b', 2], ['b', 'c', 1], ['c', 'd', 1], ['d', 'e', 3], ['e', 'f', 1]],
                 tokens: ['hex', '-1-èn', '-4-yne'], distractors: ['-4-èn', '-1-yne', 'hept', '-2-èn', '-5-yne', 'pent']
             },
 
             octenyne: {
                 id: 'octenyne', name: 'oct-2-èn-6-yne', formula: 'C₈H₁₂', family: 'alcène-alcyne',
-                atoms: [{ id: 'a', el: 'C', x: 30, y: 200 }, { id: 'b', el: 'C', x: 105, y: 150 }, { id: 'c', el: 'C', x: 180, y: 200 }, { id: 'd', el: 'C', x: 255, y: 150 }, { id: 'e', el: 'C', x: 330, y: 200 }, { id: 'f', el: 'C', x: 405, y: 150 }, { id: 'g', el: 'C', x: 480, y: 200 }, { id: 'h', el: 'C', x: 555, y: 150 }],
+                atoms: [{ id: 'a', el: 'C', x: 30, y: 200 }, { id: 'b', el: 'C', x: 105, y: 150 }, { id: 'c', el: 'C', x: 180, y: 200 }, { id: 'd', el: 'C', x: 255, y: 150 }, { id: 'e', el: 'C', x: 330, y: 200 }, { id: 'f', el: 'C', x: 410, y: 200 }, { id: 'g', el: 'C', x: 490, y: 200 }, { id: 'h', el: 'C', x: 570, y: 200 }],
                 bonds: [['a', 'b', 1], ['b', 'c', 2], ['c', 'd', 1], ['d', 'e', 1], ['e', 'f', 1], ['f', 'g', 3], ['g', 'h', 1]],
                 tokens: ['oct', '-2-èn', '-6-yne'], distractors: ['-6-èn', '-2-yne', 'hept', '-3-èn', '-5-yne', 'non']
             },
 
             heptadienyne: {
                 id: 'heptadienyne', name: 'hepta-1,3-dièn-6-yne', formula: 'C₇H₈', family: 'diène-alcyne',
-                atoms: [{ id: 'a', el: 'C', x: 40, y: 200 }, { id: 'b', el: 'C', x: 120, y: 150 }, { id: 'c', el: 'C', x: 200, y: 200 }, { id: 'd', el: 'C', x: 280, y: 150 }, { id: 'e', el: 'C', x: 360, y: 200 }, { id: 'f', el: 'C', x: 440, y: 150 }, { id: 'g', el: 'C', x: 520, y: 200 }],
+                atoms: [{ id: 'a', el: 'C', x: 40, y: 200 }, { id: 'b', el: 'C', x: 120, y: 150 }, { id: 'c', el: 'C', x: 200, y: 200 }, { id: 'd', el: 'C', x: 280, y: 150 }, { id: 'e', el: 'C', x: 360, y: 200 }, { id: 'f', el: 'C', x: 440, y: 200 }, { id: 'g', el: 'C', x: 520, y: 200 }],
                 bonds: [['a', 'b', 2], ['b', 'c', 1], ['c', 'd', 2], ['d', 'e', 1], ['e', 'f', 1], ['f', 'g', 3]],
                 tokens: ['hepta', '-1,3-dièn', '-6-yne'], distractors: ['-1,4-dièn', '-2,4-dièn', '-5-yne', 'octa', 'hexa', '-1,3-diène']
             },
@@ -3164,7 +3186,7 @@
 
             bromobutyne: {
                 id: 'bromobutyne', name: '3-bromobut-1-yne', formula: 'C₄H₅Br', family: 'halogénoalcyne',
-                atoms: [{ id: 'a', el: 'C', x: 80, y: 200 }, { id: 'b', el: 'C', x: 160, y: 150 }, { id: 'c', el: 'C', x: 240, y: 200 }, { id: 'd', el: 'C', x: 320, y: 150 }, { id: 'x', el: 'Br', x: 240, y: 295 }],
+                atoms: [{ id: 'a', el: 'C', x: 80, y: 190 }, { id: 'b', el: 'C', x: 165, y: 190 }, { id: 'c', el: 'C', x: 250, y: 190 }, { id: 'd', el: 'C', x: 335, y: 150 }, { id: 'x', el: 'Br', x: 250, y: 285 }],
                 bonds: [['a', 'b', 3], ['b', 'c', 1], ['c', 'd', 1], ['c', 'x', 1]],
                 tokens: ['3-bromo', 'but', '-1-yne'], distractors: ['2-bromo', 'pent', '-2-yne', '-1-ène', '1-bromo']
             },
@@ -3239,7 +3261,15 @@
 
             bromohexadiyne: {
                 id: 'bromohexadiyne', name: '1-bromohexa-1,5-diyne', formula: 'C₆H₅Br', family: 'halogénoalcyne',
-                atoms: [{ id: 'a', el: 'C', x: 110, y: 200 }, { id: 'b', el: 'C', x: 190, y: 150 }, { id: 'c', el: 'C', x: 270, y: 200 }, { id: 'd', el: 'C', x: 350, y: 150 }, { id: 'e', el: 'C', x: 430, y: 200 }, { id: 'f', el: 'C', x: 510, y: 150 }, { id: 'x', el: 'Br', x: 30, y: 150 }],
+                atoms: [
+                    { id: 'x', el: 'Br', x: 30, y: 150 },
+                    { id: 'a', el: 'C', x: 110, y: 150 },
+                    { id: 'b', el: 'C', x: 190, y: 150 },
+                    { id: 'c', el: 'C', x: 270, y: 150 },
+                    { id: 'd', el: 'C', x: 350, y: 200 },
+                    { id: 'e', el: 'C', x: 430, y: 200 },
+                    { id: 'f', el: 'C', x: 510, y: 200 }
+                ],
                 bonds: [['a', 'b', 3], ['b', 'c', 1], ['c', 'd', 1], ['d', 'e', 1], ['e', 'f', 3], ['a', 'x', 1]],
                 tokens: ['1-bromo', 'hexa', '-1,5-diyne'], distractors: ['6-bromo', 'hepta', '-1,4-diyne', '-2,5-diyne', '-1,5-diène', 'penta']
             },
@@ -3303,12 +3333,14 @@
                 atoms: [
                     { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
                     { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 }, { id: 'c6', el: 'C', x: 400, y: 150 }, { id: 'c7', el: 'C', x: 470, y: 200 },
-                    // الجذر prop-2-ynyl متفرع من C4
-                    { id: 'r1', el: 'C', x: 260, y: 60 }, { id: 'r2', el: 'C', x: 330, y: 20 }, { id: 'r3', el: 'C', x: 400, y: 20 }
+                    // ✅ تصحيح: r1 و r2 و r3 على نفس الاستقامة الأفقية (y = 50) زاوية 180° تماماً
+                    { id: 'r1', el: 'C', x: 260, y: 50 },
+                    { id: 'r2', el: 'C', x: 340, y: 50 },
+                    { id: 'r3', el: 'C', x: 420, y: 50 }
                 ],
                 bonds: [
                     ['c1', 'c2', 2], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 2], ['c5', 'c6', 1], ['c6', 'c7', 1],
-                    ['c4', 'r1', 1], ['r1', 'r2', 1], ['r2', 'r3', 3] // الرابطة الثلاثية في نهاية الجذر
+                    ['c4', 'r1', 1], ['r1', 'r2', 1], ['r2', 'r3', 3] // الرابطة الثلاثية مستقيمة 180° مع r1
                 ],
                 tokens: ['4-(prop-2-ynyl)', 'hepta', '-1,4-diène'],
                 distractors: ['4-(prop-1-ynyl)', '4-propyl', 'hepta-1,4-diyne']
@@ -3354,6 +3386,362 @@
                 ],
                 tokens: ['3-éthyl', '-2-méthyl', '-4-propyl', 'heptane'],
                 distractors: ['4-éthyl', '-3-propyl', '-5-méthyl', 'octane']
+            },
+            /* =======================================================================
+   A. ALCANES RAMIFIÉS  (6)
+   ======================================================================= */
+
+            /* --- 3-éthyl-2-méthylpentane --------------------------------------- */
+            ethyl_methyl_pentane: {
+                id: 'ethyl_methyl_pentane', name: '3-éthyl-2-méthylpentane', formula: 'C₈H₁₈',
+                family: 'alcane ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 },
+                    { id: 'm', el: 'C', x: 120, y: 60 },
+                    { id: 'e1', el: 'C', x: 190, y: 300 }, { id: 'e2', el: 'C', x: 260, y: 340 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 1], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1],
+                    ['c2', 'm', 1], ['c3', 'e1', 1], ['e1', 'e2', 1]
+                ],
+                tokens: ['3-éthyl', '-2-méthyl', 'pentane'],
+                distractors: ['2-éthyl', '-3-méthyl', 'hexane', '3-propyl', '-2-méthylbutane']
+            },
+
+            /* --- 2,2,4-triméthylpentane (isooctane) ----------------------------- */
+            trimethyl_pentane: {
+                id: 'trimethyl_pentane', name: '2,2,4-triméthylpentane', formula: 'C₈H₁₈',
+                family: 'alcane ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 },
+                    { id: 'm1', el: 'C', x: 60, y: 80 }, { id: 'm2', el: 'C', x: 180, y: 80 },
+                    { id: 'm3', el: 'C', x: 260, y: 60 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 1], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1],
+                    ['c2', 'm1', 1], ['c2', 'm2', 1], ['c4', 'm3', 1]
+                ],
+                tokens: ['2,2,4-triméthyl', 'pentane'],
+                distractors: ['2,4,4-triméthyl', '2,2,3-triméthyl', 'hexane', '2,4-diméthylpentane']
+            },
+
+            /* --- 3-éthyl-2,2-diméthylpentane ------------------------------------ */
+            ethyl_dimethyl_pentane: {
+                id: 'ethyl_dimethyl_pentane', name: '3-éthyl-2,2-diméthylpentane', formula: 'C₉H₂₀',
+                family: 'alcane ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 },
+                    { id: 'm1', el: 'C', x: 60, y: 80 }, { id: 'm2', el: 'C', x: 180, y: 80 },
+                    { id: 'e1', el: 'C', x: 190, y: 300 }, { id: 'e2', el: 'C', x: 190, y: 370 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 1], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1],
+                    ['c2', 'm1', 1], ['c2', 'm2', 1], ['c3', 'e1', 1], ['e1', 'e2', 1]
+                ],
+                tokens: ['3-éthyl', '-2,2-diméthyl', 'pentane'],
+                distractors: ['2-éthyl', '-3,3-diméthyl', 'hexane', '3,3-diméthyl', '-2-éthylhexane']
+            },
+
+            /* --- 4-isopropylheptane --------------------------------------------- */
+            isopropyl_heptane: {
+                id: 'isopropyl_heptane', name: '4-isopropylheptane', formula: 'C₁₀H₂₂',
+                family: 'alcane avec radical isopropyle',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 40, y: 200 }, { id: 'c2', el: 'C', x: 105, y: 150 }, { id: 'c3', el: 'C', x: 170, y: 200 },
+                    { id: 'c4', el: 'C', x: 235, y: 150 }, { id: 'c5', el: 'C', x: 300, y: 200 }, { id: 'c6', el: 'C', x: 365, y: 150 },
+                    { id: 'c7', el: 'C', x: 430, y: 200 },
+                    { id: 'i1', el: 'C', x: 235, y: 60 }, { id: 'i2', el: 'C', x: 170, y: 20 }, { id: 'i3', el: 'C', x: 300, y: 20 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 1], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1], ['c5', 'c6', 1], ['c6', 'c7', 1],
+                    ['c4', 'i1', 1], ['i1', 'i2', 1], ['i1', 'i3', 1]
+                ],
+                tokens: ['4-isopropyl', 'heptane'],
+                distractors: ['4-propyl', '3-isopropyl', 'octane', '4-isobutylheptane']
+            },
+
+            /* --- 3-tert-butylhexane --------------------------------------------- */
+            tertbutyl_hexane: {
+                id: 'tertbutyl_hexane', name: '3-tert-butylhexane', formula: 'C₁₀H₂₂',
+                family: 'alcane avec radical tert-butyle',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 180 }, { id: 'c2', el: 'C', x: 120, y: 130 }, { id: 'c3', el: 'C', x: 190, y: 180 },
+                    { id: 'c4', el: 'C', x: 260, y: 130 }, { id: 'c5', el: 'C', x: 330, y: 180 }, { id: 'c6', el: 'C', x: 400, y: 130 },
+                    { id: 't1', el: 'C', x: 190, y: 260 },
+                    { id: 'tm1', el: 'C', x: 120, y: 310 }, { id: 'tm2', el: 'C', x: 260, y: 310 }, { id: 'tm3', el: 'C', x: 190, y: 370 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 1], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1], ['c5', 'c6', 1],
+                    ['c3', 't1', 1], ['t1', 'tm1', 1], ['t1', 'tm2', 1], ['t1', 'tm3', 1]
+                ],
+                tokens: ['3-tert-butyl', 'hexane'],
+                distractors: ['3-isobutyl', '3-sec-butyl', 'heptane', '2-tert-butylhexane']
+            },
+
+            /* --- 3-éthyl-4-méthylhexane ----------------------------------------- */
+            ethyl_methyl_hexane: {
+                id: 'ethyl_methyl_hexane', name: '3-éthyl-4-méthylhexane', formula: 'C₉H₂₀',
+                family: 'alcane ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 }, { id: 'c6', el: 'C', x: 400, y: 150 },
+                    { id: 'e1', el: 'C', x: 190, y: 300 }, { id: 'e2', el: 'C', x: 260, y: 340 },
+                    { id: 'm', el: 'C', x: 260, y: 60 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 1], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1], ['c5', 'c6', 1],
+                    ['c3', 'e1', 1], ['e1', 'e2', 1], ['c4', 'm', 1]
+                ],
+                tokens: ['3-éthyl', '-4-méthyl', 'hexane'],
+                distractors: ['4-éthyl', '-3-méthyl', 'heptane', '3-méthyl', '-4-éthylhexane']
+            },
+
+            /* =======================================================================
+               B. ALCÈNES  (5)
+               ======================================================================= */
+
+            /* --- 3-méthylbut-1-ène ---------------------------------------------- */
+            methyl_butene: {
+                id: 'methyl_butene', name: '3-méthylbut-1-ène', formula: 'C₅H₁₀',
+                family: 'alcène ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 },
+                    { id: 'm', el: 'C', x: 190, y: 300 }
+                ],
+                bonds: [['c1', 'c2', 2], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c3', 'm', 1]],
+                tokens: ['3-méthyl', 'but', '-1-ène'],
+                distractors: ['2-méthyl', 'but-2-ène', 'pent-1-ène', '3-méthylbut-2-ène']
+            },
+
+            /* --- 2-méthylbut-2-ène ---------------------------------------------- */
+            methyl_but2ene: {
+                id: 'methyl_but2ene', name: '2-méthylbut-2-ène', formula: 'C₅H₁₀',
+                family: 'alcène ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 },
+                    { id: 'm', el: 'C', x: 120, y: 60 }
+                ],
+                bonds: [['c1', 'c2', 1], ['c2', 'c3', 2], ['c3', 'c4', 1], ['c2', 'm', 1]],
+                tokens: ['2-méthyl', 'but', '-2-ène'],
+                distractors: ['3-méthyl', 'but-1-ène', 'pent-2-ène', '2-méthylbut-1-ène']
+            },
+
+            /* --- 4-méthylpent-1-ène --------------------------------------------- */
+            methyl_pent1ene: {
+                id: 'methyl_pent1ene', name: '4-méthylpent-1-ène', formula: 'C₆H₁₂',
+                family: 'alcène ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 },
+                    { id: 'm', el: 'C', x: 260, y: 60 }
+                ],
+                bonds: [['c1', 'c2', 2], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1], ['c4', 'm', 1]],
+                tokens: ['4-méthyl', 'pent', '-1-ène'],
+                distractors: ['2-méthyl', 'pent-2-ène', 'hex-1-ène', '3-méthylpent-1-ène']
+            },
+
+            /* --- 3-éthylpent-1-ène ---------------------------------------------- */
+            ethyl_pent1ene: {
+                id: 'ethyl_pent1ene', name: '3-éthylpent-1-ène', formula: 'C₇H₁₄',
+                family: 'alcène ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 },
+                    { id: 'e1', el: 'C', x: 190, y: 300 }, { id: 'e2', el: 'C', x: 260, y: 340 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 2], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1],
+                    ['c3', 'e1', 1], ['e1', 'e2', 1]
+                ],
+                tokens: ['3-éthyl', 'pent', '-1-ène'],
+                distractors: ['2-éthyl', 'pent-2-ène', 'hex-1-ène', '3-méthylhex-1-ène']
+            },
+
+            /* --- 3,4-diméthylpent-1-ène ----------------------------------------- */
+            dimethyl_pent1ene: {
+                id: 'dimethyl_pent1ene', name: '3,4-diméthylpent-1-ène', formula: 'C₇H₁₄',
+                family: 'alcène ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 },
+                    { id: 'm1', el: 'C', x: 190, y: 300 }, { id: 'm2', el: 'C', x: 260, y: 60 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 2], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1],
+                    ['c3', 'm1', 1], ['c4', 'm2', 1]
+                ],
+                tokens: ['3,4-diméthyl', 'pent', '-1-ène'],
+                distractors: ['2,3-diméthyl', 'pent-2-ène', '3,4-diméthylpent-2-ène', 'hex-1-ène']
+            },
+
+            /* =======================================================================
+               C. ALCYNES  (3)
+               ======================================================================= */
+
+            /* --- 3-méthylbut-1-yne ---------------------------------------------- */
+            methyl_but1yne: {
+                id: 'methyl_but1yne', name: '3-méthylbut-1-yne', formula: 'C₅H₈',
+                family: 'alcyne ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 },
+                    { id: 'm', el: 'C', x: 190, y: 300 }
+                ],
+                bonds: [['c1', 'c2', 3], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c3', 'm', 1]],
+                tokens: ['3-méthyl', 'but', '-1-yne'],
+                distractors: ['2-méthyl', 'but-2-yne', 'pent-1-yne', '3-méthylbut-2-yne']
+            },
+
+            /* --- 4-méthylpent-1-yne --------------------------------------------- */
+            methyl_pent1yne: {
+                id: 'methyl_pent1yne', name: '4-méthylpent-1-yne', formula: 'C₆H₁₀',
+                family: 'alcyne ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 },
+                    { id: 'm', el: 'C', x: 260, y: 60 }
+                ],
+                bonds: [['c1', 'c2', 3], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1], ['c4', 'm', 1]],
+                tokens: ['4-méthyl', 'pent', '-1-yne'],
+                distractors: ['2-méthyl', 'pent-2-yne', 'hex-1-yne', '3-méthylpent-1-yne']
+            },
+
+            /* --- 3,3-diméthylbut-1-yne ------------------------------------------ */
+            dimethyl_but1yne: {
+                id: 'dimethyl_but1yne', name: '3,3-diméthylbut-1-yne', formula: 'C₆H₁₀',
+                family: 'alcyne ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 180 }, { id: 'c2', el: 'C', x: 120, y: 130 }, { id: 'c3', el: 'C', x: 190, y: 180 },
+                    { id: 'c4', el: 'C', x: 260, y: 130 },
+                    { id: 'm1', el: 'C', x: 140, y: 260 }, { id: 'm2', el: 'C', x: 240, y: 260 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 3], ['c2', 'c3', 1], ['c3', 'c4', 1],
+                    ['c3', 'm1', 1], ['c3', 'm2', 1]
+                ],
+                tokens: ['3,3-diméthyl', 'but', '-1-yne'],
+                distractors: ['2,2-diméthyl', 'but-2-yne', '3,3-diméthylbut-2-yne', 'pent-1-yne']
+            },
+
+            /* =======================================================================
+               D. DIÈNES & RADICAUX INSATURÉS  (4)
+               ======================================================================= */
+
+            /* --- 2-méthylbuta-1,3-diène (isoprène) ------------------------------ */
+            isoprene: {
+                id: 'isoprene', name: '2-méthylbuta-1,3-diène', formula: 'C₅H₈',
+                family: 'diène ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 },
+                    { id: 'm', el: 'C', x: 120, y: 60 }
+                ],
+                bonds: [['c1', 'c2', 2], ['c2', 'c3', 1], ['c3', 'c4', 2], ['c2', 'm', 1]],
+                tokens: ['2-méthyl', 'buta', '-1,3-diène'],
+                distractors: ['3-méthyl', 'buta-1,2-diène', 'penta-1,3-diène', '2-méthylbuta-1,2-diène']
+            },
+
+            /* --- 3-méthylhepta-1,4-diène ---------------------------------------- */
+            methyl_heptadiene: {
+                id: 'methyl_heptadiene', name: '3-méthylhepta-1,4-diène', formula: 'C₈H₁₄',
+                family: 'diène ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 220 }, { id: 'c2', el: 'C', x: 115, y: 170 }, { id: 'c3', el: 'C', x: 180, y: 220 },
+                    { id: 'c4', el: 'C', x: 245, y: 170 }, { id: 'c5', el: 'C', x: 310, y: 220 }, { id: 'c6', el: 'C', x: 375, y: 170 },
+                    { id: 'c7', el: 'C', x: 440, y: 220 },
+                    { id: 'm', el: 'C', x: 180, y: 320 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 2], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 2], ['c5', 'c6', 1], ['c6', 'c7', 1],
+                    ['c3', 'm', 1]
+                ],
+                tokens: ['3-méthyl', 'hepta', '-1,4-diène'],
+                distractors: ['4-méthyl', 'hepta-1,3-diène', 'hepta-1,5-diène', '3-méthylhepta-1,3-diène']
+            },
+
+            /* --- 4-(prop-2-ényl)hepta-1,6-diène --------------------------------- */
+            propenyl_heptadiene_16: {
+                id: 'propenyl_heptadiene_16', name: '4-(prop-2-ényl)hepta-1,6-diène', formula: 'C₁₀H₁₆',
+                family: 'diène avec radical alcényle',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 220 }, { id: 'c2', el: 'C', x: 115, y: 170 }, { id: 'c3', el: 'C', x: 180, y: 220 },
+                    { id: 'c4', el: 'C', x: 245, y: 170 }, { id: 'c5', el: 'C', x: 310, y: 220 }, { id: 'c6', el: 'C', x: 375, y: 170 },
+                    { id: 'c7', el: 'C', x: 440, y: 220 },
+                    { id: 'r1', el: 'C', x: 245, y: 70 }, { id: 'r2', el: 'C', x: 315, y: 30 }, { id: 'r3', el: 'C', x: 385, y: 30 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 2], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1], ['c5', 'c6', 1], ['c6', 'c7', 2],
+                    ['c4', 'r1', 1], ['r1', 'r2', 1], ['r2', 'r3', 2]
+                ],
+                tokens: ['4-(prop-2-ényl)', 'hepta', '-1,6-diène'],
+                distractors: ['4-(prop-1-ényl)', '4-(prop-2-ynyl)', 'hepta-1,4-diène', '4-propylhepta-1,6-diène']
+            },
+
+            /* --- 4-(prop-2-ynyl)hepta-1,6-diène -------------------------------- */
+            propynyl_heptadiene_16: {
+                id: 'propynyl_heptadiene_16', name: '4-(prop-2-ynyl)hepta-1,6-diène', formula: 'C₁₀H₁₄',
+                family: 'diène avec radical alcynyle',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 220 }, { id: 'c2', el: 'C', x: 115, y: 170 }, { id: 'c3', el: 'C', x: 180, y: 220 },
+                    { id: 'c4', el: 'C', x: 245, y: 170 }, { id: 'c5', el: 'C', x: 310, y: 220 }, { id: 'c6', el: 'C', x: 375, y: 170 },
+                    { id: 'c7', el: 'C', x: 440, y: 220 },
+                    // ✅ استقامة خطية 180° لجميع ذرات الجذر
+                    { id: 'r1', el: 'C', x: 245, y: 60 },
+                    { id: 'r2', el: 'C', x: 325, y: 60 },
+                    { id: 'r3', el: 'C', x: 405, y: 60 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 2], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1], ['c5', 'c6', 1], ['c6', 'c7', 2],
+                    ['c4', 'r1', 1], ['r1', 'r2', 1], ['r2', 'r3', 3]
+                ],
+                tokens: ['4-(prop-2-ynyl)', 'hepta', '-1,6-diène'],
+                distractors: ['4-(prop-1-ynyl)', '4-(prop-2-ényl)', 'hepta-1,4-diène', '4-(but-2-ynyl)hepta-1,6-diène']
+            },
+
+            /* =======================================================================
+               E. CAS DE SYNTHÈSE  (2)
+               ======================================================================= */
+
+            /* --- 3,3-diéthylpentane --------------------------------------------- */
+            diethyl_pentane: {
+                id: 'diethyl_pentane', name: '3,3-diéthylpentane', formula: 'C₉H₂₀',
+                family: 'alcane symétrique ramifié',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 40, y: 200 }, { id: 'c2', el: 'C', x: 110, y: 150 }, { id: 'c3', el: 'C', x: 180, y: 200 },
+                    { id: 'c4', el: 'C', x: 250, y: 150 }, { id: 'c5', el: 'C', x: 320, y: 200 },
+                    { id: 'e1a', el: 'C', x: 180, y: 110 }, { id: 'e2a', el: 'C', x: 180, y: 40 },
+                    { id: 'e1b', el: 'C', x: 180, y: 290 }, { id: 'e2b', el: 'C', x: 180, y: 360 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 1], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1],
+                    ['c3', 'e1a', 1], ['e1a', 'e2a', 1], ['c3', 'e1b', 1], ['e1b', 'e2b', 1]
+                ],
+                tokens: ['3,3-diéthyl', 'pentane'],
+                distractors: ['3-éthyl', 'pentane', '2,2-diéthylpentane', 'heptane', '3,3-diéthylbutane']
+            },
+
+            /* --- 3-éthyl-2,2,4-triméthylpentane (chaîne la plus ramifiée) ------- */
+            ethyl_trimethyl_pentane: {
+                id: 'ethyl_trimethyl_pentane', name: '3-éthyl-2,2,4-triméthylpentane', formula: 'C₁₀H₂₂',
+                family: 'alcane poly-substitué',
+                atoms: [
+                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
+                    { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 },
+                    { id: 'm1', el: 'C', x: 60, y: 80 }, { id: 'm2', el: 'C', x: 180, y: 80 },
+                    { id: 'e1', el: 'C', x: 190, y: 300 }, { id: 'e2', el: 'C', x: 190, y: 370 },
+                    { id: 'm4', el: 'C', x: 260, y: 60 }
+                ],
+                bonds: [
+                    ['c1', 'c2', 1], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1],
+                    ['c2', 'm1', 1], ['c2', 'm2', 1], ['c3', 'e1', 1], ['e1', 'e2', 1], ['c4', 'm4', 1]
+                ],
+                tokens: ['3-éthyl', '-2,2,4-triméthyl', 'pentane'],
+                distractors: ['3-isopropyl', '-2,2-diméthylpentane', '2,2,4-triméthylhexane', '4-éthyl', '-2,2,3-triméthylpentane']
             }
         };
 
@@ -3570,6 +3958,80 @@
                     { mol: 'propenyl_heptadiene', steps: ['chain', 'rad_num', 'name'] },
                     { mol: 'propynyl_heptadiene', steps: ['chain', 'rad_num', 'name'] },
                     { mol: 'prof_complex_alkane', steps: ['chain', 'subs', 'name'] }
+                ]
+            },
+            /* ------------------ MONDE A : ALCANES RAMIFIÉS ---------------------- */
+            {
+                id: 'pack2_alkanes', section: true,
+                title: 'Alcanes ramifiés · Chaîne la plus longue',
+                subtitle: 'Éthyle, isopropyle, tert-butyle — choisir la bonne chaîne',
+                icon: '⛓️', color: '#0EA5E9', colorD: '#0284C7',
+                tip: '<b>Rappel :</b><br>1) La chaîne principale est la <b>plus longue</b>.<br>2) En cas d\'égalité, on prend celle qui porte <b>le plus de substituants</b>.<br>3) On numérote pour donner les <b>locants les plus petits</b>, puis on cite les radicaux par <b>ordre alphabétique</b> (éthyl avant méthyl).',
+                levels: [
+                    { mol: 'ethyl_methyl_pentane', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'trimethyl_pentane', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'ethyl_dimethyl_pentane', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'isopropyl_heptane', steps: ['chain', 'rad_num', 'name'] },
+                    { mol: 'tertbutyl_hexane', steps: ['chain', 'rad_num', 'name'] },
+                    { mol: 'ethyl_methyl_hexane', steps: ['chain', 'subs', 'name'] }
+                ]
+            },
+
+            /* ------------------ MONDE B : ALCÈNES ------------------------------- */
+            {
+                id: 'pack2_alkenes', section: true,
+                title: 'Alcènes · La double liaison donne le numéro',
+                subtitle: 'But-1-ène, but-2-ène et ramifications',
+                icon: '🔗', color: '#8B5CF6', colorD: '#7C3AED',
+                tip: '<b>Points clés :</b><br>1) La chaîne principale doit <b>contenir la double liaison</b>.<br>2) On numérote de façon à donner à la double liaison <b>le plus petit indice</b>.<br>3) Le suffixe devient <b>-ène</b> (diène, triène…).',
+                levels: [
+                    { mol: 'methyl_butene', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'methyl_but2ene', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'methyl_pent1ene', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'ethyl_pent1ene', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'dimethyl_pent1ene', steps: ['chain', 'subs', 'name'] }
+                ]
+            },
+
+            /* ------------------ MONDE C : ALCYNES ------------------------------- */
+            {
+                id: 'pack2_alkynes', section: true,
+                title: 'Alcynes · La triple liaison',
+                subtitle: 'Suffixe -yne et position du triple lien',
+                icon: '🧵', color: '#F59E0B', colorD: '#D97706',
+                tip: '<b>Points clés :</b><br>1) Suffixe <b>-yne</b>.<br>2) La triple liaison impose le sens de numérotation (indice le plus petit).<br>3) Une chaîne qui contient le triple lien est prioritaire sur une chaîne plus longue qui ne le contient pas.',
+                levels: [
+                    { mol: 'methyl_but1yne', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'methyl_pent1yne', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'dimethyl_but1yne', steps: ['chain', 'subs', 'name'] }
+                ]
+            },
+
+            /* ------------------ MONDE D : DIÈNES & RADICAUX INSATURÉS ----------- */
+            {
+                id: 'pack2_dienes', section: true,
+                title: 'Diènes & radicaux insaturés',
+                subtitle: '-ényle, -ynyle et chaînes à deux doubles liaisons',
+                icon: '🧬', color: '#10B981', colorD: '#059669',
+                tip: '<b>Points clés de l\'amphi :</b><br>1) Un diène se nomme <b>alcadiène</b> avec les deux indices les plus petits possible.<br>2) Un radical insaturé prend le suffixe <b>-ényle</b> (alcène) ou <b>-ynyle</b> (alcyne).<br>3) Le carbone de rattachement du radical reçoit <b>l\'indice 1</b> (ex. prop-2-ényl = CH₂–CH=CH₂).',
+                levels: [
+                    { mol: 'isoprene', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'methyl_heptadiene', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'propenyl_heptadiene_16', steps: ['chain', 'rad_num', 'name'] },
+                    { mol: 'propynyl_heptadiene_16', steps: ['chain', 'rad_num', 'name'] }
+                ]
+            },
+
+            /* ------------------ MONDE E : SYNTHÈSE ------------------------------ */
+            {
+                id: 'pack2_master', section: true,
+                title: '🏆 Synthèse · Cas difficiles',
+                subtitle: 'Chaîne la plus ramifiée et symétrie',
+                icon: '🎓', color: '#E11D48', colorD: '#BE123C',
+                tip: '<b>Règle d\'or :</b><br>En cas d\'égalité de longueur, on choisit la chaîne qui porte <b>le plus grand nombre de ramifications</b>.<br>Ex. : entre <i>pentane substitué</i> et <i>isopropylpentane</i>, la première l\'emporte car elle porte 4 substituants contre 3.',
+                levels: [
+                    { mol: 'diethyl_pentane', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'ethyl_trimethyl_pentane', steps: ['chain', 'subs', 'name'] }
                 ]
             }
         ];
@@ -4269,6 +4731,47 @@
             }
             return best;
         }
+        /* ============================================================
+   حساب الموضع المثالي لأرقام الترقيم (في الفراغ الأكثر أماناً وبعداً عن الروابط)
+   ============================================================ */
+        function getOptimalLabelPos(mol, a, dist = 22) {
+            const adj = adjacencyOf(mol);
+            const nbrIds = adj[a.id] || [];
+
+            // جمع زوايا جميع الروابط المتصلة بهذه الذرة (سلسلة + تفرعات)
+            const bondAngles = nbrIds.map(nid => {
+                const nbr = mol.atoms.find(x => x.id === nid);
+                return nbr ? Math.atan2(nbr.y - a.y, nbr.x - a.x) : 0;
+            });
+
+            if (bondAngles.length === 0) return { x: a.x, y: a.y - dist };
+
+            let bestAngle = 0;
+            let maxMinDiff = -1;
+
+            // فحص 36 اتجاهاً حول الذرة (كل 10 درجات) للعثور على أكبر جيب فارغ
+            for (let deg = 0; deg < 360; deg += 10) {
+                const rad = deg * (Math.PI / 180);
+                let minDiff = Math.PI;
+
+                for (const bAngle of bondAngles) {
+                    let diff = Math.abs(rad - bAngle);
+                    if (diff > Math.PI) diff = 2 * Math.PI - diff;
+                    if (diff < minDiff) minDiff = diff;
+                }
+
+                // اختيار الزاوية التي تبتعد بأقصى مسافة عن أقرب رابطة
+                if (minDiff > maxMinDiff) {
+                    maxMinDiff = minDiff;
+                    bestAngle = rad;
+                }
+            }
+
+            return {
+                x: a.x + Math.cos(bestAngle) * dist,
+                y: a.y + Math.sin(bestAngle) * dist
+            };
+        }
 
         /* ============================================================
            RENDU SVG
@@ -4288,7 +4791,7 @@
                 chainBondKeys.add([chain[0], chain[chain.length - 1]].sort().join('-'));
             }
 
-            const pad = 42;
+            const pad = 52;
             const xs = mol.atoms.map(a => a.x);
             const ys = mol.atoms.map(a => a.y);
             const minX = Math.min(...xs) - pad, maxX = Math.max(...xs) + pad;
@@ -4297,66 +4800,66 @@
 
             let svg = '<svg viewBox="' + minX + ' ' + minY + ' ' + vw + ' ' + vh + '" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">';
 
+            // ── BONDS first (drawn under atoms) ──────────────────────────────
             mol.bonds.forEach(bd => {
                 const a1 = mol.atoms.find(a => a.id === bd[0]);
                 const a2 = mol.atoms.find(a => a.id === bd[1]);
                 if (!a1 || !a2) return;
                 const key = [bd[0], bd[1]].sort().join('-');
-                if (!chainBondKeys.has(key)) {
-                    svg += bondPath(a1, a2, bd[2] || 1, '#3C3C3C', 3.2, a1.el !== 'C' ? 26 : 22, a2.el !== 'C' ? 26 : 22);
-                }
+                const inChain = chainBondKeys.has(key);
+                const color = inChain ? '#58CC02' : '#4A4A4A';
+                const width = inChain ? 5.5 : 3.0;
+                // For topological style: bonds end AT the atom coordinate (no gap for C),
+                // but leave a small gap for heteroatoms (they show a label circle)
+                const r1 = a1.el !== 'C' ? 22 : 0;
+                const r2 = a2.el !== 'C' ? 22 : 0;
+                svg += bondPath(a1, a2, bd[2] || 1, color, width, r1, r2);
             });
 
-            for (let i = 0; i < chain.length - 1; i++) {
-                const a1 = mol.atoms.find(a => a.id === chain[i]);
-                const a2 = mol.atoms.find(a => a.id === chain[i + 1]);
-                if (!a1 || !a2) continue;
-                const bond = mol.bonds.find(b => (b[0] === a1.id && b[1] === a2.id) || (b[0] === a2.id && b[1] === a1.id));
-                svg += bondPath(a1, a2, bond ? (bond[2] || 1) : 1, '#58CC02', 6, 28, 28);
-            }
-            if (ringClosed) {
-                const first = mol.atoms.find(a => a.id === chain[0]);
-                const last = mol.atoms.find(a => a.id === chain[chain.length - 1]);
-                if (first && last) {
-                    const bond = mol.bonds.find(b => (b[0] === first.id && b[1] === last.id) || (b[0] === last.id && b[1] === first.id));
-                    svg += bondPath(first, last, bond ? (bond[2] || 1) : 1, '#58CC02', 6, 28, 28);
-                }
-            }
-
+            // ── ATOMS ────────────────────────────────────────────────────────
             mol.atoms.forEach(a => {
                 const isHetero = a.el !== 'C';
                 const inChain = chainSet.has(a.id);
                 const isSub = subs.includes(a.id);
                 const isBad = bad.includes(a.id);
                 const isGood = good.includes(a.id);
-                const hitR = isHetero ? 36 : 32;
 
-                let shapeFill = '#3C3C3C', shapeStroke = 'transparent', shapeStrokeW = 0, shapeR = 8;
-
-                if (isHetero) {
-                    const colors = { O: '#FF4B4B', N: '#1CB0F6', Cl: '#0D9488', Br: '#A16207', F: '#EC4899', I: '#9333EA', S: '#FFC800' };
-                    shapeFill = colors[a.el] || '#CE82FF';
-                    shapeR = 20; shapeStroke = '#fff'; shapeStrokeW = 3;
-                }
-                if (inChain) { shapeFill = '#58CC02'; shapeR = isHetero ? 22 : 12; shapeStroke = '#fff'; shapeStrokeW = 3; }
-                if (isSub) { shapeFill = '#FFC800'; shapeR = isHetero ? 22 : 12; shapeStroke = '#fff'; shapeStrokeW = 3; }
-                if (isBad) { shapeFill = '#FF4B4B'; shapeR = isHetero ? 24 : 14; shapeStroke = '#fff'; shapeStrokeW = 3; }
-                if (isGood) { shapeFill = '#58CC02'; shapeR = isHetero ? 24 : 14; shapeStroke = '#fff'; shapeStrokeW = 3; }
+                const HAL_COLORS = { O: '#FF4B4B', N: '#1CB0F6', Cl: '#0D9488', Br: '#A16207', F: '#EC4899', I: '#9333EA', S: '#FFC800' };
 
                 svg += '<g class="atom-hit" ' + (interactive ? 'data-atom="' + a.id + '"' : '') + '>';
-                svg += '<circle cx="' + a.x + '" cy="' + a.y + '" r="' + hitR + '" fill="transparent"/>';
-                svg += '<circle class="atom-shape" cx="' + a.x + '" cy="' + a.y + '" r="' + shapeR + '" fill="' + shapeFill + '" stroke="' + shapeStroke + '" stroke-width="' + shapeStrokeW + '"/>';
+
+                // ── Transparent hit target (large, for touch) ────────────────
+                svg += '<circle cx="' + a.x + '" cy="' + a.y + '" r="28" fill="transparent" class="atom-hit-circle"/>';
 
                 if (isHetero) {
-                    const fs = a.el.length > 1 ? 15 : 17;
-                    svg += '<text x="' + a.x + '" y="' + (a.y + fs / 3) + '" text-anchor="middle" font-size="' + fs + '" font-weight="900" fill="#fff" font-family="-apple-system,sans-serif">' + a.el + '</text>';
+                    // Heteroatoms: coloured filled circle with element label
+                    let bgColor = HAL_COLORS[a.el] || '#CE82FF';
+                    if (isBad) bgColor = '#FF4B4B';
+                    if (isGood) bgColor = '#58CC02';
+                    const circR = 20;
+                    svg += '<circle class="atom-shape" cx="' + a.x + '" cy="' + a.y + '" r="' + circR + '" fill="' + bgColor + '" stroke="#fff" stroke-width="2.5"/>';
+                    const fs = a.el.length > 1 ? 14 : 16;
+                    svg += '<text x="' + a.x + '" y="' + (a.y + fs * 0.35) + '" text-anchor="middle" font-size="' + fs + '" font-weight="900" fill="#fff" font-family="-apple-system,sans-serif">' + a.el + '</text>';
+                } else {
+                    // Pure carbon atoms: no visible dot in topological style.
+                    // BUT when selected (chain / subs / etc.) show a tasteful indicator.
+                    if (inChain || isSub || isBad || isGood) {
+                        const dotColor = isBad ? '#FF4B4B' : (isSub ? '#FFC800' : '#58CC02');
+                        const dotR = 9;
+                        svg += '<circle class="atom-shape" cx="' + a.x + '" cy="' + a.y + '" r="' + dotR + '" fill="' + dotColor + '" stroke="#fff" stroke-width="2"/>';
+                    } else {
+                        // Invisible but class present so JS can still querySelector it
+                        svg += '<circle class="atom-shape" cx="' + a.x + '" cy="' + a.y + '" r="6" fill="transparent" stroke="none"/>';
+                    }
                 }
 
+                // ── Chain numbering: elegant external label ──────────────────
+                // ── Chain numbering: elegant external label (مصحح بالكامل) ──
                 if (numbering[a.id]) {
-                    const nx = a.x, ny = a.y - 24;
-                    svg += '<g><circle cx="' + nx + '" cy="' + ny + '" r="14" fill="#fff" stroke="#58CC02" stroke-width="3"/>';
-                    svg += '<text x="' + nx + '" y="' + (ny + 5) + '" text-anchor="middle" font-size="14" font-weight="900" fill="#58CC02" font-family="-apple-system,sans-serif">' + numbering[a.id] + '</text></g>';
+                    const pos = getOptimalLabelPos(mol, a, 24);
+                    svg += '<text x="' + pos.x + '" y="' + (pos.y + 4) + '" text-anchor="middle" font-size="13" font-weight="900" fill="#46A302" font-family="-apple-system,sans-serif" class="num-badge">' + numbering[a.id] + '</text>';
                 }
+
                 svg += '</g>';
             });
 
@@ -4364,37 +4867,44 @@
             return svg;
         }
 
+
         function bondPath(a1, a2, order, color, width, r1, r2) {
             const dx = a2.x - a1.x, dy = a2.y - a1.y;
             const len = Math.hypot(dx, dy) || 1;
             const ux = dx / len, uy = dy / len;
-            const px = -uy, py = ux;
+            const px = -uy, py = ux; // العمودي على الرابطة
             const x1 = a1.x + ux * r1, y1 = a1.y + uy * r1;
             const x2 = a2.x - ux * r2, y2 = a2.y - uy * r2;
-            const attr = 'stroke="' + color + '" stroke-width="' + width + '" stroke-linecap="round" fill="none"';
+
+            const isChain = width > 4; // هل الرابطة محددة بالأخضر؟
 
             let inner = '';
             if (order === 1) {
-                inner = '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" ' + attr + '/>';
+                // الرابطة الأحادية تأخذ سُمكاً عريضاً وواضحاً
+                const w = isChain ? 5.5 : 3.0;
+                inner = `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${w}" stroke-linecap="round"/>`;
             } else if (order === 2) {
-                const off = width * 1.7, shrink = 0.22;
-                const bx = x2 - x1, by = y2 - y1;
+                // الرابطة الثنائية: خطان متوازيان بمسافة تمنع الاندماج
+                const off = isChain ? 5.0 : 4.0;
+                const w = isChain ? 3.0 : 2.5;
                 const ox = px * off, oy = py * off;
-                inner = '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" ' + attr + '/>'
-                    + '<line x1="' + (x1 + bx * shrink + ox) + '" y1="' + (y1 + by * shrink + oy) + '" x2="' + (x2 - bx * shrink + ox) + '" y2="' + (y2 - by * shrink + oy) + '" ' + attr + '/>';
+                const attr = `stroke="${color}" stroke-width="${w}" stroke-linecap="round"`;
+                inner = `<line x1="${x1 + ox}" y1="${y1 + oy}" x2="${x2 + ox}" y2="${y2 + oy}" ${attr}/>`
+                    + `<line x1="${x1 - ox}" y1="${y1 - oy}" x2="${x2 - ox}" y2="${y2 - oy}" ${attr}/>`;
             } else {
-                const off = width * 2.1, shrink = 0.22;
-                const bx = x2 - x1, by = y2 - y1;
-                inner = '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" ' + attr + '/>';
-                [1, -1].forEach(sgn => {
-                    const ox = px * off * sgn, oy = py * off * sgn;
-                    inner += '<line x1="' + (x1 + bx * shrink + ox) + '" y1="' + (y1 + by * shrink + oy) + '" x2="' + (x2 - bx * shrink + ox) + '" y2="' + (y2 - by * shrink + oy) + '" ' + attr + '/>';
-                });
+                // 💎 الرابطة الثلاثية: 3 خطوط متوازية بمسافة واسعة وسُمك رشيق يمنع الاندماج نهائياً
+                const off = isChain ? 6.8 : 5.5;
+                const w = isChain ? 2.6 : 2.2;
+                const ox = px * off, oy = py * off;
+                const attr = `stroke="${color}" stroke-width="${w}" stroke-linecap="round"`;
+                inner = `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" ${attr}/>`
+                    + `<line x1="${x1 + ox}" y1="${y1 + oy}" x2="${x2 + ox}" y2="${y2 + oy}" ${attr}/>`
+                    + `<line x1="${x1 - ox}" y1="${y1 - oy}" x2="${x2 - ox}" y2="${y2 - oy}" ${attr}/>`;
             }
 
-            // ✅ لف في مجموعة قابلة للتحديث
             const gid = [a1.id, a2.id].sort().join('-');
-            return '<g class="bond" data-bond="' + gid + '">' + inner + '</g>';
+            // حفظ نوع الرابطة في data-order لكي يعرفها كود النقر
+            return `<g class="bond" data-bond="${gid}" data-order="${order}">${inner}</g>`;
         }
 
         /* ============================================================
@@ -4431,6 +4941,9 @@
                     const key = w.id + ':' + li;
                     const p = state.progress[key];
                     const mol = MOLECULES[lv.mol];
+
+
+
                     const stars = p?.stars || 0;
                     const starsHTML = p?.done
                         ? '<span class="level-stars">' + '★'.repeat(stars) + '☆'.repeat(3 - stars) + '</span>'
@@ -4744,56 +5257,76 @@
                             state.stepState.tapped = seq;
 
                             // ✅ Tint des liaisons appartenant à la chaîne
+                            // ✅ Tint des liaisons appartenant à la chaîne
                             const chainBondKeys = new Set();
                             for (let i = 0; i < seq.length - 1; i++) {
                                 chainBondKeys.add([seq[i], seq[i + 1]].sort().join('-'));
                             }
+
+                            // ✅ إغلاق الحلقة: إذا اكتمل عدد ذرات الحلقة، أضف الرابطة الختامية
+                            if (mol.ringOrder && seq.length === mol.ringOrder.length && sameSet(seq, mol.ringOrder)) {
+                                chainBondKeys.add([seq[seq.length - 1], seq[0]].sort().join('-'));
+                            }
                             stage.querySelectorAll('.bond').forEach(bondG => {
                                 const inChain = chainBondKeys.has(bondG.dataset.bond);
+                                const order = parseInt(bondG.dataset.order || '1', 10);
+
+                                // سُمك مخصص لكل نوع رابطة يمنع الاندماج
+                                let strokeW = inChain ? '5.5' : '3.0';
+                                if (order === 2) strokeW = inChain ? '3.0' : '2.5';
+                                if (order === 3) strokeW = inChain ? '2.6' : '2.2';
+
                                 bondG.querySelectorAll('line').forEach(line => {
-                                    line.setAttribute('stroke', inChain ? '#58CC02' : '#3C3C3C');
-                                    line.setAttribute('stroke-width', inChain ? '6' : '3.2');
+                                    line.setAttribute('stroke', inChain ? '#58CC02' : '#4A4A4A');
+                                    line.setAttribute('stroke-width', strokeW);
                                 });
                             });
 
-                            // ✅ Mise à jour visuelle des atomes (halogènes gardent leur couleur)
+                            // ✅ Mise à jour visuelle des atomes — style topologique
                             const HAL_COLORS = { O: '#FF4B4B', N: '#1CB0F6', Cl: '#0D9488', Br: '#A16207', F: '#EC4899', I: '#9333EA', S: '#FFC800' };
 
                             stage.querySelectorAll('[data-atom]').forEach(elG => {
                                 const aId = elG.dataset.atom;
                                 const aData = mol.atoms.find(a => a.id === aId);
-                                const shape = elG.querySelector('.atom-shape');
+                                if (!aData) return;
+                                const isHetero = aData.el !== 'C';
                                 const isSelected = seq.includes(aId);
 
-                                if (shape && aData) {
-                                    const isHetero = aData.el !== 'C';
-                                    const baseFill = isHetero
-                                        ? (HAL_COLORS[aData.el] || '#CE82FF')
-                                        : '#3C3C3C';
-
+                                // Update the visible shape circle
+                                const visShape = elG.querySelector('.atom-shape');
+                                if (visShape && !isHetero) {
                                     if (isSelected) {
-                                        shape.setAttribute('fill', '#58CC02');
-                                        shape.setAttribute('stroke', '#fff');
-                                        shape.setAttribute('stroke-width', '3');
+                                        visShape.setAttribute('r', '9');
+                                        visShape.setAttribute('fill', '#58CC02');
+                                        visShape.setAttribute('stroke', '#fff');
+                                        visShape.setAttribute('stroke-width', '2');
                                     } else {
-                                        shape.setAttribute('fill', baseFill);
-                                        shape.setAttribute('stroke', isHetero ? '#fff' : 'transparent');
-                                        shape.setAttribute('stroke-width', isHetero ? '3' : '0');
+                                        visShape.setAttribute('r', '6');
+                                        visShape.setAttribute('fill', 'transparent');
+                                        visShape.setAttribute('stroke', 'none');
+                                        visShape.setAttribute('stroke-width', '0');
                                     }
                                 }
+                                // Heteroatoms keep their element colour — no change needed
 
-                                // Badge numéroté
-                                const existingBadge = elG.querySelector('.num-badge');
-                                if (existingBadge) existingBadge.remove();
+                                // ── External chain-number label (text, not badge circle) ──
+                                elG.querySelectorAll('.num-badge').forEach(b => b.remove());
+
 
                                 const orderNum = seq.indexOf(aId) + 1;
                                 if (orderNum > 0) {
-                                    const at = mol.atoms.find(x => x.id === aId);
-                                    const badgeG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-                                    badgeG.setAttribute('class', 'num-badge');
-                                    badgeG.innerHTML = `<circle cx="${at.x}" cy="${at.y - 24}" r="14" fill="#fff" stroke="#58CC02" stroke-width="3"/>
-                                  <text x="${at.x}" y="${at.y - 19}" text-anchor="middle" font-size="14" font-weight="900" fill="#58CC02">${orderNum}</text>`;
-                                    elG.appendChild(badgeG);
+                                    const pos = getOptimalLabelPos(mol, aData, 22);
+                                    const badge = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                                    badge.setAttribute('class', 'num-badge');
+                                    badge.setAttribute('x', pos.x);
+                                    badge.setAttribute('y', pos.y + 4);
+                                    badge.setAttribute('text-anchor', 'middle');
+                                    badge.setAttribute('font-size', '13');
+                                    badge.setAttribute('font-weight', '900');
+                                    badge.setAttribute('fill', '#46A302');
+                                    badge.setAttribute('font-family', '-apple-system,sans-serif');
+                                    badge.textContent = orderNum;
+                                    elG.appendChild(badge);
                                 }
                             });
 
@@ -4824,13 +5357,22 @@
                             }
                             state.stepState.subs = arr;
 
-                            // Mise à jour visuelle
+                            // Mise à jour visuelle — style topologique
                             const shape = g.querySelector('.atom-shape');
                             if (shape) {
                                 const isSub = arr.includes(id);
                                 const HAL_COLORS = { O: '#FF4B4B', N: '#1CB0F6', Cl: '#0D9488', Br: '#A16207', F: '#EC4899', I: '#9333EA', S: '#FFC800' };
-                                const restoreColor = atom.el === 'C' ? '#3C3C3C' : (HAL_COLORS[atom.el] || '#3C3C3C');
-                                shape.setAttribute('fill', isSub ? '#FFC800' : restoreColor);
+                                if (atom.el === 'C') {
+                                    // Carbon: show/hide a small yellow dot
+                                    shape.setAttribute('r', isSub ? '9' : '6');
+                                    shape.setAttribute('fill', isSub ? '#FFC800' : 'transparent');
+                                    shape.setAttribute('stroke', isSub ? '#fff' : 'none');
+                                    shape.setAttribute('stroke-width', isSub ? '2' : '0');
+                                } else {
+                                    // Heteroatom: keep element colour, tint yellow when selected
+                                    const restoreColor = HAL_COLORS[atom.el] || '#CE82FF';
+                                    shape.setAttribute('fill', isSub ? '#FFC800' : restoreColor);
+                                }
                             }
 
                             const cnt = document.getElementById('subs-count');
@@ -4838,63 +5380,61 @@
                             updateVerifyState();
                         }
                         if (step === 'rad_num') {
-                            const svg = stage.querySelector('svg');
                             const chainSet = new Set(state.chainSequence);
 
-                            stage.querySelectorAll('[data-atom]').forEach(g => {
-                                g.addEventListener('click', () => {
-                                    const id = g.dataset.atom;
-                                    // منع النقر على السلسلة الرئيسية (لأنها محددة سلفاً)
-                                    if (chainSet.has(id)) return;
+                            // ❌ منع النقر على ذرات السلسلة الرئيسية
+                            if (chainSet.has(id)) return;
 
-                                    let seq = (state.stepState.radTapped || []).slice();
-                                    const idx = seq.indexOf(id);
+                            // ✅ نفس منطق السلسلة لكن مع شارات برتقالية
+                            let seq = (state.stepState.radTapped || []).slice();
+                            const idx = seq.indexOf(id);
 
-                                    if (idx >= 0) {
-                                        seq = seq.slice(0, idx);
-                                        SFX.play('unselect');
-                                    } else if (seq.length === 0) {
-                                        seq = [id];
-                                        SFX.play('chip', 0);
-                                        tapAtomFx(g);
-                                    } else {
-                                        const last = seq[seq.length - 1];
-                                        const bonded = mol.bonds.some(b => (b[0] === last && b[1] === id) || (b[1] === last && b[0] === id));
-                                        if (bonded) {
-                                            seq.push(id);
-                                            SFX.play('chip', seq.length);
-                                            tapAtomFx(g);
-                                        } else {
-                                            SFX.play('unselect');
-                                            return;
-                                        }
-                                    }
-                                    state.stepState.radTapped = seq;
+                            if (idx >= 0) {
+                                seq = seq.slice(0, idx);
+                                SFX.play('unselect');
+                            } else if (seq.length === 0) {
+                                seq = [id];
+                                SFX.play('chip', 0);
+                                tapAtomFx(g);
+                            } else {
+                                const last = seq[seq.length - 1];
+                                const bonded = mol.bonds.some(b =>
+                                    (b[0] === last && b[1] === id) || (b[1] === last && b[0] === id)
+                                );
+                                if (bonded) {
+                                    seq.push(id);
+                                    SFX.play('chip', seq.length);
+                                    tapAtomFx(g);
+                                } else {
+                                    SFX.play('unselect');
+                                    return;
+                                }
+                            }
+                            state.stepState.radTapped = seq;
 
-                                    // تحديث الشارات البرتقالية (1', 2', 3'...)
-                                    stage.querySelectorAll('[data-atom]').forEach(elG => {
-                                        const aId = elG.dataset.atom;
-                                        if (chainSet.has(aId)) return; // لا نلمس شارات السلسلة الرئيسية الخضراء
+                            // ✅ تحديث الشارات (1'، 2'، 3' ...)
+                            stage.querySelectorAll('[data-atom]').forEach(elG => {
+                                const aId = elG.dataset.atom;
+                                if (chainSet.has(aId)) return;
 
-                                        const existingBadge = elG.querySelector('.rad-badge');
-                                        if (existingBadge) existingBadge.remove();
+                                const existing = elG.querySelector('.rad-badge');
+                                if (existing) existing.remove();
 
-                                        const orderNum = seq.indexOf(aId) + 1;
-                                        if (orderNum > 0) {
-                                            const at = mol.atoms.find(x => x.id === aId);
-                                            const badgeG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-                                            badgeG.setAttribute('class', 'rad-badge');
-                                            badgeG.innerHTML = `<circle cx="${at.x}" cy="${at.y - 22}" r="13"/>
-                                <text x="${at.x}" y="${at.y - 17}" text-anchor="middle">${orderNum}'</text>`;
-                                            elG.appendChild(badgeG);
-                                        }
-                                    });
-
-                                    const cnt = document.getElementById('rad-count');
-                                    if (cnt) cnt.textContent = seq.length;
-                                    updateVerifyState();
-                                });
+                                const orderNum = seq.indexOf(aId) + 1;
+                                if (orderNum > 0) {
+                                    const at = mol.atoms.find(x => x.id === aId);
+                                    const badgeG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                                    badgeG.setAttribute('class', 'rad-badge');
+                                    badgeG.innerHTML = `
+                <circle cx="${at.x}" cy="${at.y - 22}" r="13"/>
+                <text x="${at.x}" y="${at.y - 17}" text-anchor="middle">${orderNum}'</text>`;
+                                    elG.appendChild(badgeG);
+                                }
                             });
+
+                            const cnt = document.getElementById('rad-count');
+                            if (cnt) cnt.textContent = seq.length;
+                            updateVerifyState();
                         }
                     });
                 });
