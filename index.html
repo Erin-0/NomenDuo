@@ -501,10 +501,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @keyframes fillBoost{0%{filter:brightness(1)}40%{filter:brightness(1.35)}100%{filter:brightness(1)}}
 
 /* clic atome */
-.atom-tap{animation:atomTap .35s cubic-bezier(.34,1.6,.5,1)}
-@keyframes atomTap{0%{transform:scale(1)}40%{transform:scale(1.28)}100%{transform:scale(1)}}
-.atom-hit{transform-box:fill-box; transform-origin:center}
-
+/* أنيميشن ناعم: ضغطة صغيرة ثم عودة — بدون ارتداد */
+@keyframes atomTap{
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.10); }
+  100% { transform: scale(1); }
+}
+.atom-shape.atom-tap{
+  animation: atomTap .22s cubic-bezier(.4,0,.2,1);
+  transform-box: fill-box;
+  transform-origin: center;
+}
 /* feedback */
 .sheet.good{animation:slideUp .35s cubic-bezier(.34,1.3,.5,1)}
 .sheet.bad{animation:slideUp .3s cubic-bezier(.4,0,.2,1), shakeX .5s .25s}
@@ -811,6 +818,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   height: 100%; width: 0%; background: #fff;
   border-radius: 99px;
   transition: width 1.8s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+@keyframes simpleVictoryFlash {
+  0%   { opacity: .35; }
+  100% { opacity: 0; }
 }
 </style>
 </head>
@@ -1914,11 +1925,11 @@ function vibrate(p){ try{ navigator.vibrate && navigator.vibrate(p); }catch(e){}
 /* animation du tap sur un atome (SVG) */
 function tapAtomFx(g){
   if(!g) return;
-  g.classList.remove('atom-tap'); void g.getBoundingClientRect(); g.classList.add('atom-tap');
-  try{
-    const r = g.getBoundingClientRect();
-    sparkBurst(r.left + r.width/2, r.top + r.height/2, '#1CB0F6');
-  }catch(e){}
+  const shape = g.querySelector('.atom-shape');
+  if(!shape) return;
+  shape.classList.remove('atom-tap');
+  void shape.getBoundingClientRect();   // إجبار إعادة تشغيل الأنيميشن
+  shape.classList.add('atom-tap');
 }
 
 /* ============================================================
@@ -2072,7 +2083,7 @@ const GENERIC_NAME_POOL = [
   'buta-1,3-diène','penta-1,3-diène','penta-1,4-diène','hexa-1,3-diène',
 ];
 
-function buildNamePool(mol, targetSize = 10){
+function buildNamePool(mol, targetSize = 15){
   const correct = mol.tokens.slice();
   const out = new Set(correct);
   (mol.distractors || []).forEach(d => out.add(d));
@@ -2339,24 +2350,29 @@ function bondPath(a1,a2,order,color,width,r1,r2){
   const x1 = a1.x+ux*r1, y1 = a1.y+uy*r1;
   const x2 = a2.x-ux*r2, y2 = a2.y-uy*r2;
   const attr = 'stroke="'+color+'" stroke-width="'+width+'" stroke-linecap="round" fill="none"';
+
+  let inner = '';
   if(order===1){
-    return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" '+attr+'/>';
-  }
-  if(order===2){
+    inner = '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" '+attr+'/>';
+  } else if(order===2){
     const off = width*1.7, shrink = 0.22;
     const bx = x2-x1, by = y2-y1;
     const ox = px*off, oy = py*off;
-    return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" '+attr+'/>'
-         + '<line x1="'+(x1+bx*shrink+ox)+'" y1="'+(y1+by*shrink+oy)+'" x2="'+(x2-bx*shrink+ox)+'" y2="'+(y2-by*shrink+oy)+'" '+attr+'/>';
+    inner = '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" '+attr+'/>'
+          + '<line x1="'+(x1+bx*shrink+ox)+'" y1="'+(y1+by*shrink+oy)+'" x2="'+(x2-bx*shrink+ox)+'" y2="'+(y2-by*shrink+oy)+'" '+attr+'/>';
+  } else {
+    const off = width*2.1, shrink = 0.22;
+    const bx = x2-x1, by = y2-y1;
+    inner = '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" '+attr+'/>';
+    [1,-1].forEach(sgn=>{
+      const ox = px*off*sgn, oy = py*off*sgn;
+      inner += '<line x1="'+(x1+bx*shrink+ox)+'" y1="'+(y1+by*shrink+oy)+'" x2="'+(x2-bx*shrink+ox)+'" y2="'+(y2-by*shrink+oy)+'" '+attr+'/>';
+    });
   }
-  const off = width*2.1, shrink = 0.22;
-  const bx = x2-x1, by = y2-y1;
-  let out = '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" '+attr+'/>';
-  [1,-1].forEach(sgn=>{
-    const ox = px*off*sgn, oy = py*off*sgn;
-    out += '<line x1="'+(x1+bx*shrink+ox)+'" y1="'+(y1+by*shrink+oy)+'" x2="'+(x2-bx*shrink+ox)+'" y2="'+(y2-by*shrink+oy)+'" '+attr+'/>';
-  });
-  return out;
+
+  // ✅ لف في مجموعة قابلة للتحديث
+  const gid = [a1.id, a2.id].sort().join('-');
+  return '<g class="bond" data-bond="'+gid+'">'+inner+'</g>';
 }
 
 /* ============================================================
@@ -2649,136 +2665,172 @@ function renderStep(step, mol){
 function attachStepListeners(step, mol){
   const stage = document.getElementById('stage');
 
+  /* ==========================================================
+     ÉTAPES : chain & subs — clic sur les atomes
+     ========================================================== */
   if(step === 'chain' || step === 'subs') {
-  const svg = stage.querySelector('svg');
-  stage.querySelectorAll('[data-atom]').forEach(g => {
-    g.addEventListener('click', (e) => {
-      const id = g.dataset.atom;
-      const atom = mol.atoms.find(a => a.id === id);
-      if(!atom) return;
+    const svg = stage.querySelector('svg');
 
-      // تأثير التموج الأزرق فوق النقطة مباشرة دون إعادة رسم
-      triggerSvgAtomRipple(svg, atom.x, atom.y);
-      tapAtomFx(g);
+    stage.querySelectorAll('[data-atom]').forEach(g => {
+      g.addEventListener('click', (e) => {
+        const id = g.dataset.atom;
+        const atom = mol.atoms.find(a => a.id === id);
+        if(!atom) return;
 
-      if(step === 'chain') {
-        if(atom.el !== 'C') {
-          SFX.play('wrong'); shakeApp(); vibrate(40);
-          toast('❌ <b>'+atom.el+'</b> est un halogène : il ne peut pas faire partie de la chaîne principale.');
-          return;
-        }
-        
-        let seq = (state.stepState.tapped || []).slice();
-        const idx = seq.indexOf(id);
-        if(idx >= 0) {
-          seq = seq.slice(0, idx);
-          SFX.play('unselect');
-        } else if(seq.length === 0) {
-          seq = [id];
-          SFX.play('chip', 0);
-        } else {
-          const last = seq[seq.length - 1];
-          const bonded = mol.bonds.some(b => (b[0]===last && b[1]===id) || (b[1]===last && b[0]===id));
-          if(bonded) {
-            seq.push(id);
-            SFX.play('chip', seq.length);
-          } else {
-            SFX.play('unselect');
+        /* ---------- ÉTAPE CHAIN ---------- */
+        if(step === 'chain') {
+
+          // ❌ Halogène : interdit dans la chaîne
+          if(atom.el !== 'C') {
+            SFX.play('wrong'); shakeApp(); vibrate(40);
+            toast('❌ <b>'+atom.el+'</b> est un halogène : il ne peut pas faire partie de la chaîne principale.');
             return;
           }
+
+          // ✅ Animation seulement si l'atome est valide
+          triggerSvgAtomRipple(svg, atom.x, atom.y);
+          tapAtomFx(g);
+
+          let seq = (state.stepState.tapped || []).slice();
+          const idx = seq.indexOf(id);
+
+          if(idx >= 0) {
+            seq = seq.slice(0, idx);
+            SFX.play('unselect');
+          } else if(seq.length === 0) {
+            seq = [id];
+            SFX.play('chip', 0);
+          } else {
+            const last = seq[seq.length - 1];
+            const bonded = mol.bonds.some(b =>
+              (b[0]===last && b[1]===id) || (b[1]===last && b[0]===id));
+            if(bonded) {
+              seq.push(id);
+              SFX.play('chip', seq.length);
+            } else {
+              SFX.play('unselect');
+              return;
+            }
+          }
+          state.stepState.tapped = seq;
+
+          // ✅ Tint des liaisons appartenant à la chaîne
+          const chainBondKeys = new Set();
+          for(let i = 0; i < seq.length - 1; i++){
+            chainBondKeys.add([seq[i], seq[i+1]].sort().join('-'));
+          }
+          stage.querySelectorAll('.bond').forEach(bondG => {
+            const inChain = chainBondKeys.has(bondG.dataset.bond);
+            bondG.querySelectorAll('line').forEach(line => {
+              line.setAttribute('stroke',       inChain ? '#58CC02' : '#3C3C3C');
+              line.setAttribute('stroke-width', inChain ? '6'       : '3.2');
+            });
+          });
+
+          // ✅ Mise à jour visuelle des atomes (halogènes gardent leur couleur)
+          const HAL_COLORS = {O:'#FF4B4B', N:'#1CB0F6', Cl:'#0D9488', Br:'#A16207', F:'#EC4899', I:'#9333EA', S:'#FFC800'};
+
+          stage.querySelectorAll('[data-atom]').forEach(elG => {
+            const aId = elG.dataset.atom;
+            const aData = mol.atoms.find(a => a.id === aId);
+            const shape = elG.querySelector('.atom-shape');
+            const isSelected = seq.includes(aId);
+
+            if(shape && aData) {
+              const isHetero = aData.el !== 'C';
+              const baseFill = isHetero
+                ? (HAL_COLORS[aData.el] || '#CE82FF')
+                : '#3C3C3C';
+
+              if(isSelected){
+                shape.setAttribute('fill',         '#58CC02');
+                shape.setAttribute('stroke',       '#fff');
+                shape.setAttribute('stroke-width', '3');
+              } else {
+                shape.setAttribute('fill',         baseFill);
+                shape.setAttribute('stroke',       isHetero ? '#fff' : 'transparent');
+                shape.setAttribute('stroke-width', isHetero ? '3'    : '0');
+              }
+            }
+
+            // Badge numéroté
+            const existingBadge = elG.querySelector('.num-badge');
+            if(existingBadge) existingBadge.remove();
+
+            const orderNum = seq.indexOf(aId) + 1;
+            if(orderNum > 0) {
+              const at = mol.atoms.find(x => x.id === aId);
+              const badgeG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+              badgeG.setAttribute('class', 'num-badge');
+              badgeG.innerHTML = `<circle cx="${at.x}" cy="${at.y - 24}" r="14" fill="#fff" stroke="#58CC02" stroke-width="3"/>
+                                  <text x="${at.x}" y="${at.y - 19}" text-anchor="middle" font-size="14" font-weight="900" fill="#58CC02">${orderNum}</text>`;
+              elG.appendChild(badgeG);
+            }
+          });
+
+          const cnt = document.getElementById('chain-count');
+          if(cnt) cnt.textContent = seq.length;
+          updateVerifyState();
         }
-        state.stepState.tapped = seq;
-        
-        // تحديث المظهر البصري للعناصر فقط في الـ DOM الحالي
-        stage.querySelectorAll('[data-atom]').forEach(elG => {
-          const aId = elG.dataset.atom;
-          const shape = elG.querySelector('.atom-shape');
-          const isSelected = seq.includes(aId);
+
+        /* ---------- ÉTAPE SUBS ---------- */
+        if(step === 'subs') {
+          const chainSet = new Set(state.chainSequence);
+          if(chainSet.has(id)) return;   // Atome de la chaîne → ignoré
+
+          // ✅ Animation seulement si l'atome est valide
+          triggerSvgAtomRipple(svg, atom.x, atom.y);
+          tapAtomFx(g);
+
+          let arr = (state.stepState.subs || []).slice();
+          const idx = arr.indexOf(id);
+
+          if(idx >= 0) {
+            arr.splice(idx, 1);
+            SFX.play('unselect');
+          } else {
+            arr.push(id);
+            SFX.play('select');
+            vibrate(8);
+          }
+          state.stepState.subs = arr;
+
+          // Mise à jour visuelle
+          const shape = g.querySelector('.atom-shape');
           if(shape) {
-            shape.setAttribute('fill', isSelected ? '#58CC02' : '#3C3C3C');
-            shape.setAttribute('stroke', isSelected ? '#fff' : 'transparent');
-            shape.setAttribute('stroke-width', isSelected ? '3' : '0');
+            const isSub = arr.includes(id);
+            const HAL_COLORS = {O:'#FF4B4B', N:'#1CB0F6', Cl:'#0D9488', Br:'#A16207', F:'#EC4899', I:'#9333EA', S:'#FFC800'};
+            const restoreColor = atom.el === 'C' ? '#3C3C3C' : (HAL_COLORS[atom.el] || '#3C3C3C');
+            shape.setAttribute('fill', isSub ? '#FFC800' : restoreColor);
           }
-          // تحديث أو إزالة شارة الترقيم
-          const existingBadge = elG.querySelector('.num-badge');
-          if(existingBadge) existingBadge.remove();
-          
-          const orderNum = seq.indexOf(aId) + 1;
-          if(orderNum > 0) {
-            const at = mol.atoms.find(x => x.id === aId);
-            const badgeG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            badgeG.setAttribute('class', 'num-badge');
-            badgeG.innerHTML = `<circle cx="${at.x}" cy="${at.y - 24}" r="14" fill="#fff" stroke="#58CC02" stroke-width="3"/>
-                                <text x="${at.x}" y="${at.y - 19}" text-anchor="middle" font-size="14" font-weight="900" fill="#58CC02">${orderNum}</text>`;
-            elG.appendChild(badgeG);
-          }
-        });
-        
-        const cnt = document.getElementById('chain-count');
-        if(cnt) cnt.textContent = seq.length;
-        updateVerifyState();
-      }
 
-      if(step === 'subs') {
-        const chainSet = new Set(state.chainSequence);
-        if(chainSet.has(id)) return;
-
-        let arr = (state.stepState.subs || []).slice();
-        const idx = arr.indexOf(id);
-        if(idx >= 0) { arr.splice(idx, 1); SFX.play('unselect'); }
-        else { arr.push(id); SFX.play('select'); }
-        state.stepState.subs = arr;
-
-        const shape = g.querySelector('.atom-shape');
-        if(shape) {
-          const isSub = arr.includes(id);
-          shape.setAttribute('fill', isSub ? '#FFC800' : (atom.el !== 'C' ? '#0D9488' : '#3C3C3C'));
+          const cnt = document.getElementById('subs-count');
+          if(cnt) cnt.textContent = arr.length;
+          updateVerifyState();
         }
-
-        const cnt = document.getElementById('subs-count');
-        if(cnt) cnt.textContent = arr.length;
-        updateVerifyState();
-      }
-    });
-  });
-}
-
-  if(step==='subs'){
-    stage.querySelectorAll('[data-atom]').forEach(g=>{
-      g.addEventListener('click', ()=>{
-        const id = g.dataset.atom;
-        const chainSet = new Set(state.chainSequence);
-        if(chainSet.has(id)) return;
-
-        const arr = (state.stepState.subs || []).slice();
-        const idx = arr.indexOf(id);
-        if(idx>=0){ arr.splice(idx,1); SFX.play('unselect'); }
-        else { arr.push(id); SFX.play('select'); tapAtomFx(g); vibrate(8); }
-        state.stepState.subs = arr;
-
-        stage.innerHTML = renderMolecule(mol, {chain:state.chainSequence, subs:arr, interactive:true});
-        attachStepListeners('subs', mol);
-        const cnt = document.getElementById('subs-count');
-        if(cnt) cnt.textContent = arr.length;
-        updateVerifyState();
       });
     });
   }
 
-  if(step==='name'){
+  /* ==========================================================
+     ÉTAPE : name — clic sur les morceaux (chips)
+     ========================================================== */
+  if(step === 'name'){
     const chipsBox = document.getElementById('chips');
-    const slot = document.getElementById('name-slot');
+    const slot     = document.getElementById('name-slot');
 
     const refreshSlot = () => {
       const arr = (state.stepState.namePieces || []);
       const usedSet = new Set(arr);
-      chipsBox.querySelectorAll('.chip').forEach(c=>{
+
+      chipsBox.querySelectorAll('.chip').forEach(c => {
         c.classList.toggle('used', usedSet.has(c.dataset.tok));
       });
+
       slot.innerHTML = '';
-      arr.forEach(tok=>{
+      arr.forEach(tok => {
         const piece = el('<span class="piece">'+escapeHtml(tok)+'</span>');
-        piece.addEventListener('click', ()=>{
+        piece.addEventListener('click', () => {
           const cur = (state.stepState.namePieces || []).slice();
           const i = cur.indexOf(tok);
           if(i >= 0) cur.splice(i, 1);
@@ -2789,21 +2841,24 @@ function attachStepListeners(step, mol){
         });
         slot.appendChild(piece);
       });
+
       slot.classList.toggle('empty', arr.length === 0);
     };
 
-    chipsBox.querySelectorAll('.chip').forEach(c=>{
-      c.addEventListener('click', ()=>{
+    chipsBox.querySelectorAll('.chip').forEach(c => {
+      c.addEventListener('click', () => {
         const tok = c.dataset.tok;
         const arr = (state.stepState.namePieces || []).slice();
         if(arr.includes(tok)) return;
         arr.push(tok);
-        SFX.play('chip', arr.length - 1); vibrate(8);
+        SFX.play('chip', arr.length - 1);
+        vibrate(8);
         state.stepState.namePieces = arr;
         refreshSlot();
         updateVerifyState();
       });
     });
+
     refreshSlot();
   }
 }
@@ -3220,24 +3275,22 @@ triggerVictoryShockwave(wrap.querySelector('.sheet.finish'));
 }
 
 function triggerVictoryShockwave(originEl) {
-  const layer = document.createElement('div');
-  layer.className = 'victory-wave-layer';
+  if(!originEl) return;
   
-  // 1. التوهج الشامل
-  const rad = document.createElement('div');
-  rad.className = 'screen-radiance';
-  layer.appendChild(rad);
-
-  // 2. الحلقات الثلاث المتتابعة
-  for(let i=0; i<3; i++){
-    const ring = document.createElement('div');
-    ring.className = 'shockwave-ring';
-    layer.appendChild(ring);
-  }
-  document.body.appendChild(layer);
-
-  // حذف العنصر تلقائياً بعد اكتمال الأنيميشن
-  setTimeout(() => layer.remove(), 1600);
+  // وميض أخضر خفيف
+  const flash = document.createElement('div');
+  flash.style.cssText = 'position:fixed;inset:0;z-index:120;pointer-events:none;'
+    + 'background:rgba(88,204,2,.28);'
+    + 'animation:simpleVictoryFlash .55s ease-out forwards';
+  document.body.appendChild(flash);
+  setTimeout(()=> flash.remove(), 600);
+  
+  // نبضة للبطاقة
+  originEl.animate([
+    { transform: 'scale(1)' },
+    { transform: 'scale(1.045)' },
+    { transform: 'scale(1)' }
+  ], { duration: 620, easing: 'cubic-bezier(.34,1.4,.5,1)' });
 }
 function triggerSvgAtomRipple(svg, cx, cy) {
   const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
