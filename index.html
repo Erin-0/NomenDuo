@@ -4829,7 +4829,7 @@
                 svg += '<g class="atom-hit" ' + (interactive ? 'data-atom="' + a.id + '"' : '') + '>';
 
                 // ── Transparent hit target (large, for touch) ────────────────
-                svg += '<circle cx="' + a.x + '" cy="' + a.y + '" r="28" fill="transparent" class="atom-hit-circle"/>';
+                svg += '<circle cx="' + a.x + '" cy="' + a.y + '" r="32" fill="#000" opacity="0" class="atom-hit-circle" style="pointer-events:all;cursor:pointer;"/>';
 
                 if (isHetero) {
                     // Heteroatoms: coloured filled circle with element label
@@ -4843,13 +4843,16 @@
                 } else {
                     // Pure carbon atoms: no visible dot in topological style.
                     // BUT when selected (chain / subs / etc.) show a tasteful indicator.
+                    // Pure carbon atoms:
                     if (inChain || isSub || isBad || isGood) {
                         const dotColor = isBad ? '#FF4B4B' : (isSub ? '#FFC800' : '#58CC02');
-                        const dotR = 9;
-                        svg += '<circle class="atom-shape" cx="' + a.x + '" cy="' + a.y + '" r="' + dotR + '" fill="' + dotColor + '" stroke="#fff" stroke-width="2"/>';
+                        // نقطة مفصل صغيرة وأنيقة جداً تبرز زاوية الكربون دون تشويه الخطوط
+                        svg += '<circle class="atom-shape" cx="' + a.x + '" cy="' + a.y + '" r="5.5" fill="' + dotColor + '" stroke="#fff" stroke-width="1.5"/>';
                     } else {
-                        // Invisible but class present so JS can still querySelector it
-                        svg += '<circle class="atom-shape" cx="' + a.x + '" cy="' + a.y + '" r="6" fill="transparent" stroke="none"/>';
+                        // مخفية تماماً قبل التحديد
+
+                        // رسم طبيعي بدون أي نقاط مرئية للكربون غير المحدد
+                        svg += '<circle class="atom-shape" cx="' + a.x + '" cy="' + a.y + '" r="6" fill="transparent" stroke="none" stroke-width="0"/>';
                     }
                 }
 
@@ -4872,19 +4875,20 @@
             const dx = a2.x - a1.x, dy = a2.y - a1.y;
             const len = Math.hypot(dx, dy) || 1;
             const ux = dx / len, uy = dy / len;
-            const px = -uy, py = ux; // العمودي على الرابطة
+            const px = -uy, py = ux;
             const x1 = a1.x + ux * r1, y1 = a1.y + uy * r1;
             const x2 = a2.x - ux * r2, y2 = a2.y - uy * r2;
 
-            const isChain = width > 4; // هل الرابطة محددة بالأخضر؟
+            const isChain = width > 4;
+
+            // Wide invisible line for touch detection
+            const hitLine = `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#000" opacity="0" stroke-width="28" class="bond-hit" style="pointer-events:stroke;cursor:pointer;"/>`;
 
             let inner = '';
             if (order === 1) {
-                // الرابطة الأحادية تأخذ سُمكاً عريضاً وواضحاً
                 const w = isChain ? 5.5 : 3.0;
                 inner = `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${w}" stroke-linecap="round"/>`;
             } else if (order === 2) {
-                // الرابطة الثنائية: خطان متوازيان بمسافة تمنع الاندماج
                 const off = isChain ? 5.0 : 4.0;
                 const w = isChain ? 3.0 : 2.5;
                 const ox = px * off, oy = py * off;
@@ -4892,7 +4896,6 @@
                 inner = `<line x1="${x1 + ox}" y1="${y1 + oy}" x2="${x2 + ox}" y2="${y2 + oy}" ${attr}/>`
                     + `<line x1="${x1 - ox}" y1="${y1 - oy}" x2="${x2 - ox}" y2="${y2 - oy}" ${attr}/>`;
             } else {
-                // 💎 الرابطة الثلاثية: 3 خطوط متوازية بمسافة واسعة وسُمك رشيق يمنع الاندماج نهائياً
                 const off = isChain ? 6.8 : 5.5;
                 const w = isChain ? 2.6 : 2.2;
                 const ox = px * off, oy = py * off;
@@ -4903,8 +4906,7 @@
             }
 
             const gid = [a1.id, a2.id].sort().join('-');
-            // حفظ نوع الرابطة في data-order لكي يعرفها كود النقر
-            return `<g class="bond" data-bond="${gid}" data-order="${order}">${inner}</g>`;
+            return `<g class="bond" data-bond="${gid}" data-order="${order}">${hitLine}${inner}</g>`;
         }
 
         /* ============================================================
@@ -5250,7 +5252,9 @@
                                     seq.push(id);
                                     SFX.play('chip', seq.length);
                                 } else {
-                                    SFX.play('unselect');
+                                    SFX.play('wrong');
+                                    shakeApp();
+                                    toast('⚠️ Touche le carbone adjacent (relié au carbone ' + seq.length + ') !');
                                     return;
                                 }
                             }
@@ -5296,17 +5300,18 @@
                                 const visShape = elG.querySelector('.atom-shape');
                                 if (visShape && !isHetero) {
                                     if (isSelected) {
-                                        visShape.setAttribute('r', '9');
+                                        visShape.setAttribute('r', '5.5');
                                         visShape.setAttribute('fill', '#58CC02');
                                         visShape.setAttribute('stroke', '#fff');
-                                        visShape.setAttribute('stroke-width', '2');
+                                        visShape.setAttribute('stroke-width', '1.5');
                                     } else {
-                                        visShape.setAttribute('r', '6');
+                                        visShape.setAttribute('r', '5');
                                         visShape.setAttribute('fill', 'transparent');
                                         visShape.setAttribute('stroke', 'none');
                                         visShape.setAttribute('stroke-width', '0');
                                     }
                                 }
+
                                 // Heteroatoms keep their element colour — no change needed
 
                                 // ── External chain-number label (text, not badge circle) ──
