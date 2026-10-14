@@ -3275,10 +3275,25 @@
             },
 
             chlorohexenyne: {
-                id: 'chlorohexenyne', name: '3-chlorohex-1-èn-5-yne', formula: 'C₆H₇Cl', family: 'composé mixte',
-                atoms: [{ id: 'a', el: 'C', x: 50, y: 200 }, { id: 'b', el: 'C', x: 130, y: 150 }, { id: 'c', el: 'C', x: 210, y: 200 }, { id: 'd', el: 'C', x: 290, y: 150 }, { id: 'e', el: 'C', x: 370, y: 200 }, { id: 'f', el: 'C', x: 450, y: 150 }, { id: 'x', el: 'Cl', x: 210, y: 295 }],
-                bonds: [['a', 'b', 2], ['b', 'c', 1], ['c', 'd', 1], ['d', 'e', 1], ['e', 'f', 3], ['c', 'x', 1]],
-                tokens: ['3-chloro', 'hex', '-1-èn', '-5-yne'], distractors: ['4-chloro', '-5-èn', '-1-yne', 'hept', '-2-èn', '-4-yne']
+                id: 'chlorohexenyne', name: '3-chlorohex-1-èn-5-yne', formula: 'C₆H₇Cl',
+                family: 'composé mixte',
+                atoms: [
+                    // الرابطة المزدوجة وبداية الزجزاج C1 = C2 - C3 - C4
+                    { id: 'a', el: 'C', x: 50, y: 200 },
+                    { id: 'b', el: 'C', x: 130, y: 150 },
+                    { id: 'c', el: 'C', x: 210, y: 200 },
+                    { id: 'd', el: 'C', x: 290, y: 150 },
+                    // ✅ C4 - C5 ≡ C6 على استقامة أفقية واحدة 180° (y = 150)
+                    { id: 'e', el: 'C', x: 370, y: 150 },
+                    { id: 'f', el: 'C', x: 450, y: 150 },
+                    { id: 'x', el: 'Cl', x: 210, y: 290 }
+                ],
+                bonds: [
+                    ['a', 'b', 2], ['b', 'c', 1], ['c', 'd', 1],
+                    ['d', 'e', 1], ['e', 'f', 3], ['c', 'x', 1]
+                ],
+                tokens: ['3-chloro', 'hex', '-1-èn', '-5-yne'],
+                distractors: ['4-chloro', '-5-èn', '-1-yne', 'hept', '-2-èn', '-4-yne']
             },
 
             chloroethylpentyne: {
@@ -3432,14 +3447,23 @@
                 id: 'ethyl_dimethyl_pentane', name: '3-éthyl-2,2-diméthylpentane', formula: 'C₉H₂₀',
                 family: 'alcane ramifié',
                 atoms: [
-                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
-                    { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 },
-                    { id: 'm1', el: 'C', x: 60, y: 80 }, { id: 'm2', el: 'C', x: 180, y: 80 },
-                    { id: 'e1', el: 'C', x: 190, y: 300 }, { id: 'e2', el: 'C', x: 190, y: 370 }
+                    // السلسلة الرئيسية بزجزاج طبيعي
+                    { id: 'c1', el: 'C', x: 50, y: 200 },
+                    { id: 'c2', el: 'C', x: 130, y: 150 },
+                    { id: 'c3', el: 'C', x: 210, y: 200 },
+                    { id: 'c4', el: 'C', x: 290, y: 150 },
+                    { id: 'c5', el: 'C', x: 370, y: 200 },
+                    // تفرعات الميثيل على C2
+                    { id: 'm1', el: 'C', x: 130, y: 65 },
+                    { id: 'm2', el: 'C', x: 65, y: 105 },
+                    // ✅ جذر الإيثيل بزجزاج متناسق (e1 تنزل و e2 تنكسر لليمين)
+                    { id: 'e1', el: 'C', x: 210, y: 285 },
+                    { id: 'e2', el: 'C', x: 280, y: 325 }
                 ],
                 bonds: [
                     ['c1', 'c2', 1], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1],
-                    ['c2', 'm1', 1], ['c2', 'm2', 1], ['c3', 'e1', 1], ['e1', 'e2', 1]
+                    ['c2', 'm1', 1], ['c2', 'm2', 1],
+                    ['c3', 'e1', 1], ['e1', 'e2', 1]
                 ],
                 tokens: ['3-éthyl', '-2,2-diméthyl', 'pentane'],
                 distractors: ['2-éthyl', '-3,3-diméthyl', 'hexane', '3,3-diméthyl', '-2-éthylhexane']
@@ -3588,11 +3612,18 @@
                 id: 'methyl_but1yne', name: '3-méthylbut-1-yne', formula: 'C₅H₈',
                 family: 'alcyne ramifié',
                 atoms: [
-                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
-                    { id: 'c4', el: 'C', x: 260, y: 150 },
-                    { id: 'm', el: 'C', x: 190, y: 300 }
+                    // C1 ≡ C2 - C3 على خط أفقي مستقيم تماماً (y = 180)
+                    { id: 'c1', el: 'C', x: 70, y: 180 },
+                    { id: 'c2', el: 'C', x: 160, y: 180 },
+                    { id: 'c3', el: 'C', x: 250, y: 180 },
+                    // تفرع الميثيلين على شكل شوكة متناسقة من C3
+                    { id: 'c4', el: 'C', x: 330, y: 130 },
+                    { id: 'm', el: 'C', x: 330, y: 230 }
                 ],
-                bonds: [['c1', 'c2', 3], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c3', 'm', 1]],
+                bonds: [
+                    ['c1', 'c2', 3], ['c2', 'c3', 1],
+                    ['c3', 'c4', 1], ['c3', 'm', 1]
+                ],
                 tokens: ['3-méthyl', 'but', '-1-yne'],
                 distractors: ['2-méthyl', 'but-2-yne', 'pent-1-yne', '3-méthylbut-2-yne']
             },
@@ -3602,11 +3633,19 @@
                 id: 'methyl_pent1yne', name: '4-méthylpent-1-yne', formula: 'C₆H₁₀',
                 family: 'alcyne ramifié',
                 atoms: [
-                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
-                    { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 },
-                    { id: 'm', el: 'C', x: 260, y: 60 }
+                    // C1 ≡ C2 - C3 مستقيمة خطياً (y = 180)
+                    { id: 'c1', el: 'C', x: 60, y: 180 },
+                    { id: 'c2', el: 'C', x: 150, y: 180 },
+                    { id: 'c3', el: 'C', x: 240, y: 180 },
+                    // يبدأ الزجزاج عند C4 و C5
+                    { id: 'c4', el: 'C', x: 320, y: 135 },
+                    { id: 'c5', el: 'C', x: 400, y: 180 },
+                    { id: 'm', el: 'C', x: 320, y: 55 }
                 ],
-                bonds: [['c1', 'c2', 3], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1], ['c4', 'm', 1]],
+                bonds: [
+                    ['c1', 'c2', 3], ['c2', 'c3', 1], ['c3', 'c4', 1],
+                    ['c4', 'c5', 1], ['c4', 'm', 1]
+                ],
                 tokens: ['4-méthyl', 'pent', '-1-yne'],
                 distractors: ['2-méthyl', 'pent-2-yne', 'hex-1-yne', '3-méthylpent-1-yne']
             },
@@ -3616,9 +3655,13 @@
                 id: 'dimethyl_but1yne', name: '3,3-diméthylbut-1-yne', formula: 'C₆H₁₀',
                 family: 'alcyne ramifié',
                 atoms: [
-                    { id: 'c1', el: 'C', x: 50, y: 180 }, { id: 'c2', el: 'C', x: 120, y: 130 }, { id: 'c3', el: 'C', x: 190, y: 180 },
-                    { id: 'c4', el: 'C', x: 260, y: 130 },
-                    { id: 'm1', el: 'C', x: 140, y: 260 }, { id: 'm2', el: 'C', x: 240, y: 260 }
+                    // C1 ≡ C2 - C3 - C4 مستقيمة خطياً مع تفرعين متعامدين على C3
+                    { id: 'c1', el: 'C', x: 70, y: 180 },
+                    { id: 'c2', el: 'C', x: 160, y: 180 },
+                    { id: 'c3', el: 'C', x: 250, y: 180 },
+                    { id: 'c4', el: 'C', x: 340, y: 180 },
+                    { id: 'm1', el: 'C', x: 250, y: 95 },
+                    { id: 'm2', el: 'C', x: 250, y: 265 }
                 ],
                 bonds: [
                     ['c1', 'c2', 3], ['c2', 'c3', 1], ['c3', 'c4', 1],
@@ -3712,14 +3755,23 @@
                 id: 'diethyl_pentane', name: '3,3-diéthylpentane', formula: 'C₉H₂₀',
                 family: 'alcane symétrique ramifié',
                 atoms: [
-                    { id: 'c1', el: 'C', x: 40, y: 200 }, { id: 'c2', el: 'C', x: 110, y: 150 }, { id: 'c3', el: 'C', x: 180, y: 200 },
-                    { id: 'c4', el: 'C', x: 250, y: 150 }, { id: 'c5', el: 'C', x: 320, y: 200 },
-                    { id: 'e1a', el: 'C', x: 180, y: 110 }, { id: 'e2a', el: 'C', x: 180, y: 40 },
-                    { id: 'e1b', el: 'C', x: 180, y: 290 }, { id: 'e2b', el: 'C', x: 180, y: 360 }
+                    // السلسلة الرئيسية
+                    { id: 'c1', el: 'C', x: 50, y: 200 },
+                    { id: 'c2', el: 'C', x: 130, y: 150 },
+                    { id: 'c3', el: 'C', x: 210, y: 200 },
+                    { id: 'c4', el: 'C', x: 290, y: 150 },
+                    { id: 'c5', el: 'C', x: 370, y: 200 },
+                    // ✅ الإيثيل العلوي بزجزاج للأعلى واليسار
+                    { id: 'e1a', el: 'C', x: 210, y: 120 },
+                    { id: 'e2a', el: 'C', x: 150, y: 80 },
+                    // ✅ الإيثيل السفلي بزجزاج للأسفل واليمين
+                    { id: 'e1b', el: 'C', x: 210, y: 280 },
+                    { id: 'e2b', el: 'C', x: 270, y: 320 }
                 ],
                 bonds: [
                     ['c1', 'c2', 1], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1],
-                    ['c3', 'e1a', 1], ['e1a', 'e2a', 1], ['c3', 'e1b', 1], ['e1b', 'e2b', 1]
+                    ['c3', 'e1a', 1], ['e1a', 'e2a', 1],
+                    ['c3', 'e1b', 1], ['e1b', 'e2b', 1]
                 ],
                 tokens: ['3,3-diéthyl', 'pentane'],
                 distractors: ['3-éthyl', 'pentane', '2,2-diéthylpentane', 'heptane', '3,3-diéthylbutane']
@@ -3730,15 +3782,26 @@
                 id: 'ethyl_trimethyl_pentane', name: '3-éthyl-2,2,4-triméthylpentane', formula: 'C₁₀H₂₂',
                 family: 'alcane poly-substitué',
                 atoms: [
-                    { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
-                    { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 },
-                    { id: 'm1', el: 'C', x: 60, y: 80 }, { id: 'm2', el: 'C', x: 180, y: 80 },
-                    { id: 'e1', el: 'C', x: 190, y: 300 }, { id: 'e2', el: 'C', x: 190, y: 370 },
-                    { id: 'm4', el: 'C', x: 260, y: 60 }
+                    // السلسلة الرئيسية
+                    { id: 'c1', el: 'C', x: 50, y: 200 },
+                    { id: 'c2', el: 'C', x: 130, y: 150 },
+                    { id: 'c3', el: 'C', x: 210, y: 200 },
+                    { id: 'c4', el: 'C', x: 290, y: 150 },
+                    { id: 'c5', el: 'C', x: 370, y: 200 },
+                    // ميثيل C2
+                    { id: 'm1', el: 'C', x: 130, y: 65 },
+                    { id: 'm2', el: 'C', x: 65, y: 105 },
+                    // ميثيل C4
+                    { id: 'm4', el: 'C', x: 290, y: 65 },
+                    // ✅ الإيثيل متعرج زجزاج بشكل جذاب
+                    { id: 'e1', el: 'C', x: 210, y: 285 },
+                    { id: 'e2', el: 'C', x: 280, y: 325 }
                 ],
                 bonds: [
                     ['c1', 'c2', 1], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 1],
-                    ['c2', 'm1', 1], ['c2', 'm2', 1], ['c3', 'e1', 1], ['e1', 'e2', 1], ['c4', 'm4', 1]
+                    ['c2', 'm1', 1], ['c2', 'm2', 1],
+                    ['c3', 'e1', 1], ['e1', 'e2', 1],
+                    ['c4', 'm4', 1]
                 ],
                 tokens: ['3-éthyl', '-2,2,4-triméthyl', 'pentane'],
                 distractors: ['3-isopropyl', '-2,2-diméthylpentane', '2,2,4-triméthylhexane', '4-éthyl', '-2,2,3-triméthylpentane']
@@ -3954,9 +4017,9 @@
                 icon: '🎓', color: '#E11D48', colorD: '#BE123C',
                 tip: '<b>Points clés de l\'amphi :</b><br>1) <b>sec-butyle</b> est lié par son carbone secondaire (C2).<br>2) En cas d\'égalité de longueur, on choisit la chaîne avec <b>le plus grand nombre de ramifications</b>.<br>3) Les insaturations dans les radicaux prennent le suffixe <b>-ényle</b> ou <b>-ynyle</b>.',
                 levels: [
-                    { mol: 'secbutyl_octane', steps: ['chain', 'rad_num', 'name'] },
-                    { mol: 'propenyl_heptadiene', steps: ['chain', 'rad_num', 'name'] },
-                    { mol: 'propynyl_heptadiene', steps: ['chain', 'rad_num', 'name'] },
+                    { mol: 'secbutyl_octane', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'propenyl_heptadiene', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'propynyl_heptadiene', steps: ['chain', 'subs', 'name'] },
                     { mol: 'prof_complex_alkane', steps: ['chain', 'subs', 'name'] }
                 ]
             },
@@ -3971,8 +4034,8 @@
                     { mol: 'ethyl_methyl_pentane', steps: ['chain', 'subs', 'name'] },
                     { mol: 'trimethyl_pentane', steps: ['chain', 'subs', 'name'] },
                     { mol: 'ethyl_dimethyl_pentane', steps: ['chain', 'subs', 'name'] },
-                    { mol: 'isopropyl_heptane', steps: ['chain', 'rad_num', 'name'] },
-                    { mol: 'tertbutyl_hexane', steps: ['chain', 'rad_num', 'name'] },
+                    { mol: 'isopropyl_heptane', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'tertbutyl_hexane', steps: ['chain', 'subs', 'name'] },
                     { mol: 'ethyl_methyl_hexane', steps: ['chain', 'subs', 'name'] }
                 ]
             },
@@ -4017,8 +4080,8 @@
                 levels: [
                     { mol: 'isoprene', steps: ['chain', 'subs', 'name'] },
                     { mol: 'methyl_heptadiene', steps: ['chain', 'subs', 'name'] },
-                    { mol: 'propenyl_heptadiene_16', steps: ['chain', 'rad_num', 'name'] },
-                    { mol: 'propynyl_heptadiene_16', steps: ['chain', 'rad_num', 'name'] }
+                    { mol: 'propenyl_heptadiene_16', steps: ['chain', 'subs', 'name'] },
+                    { mol: 'propynyl_heptadiene_16', steps: ['chain', 'subs', 'name'] }
                 ]
             },
 
@@ -5163,19 +5226,7 @@
             }
 
             // ✅ هنا المكان الصحيح حيث q معرّف وموجود!
-            if (step === 'rad_num') {
-                const tapped = q.radTapped || [];
-                return {
-                    title: 'Numérote le radical complexe',
-                    subtitle: "Touche les atomes de la ramification dans l'ordre. <b>Le carbone 1' est TOUJOURS celui lié à la chaîne principale</b>.",
-                    hint: "Règle d'or : l'indice 1' est imposé par le point d'attache, peu importe les liaisons multiples !",
-                    molecule: renderMolecule(mol, { chain: state.chainSequence, subs: tapped, interactive: true }),
-                    answers: '<div style="text-align:center;color:#AFAFAF;font-weight:800;font-size:13px">'
-                        + 'Numérotation du radical : <b style="color:#F59E0B" id="rad-count">' + tapped.length + '</b>'
-                        + (tapped.length > 0 ? " · touche le dernier pour annuler" : '')
-                        + '</div>'
-                };
-            }
+
 
             if (step === 'name') {
                 const pool = buildNamePool(mol);
@@ -5384,63 +5435,7 @@
                             if (cnt) cnt.textContent = arr.length;
                             updateVerifyState();
                         }
-                        if (step === 'rad_num') {
-                            const chainSet = new Set(state.chainSequence);
 
-                            // ❌ منع النقر على ذرات السلسلة الرئيسية
-                            if (chainSet.has(id)) return;
-
-                            // ✅ نفس منطق السلسلة لكن مع شارات برتقالية
-                            let seq = (state.stepState.radTapped || []).slice();
-                            const idx = seq.indexOf(id);
-
-                            if (idx >= 0) {
-                                seq = seq.slice(0, idx);
-                                SFX.play('unselect');
-                            } else if (seq.length === 0) {
-                                seq = [id];
-                                SFX.play('chip', 0);
-                                tapAtomFx(g);
-                            } else {
-                                const last = seq[seq.length - 1];
-                                const bonded = mol.bonds.some(b =>
-                                    (b[0] === last && b[1] === id) || (b[1] === last && b[0] === id)
-                                );
-                                if (bonded) {
-                                    seq.push(id);
-                                    SFX.play('chip', seq.length);
-                                    tapAtomFx(g);
-                                } else {
-                                    SFX.play('unselect');
-                                    return;
-                                }
-                            }
-                            state.stepState.radTapped = seq;
-
-                            // ✅ تحديث الشارات (1'، 2'، 3' ...)
-                            stage.querySelectorAll('[data-atom]').forEach(elG => {
-                                const aId = elG.dataset.atom;
-                                if (chainSet.has(aId)) return;
-
-                                const existing = elG.querySelector('.rad-badge');
-                                if (existing) existing.remove();
-
-                                const orderNum = seq.indexOf(aId) + 1;
-                                if (orderNum > 0) {
-                                    const at = mol.atoms.find(x => x.id === aId);
-                                    const badgeG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-                                    badgeG.setAttribute('class', 'rad-badge');
-                                    badgeG.innerHTML = `
-                <circle cx="${at.x}" cy="${at.y - 22}" r="13"/>
-                <text x="${at.x}" y="${at.y - 17}" text-anchor="middle">${orderNum}'</text>`;
-                                    elG.appendChild(badgeG);
-                                }
-                            });
-
-                            const cnt = document.getElementById('rad-count');
-                            if (cnt) cnt.textContent = seq.length;
-                            updateVerifyState();
-                        }
                     });
                 });
             }
