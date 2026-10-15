@@ -4088,7 +4088,7 @@
             /* ------------------ MONDE E : SYNTHÈSE ------------------------------ */
             {
                 id: 'pack2_master', section: true,
-                title: '🏆 Synthèse · Cas difficiles',
+                title: 'Cas difficiles',
                 subtitle: 'Chaîne la plus ramifiée et symétrie',
                 icon: '🎓', color: '#E11D48', colorD: '#BE123C',
                 tip: '<b>Règle d\'or :</b><br>En cas d\'égalité de longueur, on choisit la chaîne qui porte <b>le plus grand nombre de ramifications</b>.<br>Ex. : entre <i>pentane substitué</i> et <i>isopropylpentane</i>, la première l\'emporte car elle porte 4 substituants contre 3.',
@@ -4201,6 +4201,33 @@
                 close() { tone(600, 0, .08, { type: 'triangle', vol: .18, slideTo: 400 }); },
                 start() { [N.G4, N.C5, N.E5].forEach((f, i) => tone(f, i * .07, .14, { type: 'triangle', vol: .25 })); }
             };
+            /* ---- External audio file playback (mp3, wav, ogg…) ---- */
+            const _fileCache = {};
+            function playFile(src, opts) {
+                if (!enabled) return;
+                opts = opts || {};
+                try {
+                    let a = _fileCache[src];
+                    if (!a) {
+                        a = new Audio(src);
+                        a.preload = 'auto';
+                        _fileCache[src] = a;
+                    }
+                    a.currentTime = 0;
+                    a.volume = opts.volume == null ? 1 : opts.volume;
+                    const p = a.play();
+                    if (p && p.catch) p.catch(() => { }); // ignore autoplay errors
+                } catch (e) { /* ignore */ }
+            }
+            function preloadFile(src) {
+                try {
+                    if (!_fileCache[src]) {
+                        const a = new Audio(src);
+                        a.preload = 'auto';
+                        _fileCache[src] = a;
+                    }
+                } catch (e) { }
+            }
 
             return {
                 play(name, arg) { try { if (!enabled) return; init(); sounds[name] && sounds[name](arg); } catch (e) { } },
@@ -4211,7 +4238,9 @@
                     try { localStorage.setItem('nomenduo_sound', enabled ? '1' : '0'); } catch (e) { }
                     if (enabled) { init(); sounds.pop(); }
                     return enabled;
-                }
+                },
+                playFile,        // ← ADD
+                preloadFile      // ← ADD
             };
         })();
         /* débloque l'audio dès la 1re interaction (exigé par les navigateurs) */
@@ -4471,106 +4500,207 @@
         }
 
         /* ============================================================
-           DISTRACTEURS
+           DISTRACTEURS — Moteur centré sur le NOM (pas sur les indices)
+           ────────────────────────────────────────────────────────────
+           Philosophie :
+           • Les variations d'INDICES (2-méthyl → 3-méthyl) sont FACILES
+             → on les limite au strict minimum (1 seule par token).
+           • Les variations de NOM (butane → pentane, méthyl → éthyl,
+             chloro → bromo, -ane → -ène, alkyle → cycloalkyle) sont
+             DIFFICILES → on les multiplie.
            ============================================================ */
+
         const CHAIN_PREFIXES = ['méth', 'éth', 'prop', 'but', 'pent', 'hex', 'hept', 'oct', 'non', 'déc', 'undéc', 'dodéc'];
         const CHAIN_SUFFIXES = ['ane', 'ène', 'yne'];
+        const UNSAT_SUFFIXES = ['ène', 'yne'];
 
-        function generateLocantVariants(token) {
-            const variants = new Set();
-            let m = token.match(/^(\d+(?:,\d+)*)-(.*)$/);
-            if (m) {
-                const nums = m[1].split(',').map(Number);
-                const suffix = m[2];
-                for (let i = 0; i < nums.length; i++) {
-                    for (const d of [-1, 1]) {
-                        if (nums[i] + d >= 1) {
-                            const nn = nums.slice(); nn[i] = nums[i] + d;
-                            nn.sort((a, b) => a - b);
-                            variants.add(nn.join(',') + '-' + suffix);
-                        }
-                    }
-                }
-            }
-            m = token.match(/^-(\d+(?:,\d+)*)-(.*)$/);
-            if (m) {
-                const nums = m[1].split(',').map(Number);
-                const suffix = m[2];
-                for (let i = 0; i < nums.length; i++) {
-                    for (const d of [-1, 1]) {
-                        if (nums[i] + d >= 1) {
-                            const nn = nums.slice(); nn[i] = nums[i] + d;
-                            nn.sort((a, b) => a - b);
-                            variants.add('-' + nn.join(',') + '-' + suffix);
-                        }
-                    }
-                }
-            }
-            return [...variants];
-        }
-
-        function generateChainVariants(token) {
-            const variants = new Set();
-            const lower = token.toLowerCase();
-            for (const ch of CHAIN_PREFIXES) {
-                if (lower.startsWith(ch)) {
-                    const rest = token.slice(ch.length);
-                    if (rest === '' || CHAIN_SUFFIXES.includes(rest)) {
-                        for (const ch2 of CHAIN_PREFIXES) {
-                            if (ch2 === ch) continue;
-                            variants.add(ch2 + rest);
-                        }
-                    }
-                    break;
-                }
-            }
-            for (const suf of CHAIN_SUFFIXES) {
-                if (lower.endsWith(suf)) {
-                    const base = token.slice(0, -suf.length);
-                    for (const suf2 of CHAIN_SUFFIXES) {
-                        if (suf2 === suf) continue;
-                        variants.add(base + suf2);
-                    }
-                    break;
-                }
-            }
-            return [...variants];
-        }
-
-        const GENERIC_NAME_POOL = [
-            'méthane', 'éthane', 'propane', 'butane', 'pentane', 'hexane', 'heptane', 'octane', 'nonane', 'décane',
-            'éthène', 'propène', 'but-1-ène', 'but-2-ène', 'pent-1-ène', 'pent-2-ène',
-            'éthyne', 'propyne', 'but-1-yne', 'but-2-yne',
-            'cyclopropane', 'cyclobutane', 'cyclopentane', 'cyclohexane', 'cycloheptane',
-            'méthylpropane', 'méthylbutane', 'méthylpentane', 'méthylhexane',
-            'diméthylpropane', 'diméthylbutane', 'diméthylpentane',
-            'méthylcyclopropane', 'méthylcyclobutane', 'méthylcyclopentane', 'méthylcyclohexane',
-            'diméthylcyclopropane', 'diméthylcyclobutane', 'diméthylcyclopentane', 'diméthylcyclohexane',
-            'éthylpropane', 'éthylbutane', 'éthylpentane',
-            'buta-1,3-diène', 'penta-1,3-diène', 'penta-1,4-diène', 'hexa-1,3-diène',
+        /* Familles de radicaux alkyles : interchangeables au sein d'une famille */
+        const ALKYL_FAMILIES = [
+            ['méthyl'],
+            ['éthyl'],
+            ['propyl', 'isopropyle'],
+            ['butyl', 'isobutyle', 'sec-butyle', 'tert-butyle'],
+            ['pentyl', 'isopentyle', 'néopentyle'],
         ];
 
+        /* Halogènes : tous interchangeables */
+        const HALO_FAMILY = ['fluoro', 'chloro', 'bromo', 'iodo'];
+
+        /* -------- Détection du préfixe de chaîne dans un mot -------- */
+        function detectChainPrefix(word) {
+            const lower = word.toLowerCase();
+            for (let i = CHAIN_PREFIXES.length - 1; i >= 0; i--) {
+                if (lower.startsWith(CHAIN_PREFIXES[i])) {
+                    return { prefix: CHAIN_PREFIXES[i], rest: word.slice(CHAIN_PREFIXES[i].length), index: i };
+                }
+            }
+            return null;
+        }
+
+        /* -------- Variations de NOM de chaîne (longueur, suffixe, cyclo) -------- */
+        function chainNameVariants(word) {
+            const out = new Set();
+            const lower = word.toLowerCase();
+            const cp = detectChainPrefix(word);
+
+            /* A) Longueur de chaîne : ±1 et ±2 crans */
+            if (cp) {
+                for (const di of [-2, -1, 1, 2]) {
+                    const ni = cp.index + di;
+                    if (ni < 0 || ni >= CHAIN_PREFIXES.length) continue;
+                    out.add(CHAIN_PREFIXES[ni] + cp.rest);
+                }
+            }
+
+            /* B) Suffixe d'insaturation : -ène ↔ -yne (et -ane si sans locant) */
+            for (const s of UNSAT_SUFFIXES) {
+                if (lower.endsWith(s) && lower.length > s.length + 1) {
+                    for (const s2 of UNSAT_SUFFIXES) {
+                        if (s2 !== s) out.add(word.slice(0, -s.length) + s2);
+                    }
+                    if (!/\d/.test(word)) out.add(word.slice(0, -s.length) + 'ane');
+                    break;
+                }
+            }
+            /* Cas di/tri : diène ↔ diyne */
+            if (lower.endsWith('diène')) out.add(word.slice(0, -5) + 'diyne');
+            if (lower.endsWith('diyne')) out.add(word.slice(0, -5) + 'diène');
+
+            /* C) Bascule cycle ↔ linéaire */
+            if (lower.startsWith('cyclo')) {
+                out.add(word.slice(5));
+            } else if (cp && cp.index >= 2) {
+                out.add('cyclo' + word);
+            }
+
+            return [...out];
+        }
+
+        /* -------- Variations d'ALKYLE : taille et squelette -------- */
+        function alkylVariants(word) {
+            const out = new Set();
+            const lower = word.toLowerCase();
+            for (let fi = 0; fi < ALKYL_FAMILIES.length; fi++) {
+                const fam = ALKYL_FAMILIES[fi];
+                for (const member of fam) {
+                    if (lower.includes(member)) {
+                        // Même famille : isomères (propyl ↔ isopropyle)
+                        for (const other of fam) {
+                            if (other !== member) out.add(word.replace(member, other));
+                        }
+                        // Familles voisines : taille ±1
+                        if (fi > 0) out.add(word.replace(member, ALKYL_FAMILIES[fi - 1][0]));
+                        if (fi < ALKYL_FAMILIES.length - 1) out.add(word.replace(member, ALKYL_FAMILIES[fi + 1][0]));
+                        return [...out];
+                    }
+                }
+            }
+            return [...out];
+        }
+
+        /* -------- Variations d'HALOGÈNE : chloro → bromo, etc. -------- */
+        function haloVariants(word) {
+            const out = new Set();
+            const lower = word.toLowerCase();
+            for (const h of HALO_FAMILY) {
+                if (lower.includes(h)) {
+                    for (const other of HALO_FAMILY) {
+                        if (other !== h) out.add(word.replace(h, other));
+                    }
+                    return [...out];
+                }
+            }
+            return [...out];
+        }
+
+        /* -------- Variations d'INSATURATION : -ène ↔ -yne, -ényl ↔ -ynyl -------- */
+        function unsatVariants(word) {
+            const out = new Set();
+            const lower = word.toLowerCase();
+            if (lower.includes('én')) out.add(word.replace(/én/g, 'yn'));
+            if (lower.includes('yn')) out.add(word.replace(/yn/g, 'én'));
+            if (lower.includes('diène')) out.add(word.replace('diène', 'diyne'));
+            if (lower.includes('diyne')) out.add(word.replace('diyne', 'diène'));
+            return [...out];
+        }
+
+        /* -------- Variations d'INDICES : réduites au strict minimum -------- */
+        function generateLocantVariants(token) {
+            const variants = new Set();
+            let m = token.match(/^(-?)(\d+(?:,\d+)*)-(.*)$/);
+            if (!m) return [];
+            const sign = m[1], nums = m[2].split(',').map(Number), suffix = m[3];
+            for (let i = 0; i < nums.length; i++) {
+                for (const d of [-1, 1]) {
+                    if (nums[i] + d >= 1) {
+                        const nn = nums.slice(); nn[i] = nums[i] + d;
+                        nn.sort((a, b) => a - b);
+                        variants.add(sign + nn.join(',') + '-' + suffix);
+                    }
+                }
+            }
+            return [...variants];
+        }
+
+        /* Pool générique de secours (utilisé SEULEMENT si le pool est trop petit) */
+        const GENERIC_NAME_POOL = [
+            'méthane', 'éthane', 'propane', 'butane', 'pentane', 'hexane', 'heptane', 'octane',
+            'éthène', 'propène', 'but-1-ène', 'but-2-ène',
+            'éthyne', 'propyne', 'but-1-yne', 'but-2-yne',
+            'cyclopropane', 'cyclobutane', 'cyclopentane', 'cyclohexane',
+        ];
+
+        /* ============================================================
+           CONSTRUCTION DU POOL DE CHIPS (nouvelle version)
+           ============================================================ */
         function buildNamePool(mol, targetSize = 15) {
             const correct = mol.tokens.slice();
+            const correctStr = correct.join('').toLowerCase().replace(/\s/g, '');
             const out = new Set(correct);
+
+            /* 1) Distracteurs choisis à la main dans la molécule (haute qualité) */
             (mol.distractors || []).forEach(d => out.add(d));
+
+            /* 2) Variations de NOM — priorité maximale */
             correct.forEach(tok => {
-                generateLocantVariants(tok).forEach(v => out.add(v));
-                generateChainVariants(tok).forEach(v => out.add(v));
+                alkylVariants(tok).forEach(v => out.add(v));
+                haloVariants(tok).forEach(v => out.add(v));
+                chainNameVariants(tok).forEach(v => out.add(v));
+                unsatVariants(tok).forEach(v => out.add(v));
             });
-            const correctNorm = mol.name.toLowerCase().replace(/\s/g, '');
-            for (const g of shuffle(GENERIC_NAME_POOL)) {
-                if (out.size >= targetSize) break;
-                if (g.toLowerCase().replace(/\s/g, '') === correctNorm) continue;
-                out.add(g);
+
+            /* 3) Variations d'INDICES — UNE seule par token (au lieu de toutes) */
+            correct.forEach(tok => {
+                const lv = shuffle(generateLocantVariants(tok));
+                if (lv.length) out.add(lv[0]);
+            });
+
+            /* 4) Nettoyage */
+            [...out].forEach(x => {
+                if (!x || !x.trim()) out.delete(x);
+                if (x.toLowerCase().replace(/\s/g, '') === correctStr && !correct.includes(x)) out.delete(x);
+            });
+
+            /* 5) Si le pool est trop petit, compléter avec le pool générique */
+            if (out.size < 8) {
+                for (const g of shuffle(GENERIC_NAME_POOL)) {
+                    if (out.size >= 10) break;
+                    if (g.toLowerCase().replace(/\s/g, '') === correctStr) continue;
+                    out.add(g);
+                }
             }
+
+            /* 6) Troncature : priorité = correct + main-picked + reste aléatoire */
             let arr = [...out];
-            const maxSize = Math.max(targetSize, correct.length + 7);
+            const maxSize = Math.max(targetSize, correct.length + 8);
             if (arr.length > maxSize) {
                 const correctInArr = arr.filter(x => correct.includes(x));
-                const others = shuffle(arr.filter(x => !correct.includes(x)));
-                arr = [...correctInArr, ...others.slice(0, maxSize - correctInArr.length)];
+                const handPicked = (mol.distractors || []).filter(x => arr.includes(x));
+                const rest = shuffle(arr.filter(x => !correct.includes(x) && !handPicked.includes(x)));
+                const keepRest = Math.max(0, maxSize - correctInArr.length - handPicked.length);
+                arr = [...correctInArr, ...handPicked, ...rest.slice(0, keepRest)];
             }
+
             return shuffle(arr);
         }
 
@@ -5733,9 +5863,7 @@
            ============================================================ */
         function showSheet({ ok, title, text, hint, diag, onContinue, compare }) {
             const world = WORLDS[state.worldIdx];
-            const tipHTML = world && world.tip
-                ? '<div class="fixed-tips"><div class="ft-title">📌 Règles à retenir</div><div class="ft-body">' + world.tip + '</div></div>'
-                : '';
+            const tipHTML = '';
 
             const cmpHTML = compare
                 ? '<div class="cmp-wrap">'
@@ -5760,7 +5888,7 @@
                 + '<div class="sheet-text">' + text + '</div>'
                 + cmpHTML
                 + (hint ? '<div class="sheet-hint">💡 ' + hint + '</div>' : '')
-                + (!ok ? tipHTML : '')
+                + ''
                 + '<div class="sheet-actions">'
                 + '<button class="btn-3d" id="sheet-btn">' + (onContinue ? 'Continuer' : 'Réessayer') + '</button>'
                 + '</div>'
@@ -5815,7 +5943,8 @@
             const fxEl = wrap.querySelector('.fs-fx');
             spawnFsParticles(fxEl, heroEl, 'lose');
 
-            SFX.play('wrong'); setTimeout(() => SFX.play('gameOver'), 250);
+            SFX.play('wrong');
+            setTimeout(() => SFX.playFile('tuco-get-out.mp3', { volume: 1 }), 250);
             flashScreen('bad'); shakeApp(); vibrate([80, 50, 80, 50, 160]);
             wrap.querySelector('#sheet-btn').addEventListener('click', () => {
                 SFX.play('tap');
@@ -6160,6 +6289,7 @@
         // Préchargement immédiat des images pour éviter tout délai d'affichage
         try {
             new Image().src = 'duo-win.png';
+            SFX.preloadFile('tuco-get-out.mp3');
 
         } catch (e) { }
 
