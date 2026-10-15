@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nomenduo-v1';
+const CACHE_NAME = 'nomenduo-v2';
 const ASSETS_TO_CACHE = [
   './',
   './idnex.html',
@@ -6,7 +6,8 @@ const ASSETS_TO_CACHE = [
   './duo-win.png',
   './duo-lose.png',
   './icon-192.png',
-  './icon-512.png'
+  './icon-512.png',
+  './tuco-get-out.mp3', 
 ];
 
 self.addEventListener('install', (event) => {
@@ -39,7 +40,7 @@ self.addEventListener('fetch', (event) => {
       }
       return fetch(event.request).catch(() => {
         if (event.request.mode === 'navigate') {
-          return caches.match('./idnex.html');
+          return caches.match('./index.html');
         }
       });
     })
