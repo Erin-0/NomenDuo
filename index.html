@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="NomenDuo">
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192-v2.png">
     <title>NomenDuo — Nomenclature</title>
     <style>
         * {
@@ -2408,8 +2408,15 @@
         }
 
         @keyframes duoBob {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px) scale(1.05); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-4px) scale(1.05);
+            }
         }
 
         .update-info {
@@ -6419,17 +6426,17 @@
             const toast = document.createElement('div');
             toast.id = 'pwa-update-toast';
             toast.className = 'update-toast';
-            toast.innerHTML = 
+            toast.innerHTML =
                 '<div class="update-card-content">' +
-                    '<div class="update-icon-wrap">🚀</div>' +
-                    '<div class="update-info">' +
-                        '<h4 class="update-title">Mise à jour disponible ! ✨</h4>' +
-                        '<p class="update-desc">Une nouvelle version de NomenDuo est prête avec les dernières améliorations.</p>' +
-                    '</div>' +
+                '<div class="update-icon-wrap">🚀</div>' +
+                '<div class="update-info">' +
+                '<h4 class="update-title">Mise à jour disponible ! ✨</h4>' +
+                '<p class="update-desc">Une nouvelle version de NomenDuo est prête avec les dernières améliorations.</p>' +
+                '</div>' +
                 '</div>' +
                 '<div class="update-actions">' +
-                    '<button class="btn-update-now" id="btn-update-pwa">Mettre à jour</button>' +
-                    '<button class="btn-update-later" id="btn-later-pwa">Plus tard</button>' +
+                '<button class="btn-update-now" id="btn-update-pwa">Mettre à jour</button>' +
+                '<button class="btn-update-later" id="btn-later-pwa">Plus tard</button>' +
                 '</div>';
 
             document.body.appendChild(toast);
