@@ -2,7 +2,7 @@
   "name": "NomenDuo — Nomenclature",
   "short_name": "NomenDuo",
   "description": "Apprenez la nomenclature en chimie avec Duo !",
-  "start_url": "./idnex.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "fullscreen",
   "orientation": "portrait",
