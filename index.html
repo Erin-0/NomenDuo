@@ -2362,6 +2362,126 @@
             font-weight: 900;
             font-size: 13px;
         }
+
+        /* ====== DUOLINGO-STYLE UPDATE NOTIFICATION ====== */
+        .update-toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-140px);
+            width: calc(100% - 32px);
+            max-width: 440px;
+            background: #FFFFFF;
+            border: 2px solid var(--line, #E5E5E5);
+            border-bottom: 5px solid var(--line-d, #CECECE);
+            border-radius: 20px;
+            padding: 16px 18px;
+            z-index: 99999;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, .22);
+            transition: transform .45s cubic-bezier(.34, 1.56, .64, 1);
+            font-family: inherit;
+        }
+
+        .update-toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .update-card-content {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .update-icon-wrap {
+            width: 52px;
+            height: 52px;
+            flex-shrink: 0;
+            background: #EAFCF0;
+            border: 2px solid #58CC02;
+            border-bottom: 4px solid #46A302;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            animation: duoBob 2s ease-in-out infinite;
+        }
+
+        @keyframes duoBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px) scale(1.05); }
+        }
+
+        .update-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .update-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--ink, #3C3C3C);
+            margin: 0 0 3px 0;
+            line-height: 1.25;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .update-desc {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--muted, #777777);
+            margin: 0;
+            line-height: 1.35;
+        }
+
+        .update-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .btn-update-now {
+            flex: 1;
+            background: var(--green, #58CC02);
+            color: #FFFFFF;
+            border: none;
+            border-bottom: 4px solid var(--green-d, #46A302);
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-size: 14px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            cursor: pointer;
+            transition: transform .08s ease, border-bottom-width .08s ease;
+            text-align: center;
+        }
+
+        .btn-update-now:active {
+            transform: translateY(3px);
+            border-bottom-width: 1px;
+        }
+
+        .btn-update-later {
+            background: #F7F7F7;
+            color: var(--muted, #AFAFAF);
+            border: 2px solid var(--line, #E5E5E5);
+            border-bottom: 4px solid var(--line-d, #CECECE);
+            border-radius: 14px;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform .08s ease, border-bottom-width .08s ease;
+            text-align: center;
+        }
+
+        .btn-update-later:active {
+            transform: translateY(3px);
+            border-bottom-width: 1px;
+        }
     </style>
 </head>
 
@@ -6293,10 +6413,73 @@
 
         } catch (e) { }
 
-        // Enregistrement du Service Worker pour installation PWA et mode hors ligne
+        // Enregistrement du Service Worker avec détection de mise à jour (Style Duolingo)
+        function showUpdatePrompt(onUpdate) {
+            if (document.getElementById('pwa-update-toast')) return;
+            const toast = document.createElement('div');
+            toast.id = 'pwa-update-toast';
+            toast.className = 'update-toast';
+            toast.innerHTML = 
+                '<div class="update-card-content">' +
+                    '<div class="update-icon-wrap">🚀</div>' +
+                    '<div class="update-info">' +
+                        '<h4 class="update-title">Mise à jour disponible ! ✨</h4>' +
+                        '<p class="update-desc">Une nouvelle version de NomenDuo est prête avec les dernières améliorations.</p>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="update-actions">' +
+                    '<button class="btn-update-now" id="btn-update-pwa">Mettre à jour</button>' +
+                    '<button class="btn-update-later" id="btn-later-pwa">Plus tard</button>' +
+                '</div>';
+
+            document.body.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+
+            document.getElementById('btn-update-pwa').onclick = () => {
+                if (typeof SFX !== 'undefined' && SFX.play) SFX.play('tap');
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+                if (onUpdate) onUpdate();
+            };
+
+            document.getElementById('btn-later-pwa').onclick = () => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            };
+        }
+
         if ('serviceWorker' in navigator) {
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!refreshing) {
+                    refreshing = true;
+                    window.location.reload();
+                }
+            });
+
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./service-worker.js').catch(err => {
+                navigator.serviceWorker.register('./service-worker.js').then((reg) => {
+                    // Si un nouveau worker est déjà en attente
+                    if (reg.waiting) {
+                        showUpdatePrompt(() => {
+                            reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+                        });
+                        return;
+                    }
+
+                    // Détection quand un nouveau SW est téléchargé
+                    reg.addEventListener('updatefound', () => {
+                        const newWorker = reg.installing;
+                        if (!newWorker) return;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                showUpdatePrompt(() => {
+                                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                });
+                            }
+                        });
+                    });
+                }).catch(err => {
                     console.log('SW registration note:', err);
                 });
             });
