@@ -1,12 +1,12 @@
-const CACHE_NAME = 'nomenduo-v3';
+const CACHE_NAME = 'nomenduo-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
   './duo-win.png',
   './duo-lose.png',
-  './icon-192.png',
-  './icon-512.png',
+  './icon-192-v2.png',
+  './icon-512-v2.png',
   './tuco-get-out.mp3', 
 ];
 
