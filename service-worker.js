@@ -1,7 +1,7 @@
 const CACHE_NAME = 'nomenduo-v2';
 const ASSETS_TO_CACHE = [
   './',
-  './idnex.html',
+  './index.html',
   './manifest.json',
   './duo-win.png',
   './duo-lose.png',
