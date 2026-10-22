@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nomenduo-v7'; // Version bumped to force the update
+const CACHE_NAME = 'nomenduo-v9'; // Version bumped to force the update
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
