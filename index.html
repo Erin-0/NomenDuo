@@ -77,7 +77,7 @@
             overflow: hidden;
         }
 
-        
+        /* ====== TOP HUD ====== */
         .topbar {
             flex: none;
             padding: 14px 16px 10px;
@@ -145,7 +145,7 @@
             letter-spacing: .04em;
         }
 
-        
+        /* ====== HOME ====== */
         .home {
             flex: 1;
             overflow-y: auto;
@@ -335,8 +335,84 @@
             font-weight: 900
         }
 
-        
-        
+        /* ====== TABS & SWITCH V1 / V2 ====== */
+        .random-cards-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 0 20px;
+            margin-top: 14px;
+        }
+
+        .random-cards-row .random-card {
+            padding: 14px 12px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .random-cards-row .random-card h2 {
+            font-size: 16px;
+            margin: 4px 0 8px;
+        }
+
+        .random-cards-row .random-card .btn-3d {
+            padding: 12px 10px;
+            font-size: 13px;
+        }
+
+        .db-switch-wrap {
+            padding: 18px 20px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .db-switch {
+            display: flex;
+            width: 100%;
+            background: var(--bg-soft);
+            border: 2px solid var(--line);
+            border-radius: 16px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .db-switch-btn {
+            flex: 1;
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            font-weight: 900;
+            color: var(--muted);
+            transition: all .2s cubic-bezier(.4, 0, .2, 1);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .db-switch-btn.active {
+            background: #FFFFFF;
+            color: var(--ink);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, .08);
+            border-bottom: 3px solid var(--line);
+        }
+
+        .db-switch-btn.active.v1 {
+            color: var(--green-d);
+            border-bottom-color: var(--green);
+        }
+
+        .db-switch-btn.active.v2 {
+            color: #7A4AA8;
+            border-bottom-color: var(--purple);
+        }
+
+        /* Carte jeu aléatoire */
+        /* Carte jeu aléatoire — adaptée à la largeur de l'app */
         .random-card {
             padding: 18px 20px;
             border-radius: 22px;
@@ -344,10 +420,10 @@
             border: 2px solid #89E219;
             box-shadow: 0 5px 0 #58CC02;
             width: 100%;
-            
+            /* ✅ يملأ عرض الحاوية */
             margin: 0 auto;
-            
-            
+            /* ✅ تمركز */
+            /* ✅ لا يوجد max-width — يتكيف مع الحاوية */
         }
 
         .random-card .kicker {
@@ -376,11 +452,11 @@
 
         .random-card .btn-3d {
             padding: 14px 18px;
-            
+            /* ✅ تقليل الحشو ليتناسب */
             font-size: 14px;
         }
 
-        
+        /* ===== الزر ===== */
         .btn-3d {
             display: inline-block;
             padding: 18px;
@@ -407,7 +483,7 @@
             color: #5C4300;
         }
 
-        
+        /* Section banner - Neumorphism Mint */
         .section-banner {
             padding: 20px;
             border-radius: 0px;
@@ -457,7 +533,7 @@
             box-shadow: 3px 3px 6px #c8d8d0, -3px -3px 6px #ffffff;
         }
 
-        
+        /* ====== PLAY ====== */
         .play {
             flex: 1;
             display: flex;
@@ -480,7 +556,7 @@
             padding: 2px 20px 6px
         }
 
-        
+        /* ← كان 4px 20px 10px */
         .q-block h2 {
             font-size: 22px;
             font-weight: 900;
@@ -505,7 +581,7 @@
             justify-content: center;
             padding: 2px 4px;
             position: relative;
-            
+            /* ← حشو أصغر = مساحة أكبر */
         }
 
         .stage svg {
@@ -662,7 +738,7 @@
             color: #fff
         }
 
-        
+        /* ====== FEEDBACK SHEET ====== */
         .sheet-wrap {
             position: fixed;
             inset: 0;
@@ -879,15 +955,15 @@
 
         * {
             -webkit-user-select: none;
-            
+            /* Safari */
             -moz-user-select: none;
-            
+            /* Firefox */
             -ms-user-select: none;
-            
+            /* IE/Edge */
             user-select: none;
-            
+            /* Standard */
             -webkit-touch-callout: none;
-            
+            /* iOS - يمنع قائمة النسخ عند الضغط الطويل */
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -895,7 +971,7 @@
             display: none !important
         }
 
-        
+        /* زر الانسدال */
         .world-toggle {
             margin-left: 8px;
             width: 30px;
@@ -918,19 +994,19 @@
             transition: transform .3s cubic-bezier(.4, 0, .2, 1);
         }
 
-        
+        /* عند الانسدال: السهم يدور 180° */
         .world-section.collapsed .world-toggle svg {
             transform: rotate(-90deg);
         }
 
-        
+        /* انسدال الـ levels */
         .levels {
             display: flex;
             flex-direction: column;
             gap: 12px;
             overflow: hidden;
             max-height: 2000px;
-            
+            /* قيمة كبيرة كافية لاستيعاب المحتوى */
             opacity: 1;
             transition: max-height .35s cubic-bezier(.4, 0, .2, 1),
                 opacity .25s ease,
@@ -945,13 +1021,13 @@
             pointer-events: none;
         }
 
-        
+        /* (اختياري) خلفية خفيفة للقسم عند الانسدال */
         .world-section.collapsed .world-title {
             opacity: .65;
             transition: opacity .2s ease;
         }
 
-        
+        /* ====== ANIMATIONS & FX (ajout) ====== */
         .snd-toggle {
             width: 34px;
             height: 34px;
@@ -983,7 +1059,7 @@
             right: 18px
         }
 
-        
+        /* entrée de page */
         .home-hero h1 {
             animation: heroIn .55s cubic-bezier(.34, 1.4, .5, 1) both
         }
@@ -1102,7 +1178,7 @@
             }
         }
 
-        
+        /* écran de jeu */
         .play {
             animation: playIn .35s cubic-bezier(.4, 0, .2, 1)
         }
@@ -1164,7 +1240,7 @@
             transform: scale(.92)
         }
 
-        
+        /* barre de progression brillante */
         .progress-fill {
             position: relative;
             overflow: hidden;
@@ -1200,8 +1276,8 @@
             }
         }
 
-        
-        
+        /* clic atome */
+        /* أنيميشن ناعم: ضغطة صغيرة ثم عودة — بدون ارتداد */
         @keyframes atomTap {
             0% {
                 transform: scale(1);
@@ -1222,7 +1298,7 @@
             transform-origin: center;
         }
 
-        
+        /* feedback */
         .sheet.good {
             animation: slideUp .35s cubic-bezier(.34, 1.3, .5, 1)
         }
@@ -1348,7 +1424,7 @@
             animation: titleIn .4s .4s both, pulseBtn 1.8s 1s ease-in-out infinite
         }
 
-        
+        /* flash plein écran */
         .flash {
             position: fixed;
             inset: 0;
@@ -1379,12 +1455,12 @@
             }
         }
 
-        
+        /* secousse de l'app */
         .app-shake {
             animation: shakeX .45s
         }
 
-        
+        /* cœurs */
         .heart.lose {
             display: inline-block;
             animation: heartLose .8s ease-out
@@ -1466,7 +1542,7 @@
             }
         }
 
-        
+        /* confettis */
         .fx-layer {
             position: fixed;
             inset: 0;
@@ -1480,7 +1556,7 @@
             will-change: transform, opacity
         }
 
-        
+        /* étoiles de fin */
         .star-row {
             display: flex;
             justify-content: center;
@@ -1556,7 +1632,7 @@
             }
         }
 
-        
+        /* ===== FULL SCREEN VICTORY & GAME OVER SCREENS ===== */
         .fs-screen {
             position: fixed;
             inset: 0;
@@ -1602,7 +1678,7 @@
             margin: auto 0;
         }
 
-        
+        /* --- Hero Container & Non-clickable Duo Image --- */
         .fs-hero {
             position: relative;
             display: flex;
@@ -1641,7 +1717,7 @@
             animation: duoLoseBreathe 4.5s ease-in-out .75s infinite;
         }
 
-        
+        /* Hero Shadow */
         .fs-hero-shadow {
             position: absolute;
             bottom: 4px;
@@ -1662,7 +1738,7 @@
             animation: duoShadowLose 4.5s ease-in-out .75s infinite;
         }
 
-        
+        /* --- Typography --- */
         .fs-title {
             font-size: 30px;
             font-weight: 900;
@@ -1695,7 +1771,7 @@
             animation: breakHeart 1.1s cubic-bezier(.34, 1.4, .5, 1) both;
         }
 
-        
+        /* Stars on Green Background */
         .fs-screen.fs-win .star-row {
             margin: 10px 0 0;
         }
@@ -1705,7 +1781,7 @@
             text-shadow: none;
         }
 
-        
+        /* Footer & Buttons */
         .fs-footer {
             position: relative;
             z-index: 2;
@@ -1738,7 +1814,7 @@
             backdrop-filter: blur(8px);
         }
 
-        
+        /* Effects Layer behind content */
         .fs-fx {
             position: absolute;
             inset: 0;
@@ -1775,7 +1851,7 @@
             will-change: transform, opacity;
         }
 
-        
+        /* إضافة هذا الكلاس لتسريع صورة الفوز */
         .fs-hero-img {
             will-change: transform;
             transform: translateZ(0);
@@ -1790,7 +1866,7 @@
             animation: fxHeartFall 2.8s ease-in infinite;
         }
 
-        
+        /* Keyframes */
         @keyframes heroWinEntrance {
             0% {
                 transform: scale(.3) translateY(80px) rotate(-12deg);
@@ -1982,7 +2058,7 @@
             }
         }
 
-        
+        /* flottant "+1" / combo */
         .float-msg {
             position: fixed;
             left: 50%;
@@ -2014,7 +2090,7 @@
             }
         }
 
-        
+        /* boutons */
         .btn-3d:not(:disabled) {
             transition: transform .08s, border-bottom-width .08s, filter .15s
         }
@@ -2048,7 +2124,7 @@
             }
         }
 
-        
+        /* --- Comparaison de réponses --- */
         .cmp-wrap {
             display: flex;
             align-items: stretch;
@@ -2100,7 +2176,7 @@
             opacity: .6;
         }
 
-        
+        /* --- Nouvelles règles fixes en bas de la feuille rouge --- */
         .fixed-tips {
             margin-top: 18px;
             padding: 14px 16px;
@@ -2127,7 +2203,7 @@
             font-weight: 900;
         }
 
-        
+        /* طبقة تأثيرات الصدمة والموجة */
         .victory-wave-layer {
             position: fixed;
             inset: 0;
@@ -2136,7 +2212,7 @@
             overflow: hidden;
         }
 
-        
+        /* توهج أخضر يغمر الشاشة بالكامل */
         .screen-radiance {
             position: absolute;
             border-radius: 50%;
@@ -2165,7 +2241,7 @@
             }
         }
 
-        
+        /* الحلقات الثلاث المتتالية المنبثقة من البطاقة */
         .shockwave-ring {
             position: absolute;
             border-radius: 50%;
@@ -2209,7 +2285,7 @@
             }
         }
 
-        
+        /* أنيميشن تموج أزرق فوق الذرة المضغوطة */
         @keyframes svgRippleAnim {
             0% {
                 r: 12px;
@@ -2231,7 +2307,7 @@
             pointer-events: none;
         }
 
-        
+        /* مقبض السحب أعلى البطاقة */
         .sheet-drag-handle {
             width: 44px;
             height: 5px;
@@ -2240,7 +2316,7 @@
             margin: -14px auto 16px;
             cursor: grab;
             touch-action: none;
-            
+            /* منع السحب الافتراضي للمتصفح */
         }
 
         .sheet {
@@ -2251,10 +2327,10 @@
 
         .sheet.dragging {
             transition: none !important;
-            
+            /* استجابة فورية وحية أثناء حركة الإصبع */
         }
 
-        
+        /* شاشة التحميل الترحيبية */
         #splash-screen {
             position: fixed;
             inset: 0;
@@ -2269,7 +2345,7 @@
             transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s ease;
         }
 
-        
+        /* رموز كيميائية طافية متناثرة في الخلفية */
         .floating-formula {
             position: absolute;
             color: rgba(255, 255, 255, 0.18);
@@ -2290,7 +2366,7 @@
             }
         }
 
-        
+        /* شعار التطبيق مع حركة نبض */
         .splash-center {
             display: flex;
             flex-direction: column;
@@ -2328,7 +2404,7 @@
             letter-spacing: -0.5px;
         }
 
-        
+        /* شريط التحميل */
         .splash-loader-bar {
             width: 170px;
             height: 10px;
@@ -2356,7 +2432,7 @@
             }
         }
 
-        
+        /* شارات الترقيم الخاصة بالجذر (برتقالية ذهبية مع علامة ') */
         .rad-badge circle {
             fill: #FFF;
             stroke: #F59E0B;
@@ -2369,7 +2445,7 @@
             font-size: 13px;
         }
 
-        
+        /* ====== DUOLINGO-STYLE UPDATE NOTIFICATION ====== */
         .update-toast {
             position: fixed;
             top: 20px;
@@ -2500,12 +2576,22 @@
 
 <body>
     <div id="app"></div>
+    <div id="v2-frame-wrap" style="display:none;position:fixed;inset:0;z-index:9000;background:#fff;">
+        <iframe id="v2-frame" style="width:100%;height:100%;border:none;display:block;" src="about:blank"></iframe>
+    </div>
 
     <script>
         const RANDOM_HISTORY_MAX = 15;
-        
+        /* ============================================================
+           NOMENDUO v10 — Données
+           • Les ramifications (alkyles, halogènes) sont déduites du squelette.
+           • Les chaînes principales valides sont CALCULÉES automatiquement
+             (max. de liaisons multiples, puis plus longue chaîne) : plus de listes manuelles.
+           ============================================================ */
         const MOLECULES = {
-            
+            /* ==========================================================================
+               1. ALCANES LINÉAIRES & RAMIFIÉS (21 composés)
+               ========================================================================== */
             propane: {
                 id: 'propane', name: 'propane', formula: 'C₃H₈', family: 'alcane',
                 atoms: [{ id: 'a', el: 'C', x: 120, y: 160 }, { id: 'b', el: 'C', x: 220, y: 120 }, { id: 'c', el: 'C', x: 320, y: 160 }],
@@ -2649,7 +2735,9 @@
                 tokens: ['2,3,4-triméthyl', 'hexane'], distractors: ['3,4,5-triméthyl', 'heptane', 'nonane', '2,3-diméthyl']
             },
 
-            
+            /* ==========================================================================
+               2. CYCLOALCANES & CYCLES SUBSTITUÉS (16 composés)
+               ========================================================================== */
             cyclopropane: {
                 id: 'cyclopropane', name: 'cyclopropane', formula: 'C₃H₆', family: 'cycloalcane',
                 atoms: [{ id: 'a', el: 'C', x: 220, y: 110 }, { id: 'b', el: 'C', x: 290, y: 230 }, { id: 'c', el: 'C', x: 150, y: 230 }],
@@ -2775,7 +2863,9 @@
                 tokens: ['1,2,3-triméthyl', 'cyclopropane'], distractors: ['1,1,2-triméthyl', 'triméthylbutane', 'cyclobutane']
             },
 
-            
+            /* ==========================================================================
+               3. ALCÈNES, DIÈNES & TRIÈNES (16 composés)
+               ========================================================================== */
             ethene: {
                 id: 'ethene', name: 'éthène', formula: 'C₂H₄', family: 'alcène',
                 atoms: [{ id: 'a', el: 'C', x: 170, y: 180 }, { id: 'b', el: 'C', x: 270, y: 180 }],
@@ -2883,7 +2973,9 @@
                 tokens: ['hexa', '-1,3,5-triène'], distractors: ['-1,2,4-triène', 'hepta', '-1,3,5-triyne', 'penta']
             },
 
-            
+            /* ==========================================================================
+               4. ALCYNES & DIYNES (10 composés)
+               ========================================================================== */
             ethyne: {
                 id: 'ethyne', name: 'éthyne', formula: 'C₂H₂', family: 'alcyne',
                 atoms: [{ id: 'a', el: 'C', x: 170, y: 180 }, { id: 'b', el: 'C', x: 270, y: 180 }],
@@ -2907,7 +2999,7 @@
 
             but2yne: {
                 id: 'but2yne', name: 'but-2-yne', formula: 'C₄H₆', family: 'alcyne',
-                
+                // ✅ خط مستقيم 180° للكربونات الأربعة
                 atoms: [
                     { id: 'a', el: 'C', x: 60, y: 180 },
                     { id: 'b', el: 'C', x: 150, y: 180 },
@@ -2960,7 +3052,9 @@
                 tokens: ['hexa', '-2,4-diyne'], distractors: ['-1,3-diyne', '-1,4-diyne', 'hepta', 'octa']
             },
 
-            
+            /* ==========================================================================
+               5. HALOGÉNOALCANES SIMPLES & MULTIPLES (14 composés)
+               ========================================================================== */
             dichloromethane: {
                 id: 'dichloromethane', name: 'dichlorométhane', formula: 'CH₂Cl₂', family: 'halogénoalcane',
                 atoms: [{ id: 'c', el: 'C', x: 220, y: 180 }, { id: 'x1', el: 'Cl', x: 130, y: 120 }, { id: 'x2', el: 'Cl', x: 310, y: 120 }],
@@ -3059,7 +3153,9 @@
                 tokens: ['1,1,1-trichloro', 'éthane'], distractors: ['1,1,2-trichloro', 'trichloropropane']
             },
 
-            
+            /* ==========================================================================
+               6. RAMIFICATIONS CONCURRENTES : ALKYLES + HALOGÈNES (12 composés)
+               ========================================================================== */
             chloromethylpropane: {
                 id: 'chloromethylpropane', name: '1-chloro-2-méthylpropane', formula: 'C₄H₉Cl', family: 'halogénoalcane ramifié',
                 atoms: [{ id: 'x', el: 'Cl', x: 60, y: 190 }, { id: 'a', el: 'C', x: 140, y: 140 }, { id: 'b', el: 'C', x: 230, y: 190 }, { id: 'c', el: 'C', x: 320, y: 140 }, { id: 'm', el: 'C', x: 230, y: 280 }],
@@ -3153,7 +3249,9 @@
                 tokens: ['1-bromo', '-3-chloro', '-5-méthyl', 'cyclohexane'], distractors: ['3-bromo', '-1-chloro', '-5-éthyl', 'cyclopentane']
             },
 
-            
+            /* ==========================================================================
+               7. ALCÉNYNES : DOUBLES & TRIPLES LIAISONS (8 composés)
+               ========================================================================== */
             butenyne: {
                 id: 'butenyne', name: 'but-1-èn-3-yne', formula: 'C₄H₄', family: 'alcène-alcyne',
                 atoms: [{ id: 'a', el: 'C', x: 80, y: 180 }, { id: 'b', el: 'C', x: 170, y: 180 }, { id: 'c', el: 'C', x: 260, y: 180 }, { id: 'd', el: 'C', x: 350, y: 180 }],
@@ -3182,7 +3280,7 @@
                     { id: 'b', el: 'C', x: 130, y: 150 },
                     { id: 'c', el: 'C', x: 210, y: 200 },
                     { id: 'd', el: 'C', x: 290, y: 150 },
-                    
+                    // ✅ C4 - C5 ≡ C6 على استقامة واحدة (y = 150)
                     { id: 'e', el: 'C', x: 370, y: 150 },
                     { id: 'f', el: 'C', x: 450, y: 150 }
                 ],
@@ -3196,7 +3294,7 @@
                     { id: 'a', el: 'C', x: 50, y: 200 },
                     { id: 'b', el: 'C', x: 130, y: 150 },
                     { id: 'c', el: 'C', x: 210, y: 200 },
-                    
+                    // ✅ C3 - C4 ≡ C5 - C6 كلها مستقيمة خطياً (y = 200)
                     { id: 'd', el: 'C', x: 290, y: 200 },
                     { id: 'e', el: 'C', x: 370, y: 200 },
                     { id: 'f', el: 'C', x: 450, y: 200 }
@@ -3226,7 +3324,9 @@
                 tokens: ['hepta', '-1,5-dièn', '-3-yne'], distractors: ['-2,6-dièn', '-4-yne', 'octa', '-1,3-dièn']
             },
 
-            
+            /* ==========================================================================
+               8. INSATURATIONS PRIORITAIRES (11 composés)
+               ========================================================================== */
             methylpropene_iso: {
                 id: 'methylpropene_iso', name: '2-méthylprop-1-ène', formula: 'C₄H₈', family: 'alcène ramifié',
                 atoms: [{ id: 'a', el: 'C', x: 100, y: 180 }, { id: 'b', el: 'C', x: 200, y: 180 }, { id: 'c', el: 'C', x: 280, y: 110 }, { id: 'm', el: 'C', x: 280, y: 250 }],
@@ -3306,7 +3406,9 @@
                 tokens: ['5-bromo', 'pent', '-1-yne'], distractors: ['1-bromo', '-4-yne', 'hex', '-2-yne']
             },
 
-            
+            /* ==========================================================================
+               9. GRANDE SYNTHÈSE & COMPOSÉS MIXTES COMPLEXES (13 composés)
+               ========================================================================== */
             bromomethylbutene: {
                 id: 'bromomethylbutene', name: '1-bromo-3-méthylbut-2-ène', formula: 'C₅H₉Br', family: 'halogénoalcène ramifié',
                 atoms: [{ id: 'a', el: 'C', x: 80, y: 200 }, { id: 'b', el: 'C', x: 170, y: 150 }, { id: 'c', el: 'C', x: 260, y: 200 }, { id: 'd', el: 'C', x: 350, y: 150 }, { id: 'm', el: 'C', x: 260, y: 300 }, { id: 'x', el: 'Br', x: 0, y: 150 }],
@@ -3384,12 +3486,12 @@
                 id: 'chlorohexenyne', name: '3-chlorohex-1-èn-5-yne', formula: 'C₆H₇Cl',
                 family: 'composé mixte',
                 atoms: [
-                    
+                    // الرابطة المزدوجة وبداية الزجزاج C1 = C2 - C3 - C4
                     { id: 'a', el: 'C', x: 50, y: 200 },
                     { id: 'b', el: 'C', x: 130, y: 150 },
                     { id: 'c', el: 'C', x: 210, y: 200 },
                     { id: 'd', el: 'C', x: 290, y: 150 },
-                    
+                    // ✅ C4 - C5 ≡ C6 على استقامة أفقية واحدة 180° (y = 150)
                     { id: 'e', el: 'C', x: 370, y: 150 },
                     { id: 'f', el: 'C', x: 450, y: 150 },
                     { id: 'x', el: 'Cl', x: 210, y: 290 }
@@ -3424,38 +3526,44 @@
                 bonds: [['x1', 'a', 1], ['a', 'b', 1], ['b', 'c', 2], ['c', 'd', 1], ['d', 'e', 1], ['d', 'x2', 1]],
                 tokens: ['4-bromo', '-1-chloro', 'pent', '-2-ène'], distractors: ['2-bromo', '-5-chloro', '-3-ène', 'hex']
             },
-            
+            /* -------------------------------------------------------------
+               مركب المحاضرة: 4-(prop-1-ényl)hepta-1,4-diène
+               سلسلة دايين رئيسية مع جذر غير مشبع (propényl)
+               ------------------------------------------------------------- */
             propenyl_heptadiene: {
                 id: 'propenyl_heptadiene', name: '4-(prop-1-ényl)hepta-1,4-diène', formula: 'C₁₀H₁₄', family: 'diène avec radical alcényle',
                 atoms: [
-                    
+                    // السلسلة الرئيسية hepta-1,4-diène
                     { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
                     { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 }, { id: 'c6', el: 'C', x: 400, y: 150 }, { id: 'c7', el: 'C', x: 470, y: 200 },
-                    
+                    // الجذر prop-1-ényl متفرع من C4
                     { id: 'r1', el: 'C', x: 260, y: 60 }, { id: 'r2', el: 'C', x: 330, y: 20 }, { id: 'r3', el: 'C', x: 330, y: -50 }
                 ],
                 bonds: [
                     ['c1', 'c2', 2], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 2], ['c5', 'c6', 1], ['c6', 'c7', 1],
-                    ['c4', 'r1', 1], ['r1', 'r2', 2], ['r2', 'r3', 1] 
+                    ['c4', 'r1', 1], ['r1', 'r2', 2], ['r2', 'r3', 1] // الرابطة المزدوجة داخل الجذر
                 ],
                 tokens: ['4-(prop-1-ényl)', 'hepta', '-1,4-diène'],
                 distractors: ['4-propyl', '-1,5-diène', 'hepta-1,3-diène', '4-(prop-2-ényl)']
             },
 
-            
+            /* -------------------------------------------------------------
+               مركب المحاضرة: 4-(prop-2-ynyl)hepta-1,4-diène
+               سلسلة دايين رئيسية مع جذر ألكايني (propynyl)
+               ------------------------------------------------------------- */
             propynyl_heptadiene: {
                 id: 'propynyl_heptadiene', name: '4-(prop-2-ynyl)hepta-1,4-diène', formula: 'C₁₀H₁₂', family: 'diène avec radical alcynyle',
                 atoms: [
                     { id: 'c1', el: 'C', x: 50, y: 200 }, { id: 'c2', el: 'C', x: 120, y: 150 }, { id: 'c3', el: 'C', x: 190, y: 200 },
                     { id: 'c4', el: 'C', x: 260, y: 150 }, { id: 'c5', el: 'C', x: 330, y: 200 }, { id: 'c6', el: 'C', x: 400, y: 150 }, { id: 'c7', el: 'C', x: 470, y: 200 },
-                    
+                    // ✅ تصحيح: r1 و r2 و r3 على نفس الاستقامة الأفقية (y = 50) زاوية 180° تماماً
                     { id: 'r1', el: 'C', x: 260, y: 50 },
                     { id: 'r2', el: 'C', x: 340, y: 50 },
                     { id: 'r3', el: 'C', x: 420, y: 50 }
                 ],
                 bonds: [
                     ['c1', 'c2', 2], ['c2', 'c3', 1], ['c3', 'c4', 1], ['c4', 'c5', 2], ['c5', 'c6', 1], ['c6', 'c7', 1],
-                    ['c4', 'r1', 1], ['r1', 'r2', 1], ['r2', 'r3', 3] 
+                    ['c4', 'r1', 1], ['r1', 'r2', 1], ['r2', 'r3', 3] // الرابطة الثلاثية مستقيمة 180° مع r1
                 ],
                 tokens: ['4-(prop-2-ynyl)', 'hepta', '-1,4-diène'],
                 distractors: ['4-(prop-1-ynyl)', '4-propyl', 'hepta-1,4-diyne']
@@ -3479,17 +3587,20 @@
                 distractors: ['5-butyl', '5-isobutyl', '4-sec-butyl', 'décane']
             },
 
-            
+            /* -------------------------------------------------------------
+               مثال الأستاذ: 3-éthyl-5-méthyl-4-propyl... (السلسلة الأكثر تفرعاً)
+               3-éthyl-2-méthyl-4-propylheptane
+               ------------------------------------------------------------- */
             prof_complex_alkane: {
                 id: 'prof_complex_alkane', name: '3-éthyl-2-méthyl-4-propylheptane', formula: 'C₁₃H₂₈', family: 'alcane poly-substitué',
                 atoms: [
                     { id: 'c1', el: 'C', x: 50, y: 220 }, { id: 'c2', el: 'C', x: 120, y: 170 }, { id: 'c3', el: 'C', x: 190, y: 220 },
                     { id: 'c4', el: 'C', x: 260, y: 170 }, { id: 'c5', el: 'C', x: 330, y: 220 }, { id: 'c6', el: 'C', x: 400, y: 170 }, { id: 'c7', el: 'C', x: 470, y: 220 },
-                    
+                    // تفرع méthyl على C2
                     { id: 'm', el: 'C', x: 120, y: 80 },
-                    
+                    // تفرع éthyl على C3
                     { id: 'e1', el: 'C', x: 190, y: 300 }, { id: 'e2', el: 'C', x: 260, y: 340 },
-                    
+                    // تفرع propyl على C4
                     { id: 'p1', el: 'C', x: 260, y: 80 }, { id: 'p2', el: 'C', x: 330, y: 40 }, { id: 'p3', el: 'C', x: 330, y: -30 }
                 ],
                 bonds: [
@@ -3499,9 +3610,11 @@
                 tokens: ['3-éthyl', '-2-méthyl', '-4-propyl', 'heptane'],
                 distractors: ['4-éthyl', '-3-propyl', '-5-méthyl', 'octane']
             },
-            
+            /* =======================================================================
+   A. ALCANES RAMIFIÉS  (6)
+   ======================================================================= */
 
-            
+            /* --- 3-éthyl-2-méthylpentane --------------------------------------- */
             ethyl_methyl_pentane: {
                 id: 'ethyl_methyl_pentane', name: '3-éthyl-2-méthylpentane', formula: 'C₈H₁₈',
                 family: 'alcane ramifié',
@@ -3519,7 +3632,7 @@
                 distractors: ['2-éthyl', '-3-méthyl', 'hexane', '3-propyl', '-2-méthylbutane']
             },
 
-            
+            /* --- 2,2,4-triméthylpentane (isooctane) ----------------------------- */
             trimethyl_pentane: {
                 id: 'trimethyl_pentane', name: '2,2,4-triméthylpentane', formula: 'C₈H₁₈',
                 family: 'alcane ramifié',
@@ -3537,21 +3650,21 @@
                 distractors: ['2,4,4-triméthyl', '2,2,3-triméthyl', 'hexane', '2,4-diméthylpentane']
             },
 
-            
+            /* --- 3-éthyl-2,2-diméthylpentane ------------------------------------ */
             ethyl_dimethyl_pentane: {
                 id: 'ethyl_dimethyl_pentane', name: '3-éthyl-2,2-diméthylpentane', formula: 'C₉H₂₀',
                 family: 'alcane ramifié',
                 atoms: [
-                    
+                    // السلسلة الرئيسية بزجزاج طبيعي
                     { id: 'c1', el: 'C', x: 50, y: 200 },
                     { id: 'c2', el: 'C', x: 130, y: 150 },
                     { id: 'c3', el: 'C', x: 210, y: 200 },
                     { id: 'c4', el: 'C', x: 290, y: 150 },
                     { id: 'c5', el: 'C', x: 370, y: 200 },
-                    
+                    // تفرعات الميثيل على C2
                     { id: 'm1', el: 'C', x: 130, y: 65 },
                     { id: 'm2', el: 'C', x: 65, y: 105 },
-                    
+                    // ✅ جذر الإيثيل بزجزاج متناسق (e1 تنزل و e2 تنكسر لليمين)
                     { id: 'e1', el: 'C', x: 210, y: 285 },
                     { id: 'e2', el: 'C', x: 280, y: 325 }
                 ],
@@ -3564,7 +3677,7 @@
                 distractors: ['2-éthyl', '-3,3-diméthyl', 'hexane', '3,3-diméthyl', '-2-éthylhexane']
             },
 
-            
+            /* --- 4-isopropylheptane --------------------------------------------- */
             isopropyl_heptane: {
                 id: 'isopropyl_heptane', name: '4-isopropylheptane', formula: 'C₁₀H₂₂',
                 family: 'alcane avec radical isopropyle',
@@ -3582,7 +3695,7 @@
                 distractors: ['4-propyl', '3-isopropyl', 'octane', '4-isobutylheptane']
             },
 
-            
+            /* --- 3-tert-butylhexane --------------------------------------------- */
             tertbutyl_heptane: {
                 id: 'tertbutyl_heptane', name: '4-tert-butylheptane', formula: 'C₁₁H₂₄', family: 'alcane avec radical tert-butyle',
                 atoms: [
@@ -3599,7 +3712,7 @@
                 tokens: ['4-tert-butyl', 'heptane'],
                 distractors: ['4-isobutyl', '4-sec-butyl', '3-tert-butyl', 'octane']
             },
-            
+            /* --- 3-éthyl-4-méthylhexane ----------------------------------------- */
             ethyl_methyl_hexane: {
                 id: 'ethyl_methyl_hexane', name: '3-éthyl-4-méthylhexane', formula: 'C₉H₂₀',
                 family: 'alcane ramifié',
@@ -3617,9 +3730,11 @@
                 distractors: ['4-éthyl', '-3-méthyl', 'heptane', '3-méthyl', '-4-éthylhexane']
             },
 
-            
+            /* =======================================================================
+               B. ALCÈNES  (5)
+               ======================================================================= */
 
-            
+            /* --- 3-méthylbut-1-ène ---------------------------------------------- */
             methyl_butene: {
                 id: 'methyl_butene', name: '3-méthylbut-1-ène', formula: 'C₅H₁₀',
                 family: 'alcène ramifié',
@@ -3633,7 +3748,7 @@
                 distractors: ['2-méthyl', 'but-2-ène', 'pent-1-ène', '3-méthylbut-2-ène']
             },
 
-            
+            /* --- 2-méthylbut-2-ène ---------------------------------------------- */
             methyl_but2ene: {
                 id: 'methyl_but2ene', name: '2-méthylbut-2-ène', formula: 'C₅H₁₀',
                 family: 'alcène ramifié',
@@ -3647,7 +3762,7 @@
                 distractors: ['3-méthyl', 'but-1-ène', 'pent-2-ène', '2-méthylbut-1-ène']
             },
 
-            
+            /* --- 4-méthylpent-1-ène --------------------------------------------- */
             methyl_pent1ene: {
                 id: 'methyl_pent1ene', name: '4-méthylpent-1-ène', formula: 'C₆H₁₂',
                 family: 'alcène ramifié',
@@ -3661,7 +3776,7 @@
                 distractors: ['2-méthyl', 'pent-2-ène', 'hex-1-ène', '3-méthylpent-1-ène']
             },
 
-            
+            /* --- 3-éthylpent-1-ène ---------------------------------------------- */
             ethyl_pent1ene: {
                 id: 'ethyl_pent1ene', name: '3-éthylpent-1-ène', formula: 'C₇H₁₄',
                 family: 'alcène ramifié',
@@ -3678,7 +3793,7 @@
                 distractors: ['2-éthyl', 'pent-2-ène', 'hex-1-ène', '3-méthylhex-1-ène']
             },
 
-            
+            /* --- 3,4-diméthylpent-1-ène ----------------------------------------- */
             dimethyl_pent1ene: {
                 id: 'dimethyl_pent1ene', name: '3,4-diméthylpent-1-ène', formula: 'C₇H₁₄',
                 family: 'alcène ramifié',
@@ -3695,18 +3810,20 @@
                 distractors: ['2,3-diméthyl', 'pent-2-ène', '3,4-diméthylpent-2-ène', 'hex-1-ène']
             },
 
-            
+            /* =======================================================================
+               C. ALCYNES  (3)
+               ======================================================================= */
 
-            
+            /* --- 3-méthylbut-1-yne ---------------------------------------------- */
             methyl_but1yne: {
                 id: 'methyl_but1yne', name: '3-méthylbut-1-yne', formula: 'C₅H₈',
                 family: 'alcyne ramifié',
                 atoms: [
-                    
+                    // C1 ≡ C2 - C3 على خط أفقي مستقيم تماماً (y = 180)
                     { id: 'c1', el: 'C', x: 70, y: 180 },
                     { id: 'c2', el: 'C', x: 160, y: 180 },
                     { id: 'c3', el: 'C', x: 250, y: 180 },
-                    
+                    // تفرع الميثيلين على شكل شوكة متناسقة من C3
                     { id: 'c4', el: 'C', x: 330, y: 130 },
                     { id: 'm', el: 'C', x: 330, y: 230 }
                 ],
@@ -3718,16 +3835,16 @@
                 distractors: ['2-méthyl', 'but-2-yne', 'pent-1-yne', '3-méthylbut-2-yne']
             },
 
-            
+            /* --- 4-méthylpent-1-yne --------------------------------------------- */
             methyl_pent1yne: {
                 id: 'methyl_pent1yne', name: '4-méthylpent-1-yne', formula: 'C₆H₁₀',
                 family: 'alcyne ramifié',
                 atoms: [
-                    
+                    // C1 ≡ C2 - C3 مستقيمة خطياً (y = 180)
                     { id: 'c1', el: 'C', x: 60, y: 180 },
                     { id: 'c2', el: 'C', x: 150, y: 180 },
                     { id: 'c3', el: 'C', x: 240, y: 180 },
-                    
+                    // يبدأ الزجزاج عند C4 و C5
                     { id: 'c4', el: 'C', x: 320, y: 135 },
                     { id: 'c5', el: 'C', x: 400, y: 180 },
                     { id: 'm', el: 'C', x: 320, y: 55 }
@@ -3740,12 +3857,12 @@
                 distractors: ['2-méthyl', 'pent-2-yne', 'hex-1-yne', '3-méthylpent-1-yne']
             },
 
-            
+            /* --- 3,3-diméthylbut-1-yne ------------------------------------------ */
             dimethyl_but1yne: {
                 id: 'dimethyl_but1yne', name: '3,3-diméthylbut-1-yne', formula: 'C₆H₁₀',
                 family: 'alcyne ramifié',
                 atoms: [
-                    
+                    // C1 ≡ C2 - C3 - C4 مستقيمة خطياً مع تفرعين متعامدين على C3
                     { id: 'c1', el: 'C', x: 70, y: 180 },
                     { id: 'c2', el: 'C', x: 160, y: 180 },
                     { id: 'c3', el: 'C', x: 250, y: 180 },
@@ -3761,9 +3878,11 @@
                 distractors: ['2,2-diméthyl', 'but-2-yne', '3,3-diméthylbut-2-yne', 'pent-1-yne']
             },
 
-            
+            /* =======================================================================
+               D. DIÈNES & RADICAUX INSATURÉS  (4)
+               ======================================================================= */
 
-            
+            /* --- 2-méthylbuta-1,3-diène (isoprène) ------------------------------ */
             isoprene: {
                 id: 'isoprene', name: '2-méthylbuta-1,3-diène', formula: 'C₅H₈',
                 family: 'diène ramifié',
@@ -3777,7 +3896,7 @@
                 distractors: ['3-méthyl', 'buta-1,2-diène', 'penta-1,3-diène', '2-méthylbuta-1,2-diène']
             },
 
-            
+            /* --- 3-méthylhepta-1,4-diène ---------------------------------------- */
             methyl_heptadiene: {
                 id: 'methyl_heptadiene', name: '3-méthylhepta-1,4-diène', formula: 'C₈H₁₄',
                 family: 'diène ramifié',
@@ -3795,7 +3914,7 @@
                 distractors: ['4-méthyl', 'hepta-1,3-diène', 'hepta-1,5-diène', '3-méthylhepta-1,3-diène']
             },
 
-            
+            /* --- 4-(prop-2-ényl)hepta-1,6-diène --------------------------------- */
             propenyl_heptadiene_16: {
                 id: 'propenyl_heptadiene_16', name: '4-(prop-2-ényl)hepta-1,6-diène', formula: 'C₁₀H₁₆',
                 family: 'diène avec radical alcényle',
@@ -3813,7 +3932,7 @@
                 distractors: ['4-(prop-1-ényl)', '4-(prop-2-ynyl)', 'hepta-1,4-diène', '4-propylhepta-1,6-diène']
             },
 
-            
+            /* --- 4-(prop-2-ynyl)hepta-1,6-diène -------------------------------- */
             propynyl_heptadiene_16: {
                 id: 'propynyl_heptadiene_16', name: '4-(prop-2-ynyl)hepta-1,6-diène', formula: 'C₁₀H₁₄',
                 family: 'diène avec radical alcynyle',
@@ -3821,7 +3940,7 @@
                     { id: 'c1', el: 'C', x: 50, y: 220 }, { id: 'c2', el: 'C', x: 115, y: 170 }, { id: 'c3', el: 'C', x: 180, y: 220 },
                     { id: 'c4', el: 'C', x: 245, y: 170 }, { id: 'c5', el: 'C', x: 310, y: 220 }, { id: 'c6', el: 'C', x: 375, y: 170 },
                     { id: 'c7', el: 'C', x: 440, y: 220 },
-                    
+                    // ✅ استقامة خطية 180° لجميع ذرات الجذر
                     { id: 'r1', el: 'C', x: 245, y: 60 },
                     { id: 'r2', el: 'C', x: 325, y: 60 },
                     { id: 'r3', el: 'C', x: 405, y: 60 }
@@ -3834,23 +3953,25 @@
                 distractors: ['4-(prop-1-ynyl)', '4-(prop-2-ényl)', 'hepta-1,4-diène', '4-(but-2-ynyl)hepta-1,6-diène']
             },
 
-            
+            /* =======================================================================
+               E. CAS DE SYNTHÈSE  (2)
+               ======================================================================= */
 
-            
+            /* --- 3,3-diéthylpentane --------------------------------------------- */
             diethyl_pentane: {
                 id: 'diethyl_pentane', name: '3,3-diéthylpentane', formula: 'C₉H₂₀',
                 family: 'alcane symétrique ramifié',
                 atoms: [
-                    
+                    // السلسلة الرئيسية
                     { id: 'c1', el: 'C', x: 50, y: 200 },
                     { id: 'c2', el: 'C', x: 130, y: 150 },
                     { id: 'c3', el: 'C', x: 210, y: 200 },
                     { id: 'c4', el: 'C', x: 290, y: 150 },
                     { id: 'c5', el: 'C', x: 370, y: 200 },
-                    
+                    // ✅ الإيثيل العلوي بزجزاج للأعلى واليسار
                     { id: 'e1a', el: 'C', x: 210, y: 120 },
                     { id: 'e2a', el: 'C', x: 150, y: 80 },
-                    
+                    // ✅ الإيثيل السفلي بزجزاج للأسفل واليمين
                     { id: 'e1b', el: 'C', x: 210, y: 280 },
                     { id: 'e2b', el: 'C', x: 270, y: 320 }
                 ],
@@ -3863,23 +3984,23 @@
                 distractors: ['3-éthyl', 'pentane', '2,2-diéthylpentane', 'heptane', '3,3-diéthylbutane']
             },
 
-            
+            /* --- 3-éthyl-2,2,4-triméthylpentane (chaîne la plus ramifiée) ------- */
             ethyl_trimethyl_pentane: {
                 id: 'ethyl_trimethyl_pentane', name: '3-éthyl-2,2,4-triméthylpentane', formula: 'C₁₀H₂₂',
                 family: 'alcane poly-substitué',
                 atoms: [
-                    
+                    // السلسلة الرئيسية
                     { id: 'c1', el: 'C', x: 50, y: 200 },
                     { id: 'c2', el: 'C', x: 130, y: 150 },
                     { id: 'c3', el: 'C', x: 210, y: 200 },
                     { id: 'c4', el: 'C', x: 290, y: 150 },
                     { id: 'c5', el: 'C', x: 370, y: 200 },
-                    
+                    // ميثيل C2
                     { id: 'm1', el: 'C', x: 130, y: 65 },
                     { id: 'm2', el: 'C', x: 65, y: 105 },
-                    
+                    // ميثيل C4
                     { id: 'm4', el: 'C', x: 290, y: 65 },
-                    
+                    // ✅ الإيثيل متعرج زجزاج بشكل جذاب
                     { id: 'e1', el: 'C', x: 210, y: 285 },
                     { id: 'e2', el: 'C', x: 280, y: 325 }
                 ],
@@ -3893,9 +4014,149 @@
                 distractors: ['3-isopropyl', '-2,2-diméthylpentane', '2,2,4-triméthylhexane', '4-éthyl', '-2,2,3-triméthylpentane']
             }
         };
+        /* ============================================================
+           DONNÉES V2 POUR AFFICHAGE DANS LA LISTE PRINCIPALE
+           ============================================================ */
+        const WORLDS_V2 = [
+            { id: 'monde_2', title: 'Alcools & Cétones', icon: '💧', color: '#29B6F6', levels: ['pentan2ol', 'butan2ol', 'pentan3ol', 'pentan2one', 'butan2one', 'hexan2one', 'hexan2ol', 'hexan3one', 'methyl4_pentan2ol', 'pent3en2one', 'hex4en2one', 'pent1en3ol'] },
+            { id: 'monde_3', title: 'Aldéhydes', icon: '🍬', color: '#FFA726', levels: ['but3enal', 'butanal', 'pentanal', 'hexanal', 'chlorobutanal', 'methyl2_butanal', 'methyl3_butanal', 'bromo3_butanal', 'prop2enal', 'hex2enal'] },
+            { id: 'monde_4', title: 'Acides Carboxyliques', icon: '🍋', color: '#FBC02D', levels: ['acide_butanoique', 'acide_propanoique', 'acide_hexanoique', 'acide_methyl2butanoique', 'acide_methyl3pentanoique', 'acide_but3enoique', 'acide_pent2enoique', 'acide_hex3enoique', 'acide_ethylpentenoique', 'acide_dimethyl23butanoique'] },
+            { id: 'monde_5', title: 'Esters', icon: '🍐', color: '#9CCC65', levels: ['ethanoate_methyle', 'ethanoate_ethyle', 'propanoate_methyle', 'propanoate_ethyle', 'butanoate_methyle', 'butanoate_ethyle', 'pentanoate_ethyle', 'methyl2propanoate_ethyle', 'chloro_pentanoate_ethyle', 'hex2enoate_methyle'] },
+            { id: 'monde_6', title: "Halogénures d'Acyle", icon: '🧯', color: '#EF5350', levels: ['chlorure_butanoyle', 'chlorure_ethanoyle', 'chlorure_propanoyle', 'chlorure_pentanoyle', 'chlorure_2chlorobutanoyle', 'chlorure_pent3enoyle', 'chlorure_bromo4butanoyle'] },
+            { id: 'monde_7', title: 'Amides & Nitriles', icon: '🧵', color: '#AB47BC', levels: ['propanamide', 'butanamide', 'pentanamide', 'pentanenitrile', 'methyl3butanamide', 'hex2enamide', 'methyl3butanenitrile', 'hexanenitrile', 'but2enenitrile'] },
+            { id: 'monde_8', title: 'Préfixes Déchus', icon: '🏷️', color: '#26A69A', levels: ['nitropentane', 'nitrobutane1', 'nitropentane3', 'methoxypentane1', 'ethoxy_pentane3', 'methoxy_nitrobutane', 'amino_methoxy_hexanal'] },
+            { id: 'monde_9', title: 'Duel Suffixe / Préfixe', icon: '⚔️', color: '#FF7043', levels: ['hydroxypentan2one', 'hydroxy1_butan2one', 'oxo4_pentanal', 'hydroxy6_hexan2one', 'amino4_pentan2ol', 'hydroxy_pentenone', 'acide_hydroxy2propanoique', 'acide_oxo4pentanoique', 'hydroxy3_butanenitrile', 'oxo5_hexanenitrile', 'hydroxy4_butanamide', 'acide_formyl_hydroxy_oxohexenoique'] },
+            { id: 'monde_10', title: 'Boss Masterclass', icon: '👑', color: '#7E57C2', levels: ['boss_cyclo_octenyne', 'boss_cyclopentyl_cyano', 'boss_acide_poly', 'boss_acide_ethyl_oxo', 'boss_acide_amino_chloro', 'boss_chlorure_acyle', 'boss_chlorure_formyl'] },
+            { id: 'monde_11', title: 'Alcènes & Alcynes', icon: '🔗', color: '#4DD0E1', levels: ['but1ene', 'pent2ene', 'pent1yne', 'hex3ene', 'methyl2but2ene', 'methyl4pent2ene', 'hept3yne', 'methyl3but1yne'] },
+            { id: 'monde_12', title: 'Amines', icon: '🧪', color: '#5C6BC0', levels: ['propan1amine', 'propan2amine', 'butan1amine', 'butan2amine', 'pentan2amine', 'methyl3butan1amine', 'pent4en1amine'] },
+            { id: 'monde_13', title: 'Halogénoalcanes & Éthers', icon: '🧂', color: '#78909C', levels: ['chlorobutane2', 'bromo_propane1', 'bromo_butane2', 'fluoro_butane1', 'iodo_butane2', 'chloro2_methyl2propane', 'dichloro12_propane', 'methoxypropane', 'methoxybutane2', 'ethoxyethane'] },
+            { id: 'monde_14', title: 'Cycles', icon: '⭕', color: '#8D6E63', levels: ['cyclopentane', 'methyl_cyclohexane', 'cyclohexanol', 'cyclohexanone', 'cyclopentanone', 'methyl2_cyclohexanol', 'methyl3_cyclohexanone', 'cyclohex2en1ol'] }
+        ];
+
+        const MOLECULES_V2_NAMES = {
+            pentan2ol: { formula: 'C₅H₁₂O', family: 'Alcool' },
+            butan2ol: { formula: 'C₄H₁₀O', family: 'Alcool' },
+            pentan3ol: { formula: 'C₅H₁₂O', family: 'Alcool' },
+            pentan2one: { formula: 'C₅H₁₀O', family: 'Cétone' },
+            butan2one: { formula: 'C₄H₈O', family: 'Cétone' },
+            hexan2one: { formula: 'C₆H₁₂O', family: 'Cétone' },
+            hexan2ol: { formula: 'C₆H₁₄O', family: 'Alcool' },
+            hexan3one: { formula: 'C₆H₁₂O', family: 'Cétone' },
+            methyl4_pentan2ol: { formula: 'C₆H₁₄O', family: 'Alcool ramifié' },
+            pent3en2one: { formula: 'C₅H₈O', family: 'Cétone insaturée' },
+            hex4en2one: { formula: 'C₆H₁₀O', family: 'Cétone insaturée' },
+            pent1en3ol: { formula: 'C₅H₁₀O', family: 'Alcool insaturé' },
+            but3enal: { formula: 'C₄H₆O', family: 'Aldéhyde' },
+            butanal: { formula: 'C₄H₈O', family: 'Aldéhyde' },
+            pentanal: { formula: 'C₅H₁₀O', family: 'Aldéhyde' },
+            hexanal: { formula: 'C₆H₁₂O', family: 'Aldéhyde' },
+            chlorobutanal: { formula: 'C₄H₇ClO', family: 'Aldéhyde halogéné' },
+            methyl2_butanal: { formula: 'C₅H₁₀O', family: 'Aldéhyde ramifié' },
+            methyl3_butanal: { formula: 'C₅H₁₀O', family: 'Aldéhyde ramifié' },
+            bromo3_butanal: { formula: 'C₄H₇BrO', family: 'Aldéhyde halogéné' },
+            prop2enal: { formula: 'C₃H₄O', family: 'Aldéhyde insaturé' },
+            hex2enal: { formula: 'C₆H₁₀O', family: 'Aldéhyde insaturé' },
+            acide_butanoique: { formula: 'C₄H₈O₂', family: 'Acide carboxylique' },
+            acide_propanoique: { formula: 'C₃H₆O₂', family: 'Acide carboxylique' },
+            acide_hexanoique: { formula: 'C₆H₁₂O₂', family: 'Acide carboxylique' },
+            acide_methyl2butanoique: { formula: 'C₅H₁₀O₂', family: 'Acide ramifié' },
+            acide_methyl3pentanoique: { formula: 'C₆H₁₂O₂', family: 'Acide ramifié' },
+            acide_but3enoique: { formula: 'C₄H₆O₂', family: 'Acide insaturé' },
+            acide_pent2enoique: { formula: 'C₅H₈O₂', family: 'Acide insaturé' },
+            acide_hex3enoique: { formula: 'C₆H₁₀O₂', family: 'Acide insaturé' },
+            acide_ethylpentenoique: { formula: 'C₇H₁₂O₂', family: 'Acide ramifié insaturé' },
+            acide_dimethyl23butanoique: { formula: 'C₆H₁₂O₂', family: 'Acide ramifié' },
+            ethanoate_methyle: { formula: 'C₃H₆O₂', family: 'Ester' },
+            ethanoate_ethyle: { formula: 'C₄H₈O₂', family: 'Ester' },
+            propanoate_methyle: { formula: 'C₄H₈O₂', family: 'Ester' },
+            propanoate_ethyle: { formula: 'C₅H₁₀O₂', family: 'Ester' },
+            butanoate_methyle: { formula: 'C₅H₁₀O₂', family: 'Ester' },
+            butanoate_ethyle: { formula: 'C₆H₁₂O₂', family: 'Ester' },
+            pentanoate_ethyle: { formula: 'C₇H₁₄O₂', family: 'Ester' },
+            methyl2propanoate_ethyle: { formula: 'C₆H₁₂O₂', family: 'Ester ramifié' },
+            chloro_pentanoate_ethyle: { formula: 'C₇H₁₃ClO₂', family: 'Ester halogéné' },
+            hex2enoate_methyle: { formula: 'C₇H₁₂O₂', family: 'Ester insaturé' },
+            chlorure_butanoyle: { formula: 'C₄H₇ClO', family: "Halogénure d'acyle" },
+            chlorure_ethanoyle: { formula: 'C₂H₃ClO', family: "Halogénure d'acyle" },
+            chlorure_propanoyle: { formula: 'C₃H₅ClO', family: "Halogénure d'acyle" },
+            chlorure_pentanoyle: { formula: 'C₅H₉ClO', family: "Halogénure d'acyle" },
+            chlorure_2chlorobutanoyle: { formula: 'C₄H₆Cl₂O', family: "Halogénure d'acyle" },
+            chlorure_pent3enoyle: { formula: 'C₅H₇ClO', family: "Halogénure d'acyle insaturé" },
+            chlorure_bromo4butanoyle: { formula: 'C₄H₆BrClO', family: "Halogénure d'acyle" },
+            propanamide: { formula: 'C₃H₇NO', family: 'Amide' },
+            butanamide: { formula: 'C₄H₉NO', family: 'Amide' },
+            pentanamide: { formula: 'C₅H₁₁NO', family: 'Amide' },
+            pentanenitrile: { formula: 'C₅H₉N', family: 'Nitrile' },
+            methyl3butanamide: { formula: 'C₅H₁₁NO', family: 'Amide ramifié' },
+            hex2enamide: { formula: 'C₆H₁₁NO', family: 'Amide insaturé' },
+            methyl3butanenitrile: { formula: 'C₅H₉N', family: 'Nitrile ramifié' },
+            hexanenitrile: { formula: 'C₆H₁₁N', family: 'Nitrile' },
+            but2enenitrile: { formula: 'C₄H₅N', family: 'Nitrile insaturé' },
+            nitropentane: { formula: 'C₅H₁₁NO₂', family: 'Dérivé nitré' },
+            nitrobutane1: { formula: 'C₄H₉NO₂', family: 'Dérivé nitré' },
+            nitropentane3: { formula: 'C₅H₁₁NO₂', family: 'Dérivé nitré' },
+            methoxypentane1: { formula: 'C₆H₁₄O', family: 'Éther' },
+            ethoxy_pentane3: { formula: 'C₇H₁₆O', family: 'Éther' },
+            methoxy_nitrobutane: { formula: 'C₅H₁₁NO₃', family: 'Éther nitré' },
+            amino_methoxy_hexanal: { formula: 'C₇H₁₅NO₂', family: 'Aldéhyde poly-substitué' },
+            hydroxypentan2one: { formula: 'C₅H₁₀O₂', family: 'Cétone-Alcool' },
+            hydroxy1_butan2one: { formula: 'C₄H₈O₂', family: 'Cétone-Alcool' },
+            oxo4_pentanal: { formula: 'C₅H₈O₂', family: 'Aldéhyde-Cétone' },
+            hydroxy6_hexan2one: { formula: 'C₆H₁₂O₂', family: 'Cétone-Alcool' },
+            amino4_pentan2ol: { formula: 'C₅H₁₃NO', family: 'Alcool-Amine' },
+            hydroxy_pentenone: { formula: 'C₅H₈O₂', family: 'Cétone polyfonctionnelle' },
+            acide_hydroxy2propanoique: { formula: 'C₃H₆O₃', family: 'Acide-Alcool' },
+            acide_oxo4pentanoique: { formula: 'C₅H₈O₃', family: 'Acide-Cétone' },
+            hydroxy3_butanenitrile: { formula: 'C₄H₇NO', family: 'Nitrile-Alcool' },
+            oxo5_hexanenitrile: { formula: 'C₆H₉NO', family: 'Nitrile-Cétone' },
+            hydroxy4_butanamide: { formula: 'C₄H₉NO₂', family: 'Amide-Alcool' },
+            acide_formyl_hydroxy_oxohexenoique: { formula: 'C₇H₈O₅', family: 'Acide polyfonctionnel' },
+            boss_cyclo_octenyne: { formula: 'C₁₆H₂₆', family: 'Hydrocarbure complexe' },
+            boss_cyclopentyl_cyano: { formula: 'C₁₁H₁₇NO', family: 'Cycle + substituant' },
+            boss_acide_poly: { formula: 'C₁₂H₁₉ClO₃', family: 'Acide poly-substitué' },
+            boss_acide_ethyl_oxo: { formula: 'C₈H₁₁ClO₃', family: 'Acide poly-substitué' },
+            boss_acide_amino_chloro: { formula: 'C₇H₁₂ClNO₂', family: 'Acide poly-substitué' },
+            boss_chlorure_acyle: { formula: 'C₈H₁₂ClNO₂', family: "Halogénure d'acyle poly" },
+            boss_chlorure_formyl: { formula: 'C₈H₁₁ClO₂', family: "Halogénure d'acyle poly" },
+            but1ene: { formula: 'C₄H₈', family: 'Alcène' },
+            pent2ene: { formula: 'C₅H₁₀', family: 'Alcène' },
+            pent1yne: { formula: 'C₅H₈', family: 'Alcyne' },
+            hex3ene: { formula: 'C₆H₁₂', family: 'Alcène' },
+            methyl2but2ene: { formula: 'C₅H₁₀', family: 'Alcène ramifié' },
+            methyl4pent2ene: { formula: 'C₆H₁₂', family: 'Alcène ramifié' },
+            hept3yne: { formula: 'C₇H₁₂', family: 'Alcyne' },
+            methyl3but1yne: { formula: 'C₅H₈', family: 'Alcyne ramifié' },
+            propan1amine: { formula: 'C₃H₉N', family: 'Amine' },
+            propan2amine: { formula: 'C₃H₉N', family: 'Amine' },
+            butan1amine: { formula: 'C₄H₁₁N', family: 'Amine' },
+            butan2amine: { formula: 'C₄H₁₁N', family: 'Amine' },
+            pentan2amine: { formula: 'C₅H₁₃N', family: 'Amine' },
+            methyl3butan1amine: { formula: 'C₅H₁₃N', family: 'Amine ramifiée' },
+            pent4en1amine: { formula: 'C₅H₁₁N', family: 'Amine insaturée' },
+            chlorobutane2: { formula: 'C₄H₉Cl', family: 'Halogénoalcane' },
+            bromo_propane1: { formula: 'C₃H₇Br', family: 'Halogénoalcane' },
+            bromo_butane2: { formula: 'C₄H₉Br', family: 'Halogénoalcane' },
+            fluoro_butane1: { formula: 'C₄H₉F', family: 'Halogénoalcane' },
+            iodo_butane2: { formula: 'C₄H₉I', family: 'Halogénoalcane' },
+            chloro2_methyl2propane: { formula: 'C₄H₉Cl', family: 'Halogénoalcane' },
+            dichloro12_propane: { formula: 'C₃H₆Cl₂', family: 'Halogénoalcane' },
+            methoxypropane: { formula: 'C₄H₁₀O', family: 'Éther' },
+            methoxybutane2: { formula: 'C₅H₁₂O', family: 'Éther' },
+            ethoxyethane: { formula: 'C₄H₁₀O', family: 'Éther' },
+            cyclopentane: { formula: 'C₅H₁₀', family: 'Cycloalcane' },
+            methyl_cyclohexane: { formula: 'C₇H₁₄', family: 'Cycle substitué' },
+            cyclohexanol: { formula: 'C₆H₁₂O', family: 'Alcool cyclique' },
+            cyclohexanone: { formula: 'C₆H₁₀O', family: 'Cétone cyclique' },
+            cyclopentanone: { formula: 'C₅H₈O', family: 'Cétone cyclique' },
+            methyl2_cyclohexanol: { formula: 'C₇H₁₄O', family: 'Alcool cyclique' },
+            methyl3_cyclohexanone: { formula: 'C₇H₁₂O', family: 'Cétone cyclique' },
+            cyclohex2en1ol: { formula: 'C₆H₁₀O', family: 'Alcool cyclique insaturé' }
+        };
 
         const WORLDS = [
-            
+            /* -------------------------------------------------------------
+               1. ALCANES & RADICAUX
+               ------------------------------------------------------------- */
             {
                 id: 'alcanes', title: 'Alcanes & Radicaux', subtitle: 'Chaînes linéaires et ramifications complexes',
                 icon: '⬡', color: '#58CC02', colorD: '#46A302',
@@ -3923,7 +4184,9 @@
                 ]
             },
 
-            
+            /* -------------------------------------------------------------
+               2. CYCLOALCANES
+               ------------------------------------------------------------- */
             {
                 id: 'cyclo', title: 'Cycloalcanes', subtitle: 'Anneaux (3 à 8 sommets) et cycles poly-substitués',
                 icon: '◯', color: '#CE82FF', colorD: '#A568CC',
@@ -3946,7 +4209,9 @@
                 ]
             },
 
-            
+            /* -------------------------------------------------------------
+               3. ALCÈNES, POLYÈNES & ALCYNES
+               ------------------------------------------------------------- */
             {
                 id: 'insat', title: 'Alcènes & Alcynes', subtitle: 'Doubles/triples liaisons, diènes, triènes et diynes',
                 icon: '≡', color: '#1CB0F6', colorD: '#1899D6',
@@ -3980,7 +4245,9 @@
                 ]
             },
 
-            
+            /* -------------------------------------------------------------
+               4. HALOGÉNOALCANES
+               ------------------------------------------------------------- */
             {
                 id: 'halo', section: true, title: 'Étape 1 · Halogènes', subtitle: 'F, Cl, Br, I = substituants non carbonés',
                 icon: 'Cl', color: '#0D9488', colorD: '#0F766E',
@@ -4003,7 +4270,9 @@
                 ]
             },
 
-            
+            /* -------------------------------------------------------------
+               5. RAMIFICATIONS CONCURRENTES
+               ------------------------------------------------------------- */
             {
                 id: 'compet', title: 'Étape 2 · Ramifications concurrentes', subtitle: 'Arbitrage halogènes vs alkyles (indices minimaux & alphabet)',
                 icon: '⇅', color: '#F59E0B', colorD: '#D97706',
@@ -4024,7 +4293,9 @@
                 ]
             },
 
-            
+            /* -------------------------------------------------------------
+               6. ALCÉNYNES
+               ------------------------------------------------------------- */
             {
                 id: 'alkenyne', title: 'Étape 3 · Alcényne', subtitle: 'Concurrence doubles (-ène) et triples (-yne) liaisons',
                 icon: '=≡', color: '#6366F1', colorD: '#4F46E5',
@@ -4041,7 +4312,9 @@
                 ]
             },
 
-            
+            /* -------------------------------------------------------------
+               7. INSATURATIONS PRIORITAIRES
+               ------------------------------------------------------------- */
             {
                 id: 'unsatsub', title: 'Étape 4 · Insaturations prioritaires', subtitle: 'Liaisons multiples prioritaires sur substituants alkyles/halogènes',
                 icon: '≡>', color: '#CE82FF', colorD: '#A568CC',
@@ -4061,7 +4334,9 @@
                 ]
             },
 
-            
+            /* -------------------------------------------------------------
+               8. GRANDE SYNTHÈSE
+               ------------------------------------------------------------- */
             {
                 id: 'grand', title: 'Étape 5 · Grande synthèse', subtitle: 'Composés poly-insaturés mixtes, ramifiés et polyhalogénés',
                 icon: '👑', color: '#E5A400', colorD: '#B88200',
@@ -4093,7 +4368,7 @@
                     { mol: 'prof_complex_alkane', steps: ['chain', 'subs', 'name'] }
                 ]
             },
-            
+            /* ------------------ MONDE A : ALCANES RAMIFIÉS ---------------------- */
             {
                 id: 'pack2_alkanes', section: true,
                 title: 'Alcanes ramifiés · Chaîne la plus longue',
@@ -4110,7 +4385,7 @@
                 ]
             },
 
-            
+            /* ------------------ MONDE B : ALCÈNES ------------------------------- */
             {
                 id: 'pack2_alkenes', section: true,
                 title: 'Alcènes · La double liaison donne le numéro',
@@ -4126,7 +4401,7 @@
                 ]
             },
 
-            
+            /* ------------------ MONDE C : ALCYNES ------------------------------- */
             {
                 id: 'pack2_alkynes', section: true,
                 title: 'Alcynes · La triple liaison',
@@ -4140,7 +4415,7 @@
                 ]
             },
 
-            
+            /* ------------------ MONDE D : DIÈNES & RADICAUX INSATURÉS ----------- */
             {
                 id: 'pack2_dienes', section: true,
                 title: 'Diènes & radicaux insaturés',
@@ -4155,7 +4430,7 @@
                 ]
             },
 
-            
+            /* ------------------ MONDE E : SYNTHÈSE ------------------------------ */
             {
                 id: 'pack2_master', section: true,
                 title: 'Cas difficiles',
@@ -4170,7 +4445,9 @@
         ];
 
 
-        
+        /* ============================================================
+           SONS (Web Audio — aucun fichier externe) & EFFETS
+           ============================================================ */
         const SFX = (function () {
             let ctx = null, master = null;
             let enabled = true;
@@ -4189,7 +4466,7 @@
                 if (ctx && ctx.state === 'suspended') ctx.resume();
                 return ctx;
             }
-            
+            /* note simple avec enveloppe */
             function tone(freq, t0, dur, o) {
                 o = o || {};
                 const c = init(); if (!c || !enabled) return;
@@ -4205,7 +4482,7 @@
                 osc.connect(g); g.connect(master);
                 osc.start(start); osc.stop(start + dur + .05);
             }
-            
+            /* bruit court (pour "whoosh" / impact) */
             function noise(t0, dur, vol, hp) {
                 const c = init(); if (!c || !enabled) return;
                 const len = Math.max(1, Math.floor(c.sampleRate * dur));
@@ -4236,7 +4513,7 @@
                 ready() { tone(N.E5, 0, .08, { type: 'sine', vol: .18 }); tone(N.A5, .06, .12, { type: 'sine', vol: .16 }); },
                 whoosh() { noise(0, .22, .12, 1200); },
                 correct() {
-                    
+                    /* petit "ding-ding" ascendant */
                     tone(N.C5, 0, .16, { type: 'triangle', vol: .3 });
                     tone(N.E5, .09, .16, { type: 'triangle', vol: .3 });
                     tone(N.G5, .18, .30, { type: 'triangle', vol: .32 });
@@ -4269,7 +4546,7 @@
                 close() { tone(600, 0, .08, { type: 'triangle', vol: .18, slideTo: 400 }); },
                 start() { [N.G4, N.C5, N.E5].forEach((f, i) => tone(f, i * .07, .14, { type: 'triangle', vol: .25 })); }
             };
-            
+            /* ---- External audio file playback (mp3, wav, ogg…) ---- */
             const _fileCache = {};
             function playFile(src, opts) {
                 if (!enabled) return;
@@ -4284,8 +4561,8 @@
                     a.currentTime = 0;
                     a.volume = opts.volume == null ? 1 : opts.volume;
                     const p = a.play();
-                    if (p && p.catch) p.catch(() => { }); 
-                } catch (e) {  }
+                    if (p && p.catch) p.catch(() => { }); // ignore autoplay errors
+                } catch (e) { /* ignore */ }
             }
             function preloadFile(src) {
                 try {
@@ -4307,15 +4584,15 @@
                     if (enabled) { init(); sounds.pop(); }
                     return enabled;
                 },
-                playFile,        
-                preloadFile      
+                playFile,        // ← ADD
+                preloadFile      // ← ADD
             };
         })();
-        
+        /* débloque l'audio dès la 1re interaction (exigé par les navigateurs) */
         ['pointerdown', 'touchstart', 'keydown'].forEach(ev =>
             document.addEventListener(ev, () => SFX.unlock(), { once: true, passive: true }));
 
-        
+        /* Bouton son : on/off */
         function sndButtonHTML() {
             return '<button class="snd-toggle' + (SFX.enabled ? '' : ' off') + '" data-snd aria-label="Son">' + (SFX.enabled ? '🔊' : '🔇') + '</button>';
         }
@@ -4330,20 +4607,20 @@
             });
         }, true);
 
-        
-        
+        /* Sons génériques sur les boutons (délégation) */
+        /* Sons uniquement sur CLICK réel (pas au toucher/scroll) */
         document.addEventListener('click', (e) => {
             const t = e.target.closest && e.target.closest('button');
             if (!t || t.disabled || t.hasAttribute('data-snd')) return;
-            
+            /* boutons avec sons dédiés — on ignore */
             if (t.id === 'btn-verify' || t.id === 'sheet-btn' || t.id === 'btn-next') return;
-            
+            /* le reste : sons très légers */
             if (t.classList.contains('level-row') || t.id === 'btn-random') SFX.play('tap');
             else if (t.classList.contains('world-toggle')) SFX.play('tap');
             else if (t.id === 'btn-close' || t.id === 'btn-cancel' || t.id === 'btn-home' || t.id === 'btn-quit') SFX.play('close');
             else if (t.id === 'btn-rappel') SFX.play('open');
         }, true);
-        
+        /* Helper pour particules plein écran (étoiles / lignes scintillantes / coeurs brisés) */
         function spawnFsParticles(container, heroEl, kind) {
             if (!container) return;
             const heroRect = heroEl ? heroEl.getBoundingClientRect() : null;
@@ -4356,8 +4633,8 @@
             } : null;
 
             const isWin = kind === 'win';
-            const starCount = isWin ? 8 : 4;  
-            const lineCount = isWin ? 6 : 5;  
+            const starCount = isWin ? 8 : 4;  // تقليل النجوم
+            const lineCount = isWin ? 6 : 5;  // تقليل الخطوط المضيئة
             const heartCount = isWin ? 0 : 8;
 
             const getNonHeroPos = () => {
@@ -4373,7 +4650,7 @@
                 return { x: Math.random() * (W - 30), y: Math.random() * (H - 50) };
             };
 
-            
+            // Étoiles scintillantes
             const starColors = isWin ? ['#FFFFFF', '#D7FFB8', '#FFC800', '#FFFFFF'] : ['#FFA8A8', '#FFFFFF', '#FFCDD2'];
             for (let i = 0; i < starCount; i++) {
                 const pos = getNonHeroPos();
@@ -4389,7 +4666,7 @@
                 container.appendChild(star);
             }
 
-            
+            // Lignes scintillantes montantes / descendantes
             for (let i = 0; i < lineCount; i++) {
                 const pos = getNonHeroPos();
                 const line = document.createElement('span');
@@ -4402,7 +4679,7 @@
                 container.appendChild(line);
             }
 
-            
+            // Coeurs brisés pour la défaite
             for (let i = 0; i < heartCount; i++) {
                 const pos = getNonHeroPos();
                 const heart = document.createElement('span');
@@ -4415,7 +4692,7 @@
                 container.appendChild(heart);
             }
         }
-        
+        /* ---------- Confettis ---------- */
         function confetti(opts) {
             opts = opts || {};
             const n = opts.count || 70;
@@ -4447,7 +4724,7 @@
             }
             setTimeout(() => layer.remove(), 2500);
         }
-        
+        /* ---------- Étincelles autour d'un point ---------- */
         function sparkBurst(x, y, color) {
             const layer = document.createElement('div');
             layer.className = 'fx-layer';
@@ -4486,28 +4763,32 @@
             setTimeout(() => a.classList.remove('app-shake'), 500);
         }
         function vibrate(p) { try { navigator.vibrate && navigator.vibrate(p); } catch (e) { } }
-        
+        /* animation du tap sur un atome (SVG) */
         function tapAtomFx(g) {
             if (!g) return;
             const shape = g.querySelector('.atom-shape');
             if (!shape) return;
             shape.classList.remove('atom-tap');
-            void shape.getBoundingClientRect();   
+            void shape.getBoundingClientRect();   // إجبار إعادة تشغيل الأنيميشن
             shape.classList.add('atom-tap');
         }
 
-        
+        /* ============================================================
+           ÉTAT
+           ============================================================ */
         const state = {
             view: 'home', worldIdx: null, levelIdx: null, random: false,
             steps: [], stepIdx: 0, chainSequence: [], confirmedSubs: [],
-            stepState: {}, progress: {}, hearts: 5, mistakes: 0,
+            stepState: {}, progress: {}, hearts: 3, mistakes: 0,
         };
         try { state.progress = JSON.parse(localStorage.getItem('nomenduo_prog') || '{}'); } catch (e) { }
         function saveAll() {
             try { localStorage.setItem('nomenduo_prog', JSON.stringify(state.progress)); } catch (e) { }
         }
 
-        
+        /* ============================================================
+           UTILITAIRES
+           ============================================================ */
         const $app = document.getElementById('app');
         function el(html) {
             const t = document.createElement('template');
@@ -4547,36 +4828,38 @@
         function hasHetero(mol) { return mol.atoms.some(a => a.el !== 'C'); }
         function hasMultiple(mol) { return mol.bonds.some(b => (b[2] || 1) > 1); }
 
-        
+        /* ============================================================
+           JEU ALÉATOIRE
+           ============================================================ */
         function pickRandomLevel(excludeW, excludeL) {
-            
+            /* 1) Récupérer l'historique récent (persistant) */
             let history = [];
             try {
                 history = JSON.parse(localStorage.getItem('nomenduo_rnd_hist') || '[]');
             } catch (e) { history = []; }
 
-            
+            /* 2) Construire la liste complète */
             const all = [];
             WORLDS.forEach((w, wi) => w.levels.forEach((_, li) => {
                 all.push([wi, li]);
             }));
 
-            
+            /* 3) Exclure : le niveau courant + tous ceux de l'historique récent */
             const recent = new Set(history.map(h => h[0] + ':' + h[1]));
             recent.add(excludeW + ':' + excludeL);
 
             let pool = all.filter(([wi, li]) => !recent.has(wi + ':' + li));
 
-            
+            /* 4) Si le pool est vide (rare), on réinitialise l'historique */
             if (pool.length === 0) {
                 history = [];
                 pool = all.filter(([wi, li]) => !(wi === excludeW && li === excludeL));
             }
 
-            
+            /* 5) Tirage aléatoire uniforme */
             const [wi, li] = pool[Math.floor(Math.random() * pool.length)];
 
-            
+            /* 6) Mettre à jour l'historique (FIFO) */
             history.push([wi, li]);
             if (history.length > RANDOM_HISTORY_MAX) history.shift();
             try {
@@ -4591,13 +4874,22 @@
             openLevel(wi, li, true);
         }
 
-        
+        /* ============================================================
+           DISTRACTEURS — Moteur centré sur le NOM (pas sur les indices)
+           ────────────────────────────────────────────────────────────
+           Philosophie :
+           • Les variations d'INDICES (2-méthyl → 3-méthyl) sont FACILES
+             → on les limite au strict minimum (1 seule par token).
+           • Les variations de NOM (butane → pentane, méthyl → éthyl,
+             chloro → bromo, -ane → -ène, alkyle → cycloalkyle) sont
+             DIFFICILES → on les multiplie.
+           ============================================================ */
 
         const CHAIN_PREFIXES = ['méth', 'éth', 'prop', 'but', 'pent', 'hex', 'hept', 'oct', 'non', 'déc', 'undéc', 'dodéc'];
         const CHAIN_SUFFIXES = ['ane', 'ène', 'yne'];
         const UNSAT_SUFFIXES = ['ène', 'yne'];
 
-        
+        /* Familles de radicaux alkyles : interchangeables au sein d'une famille */
         const ALKYL_FAMILIES = [
             ['méthyl'],
             ['éthyl'],
@@ -4606,10 +4898,10 @@
             ['pentyl', 'isopentyle', 'néopentyle'],
         ];
 
-        
+        /* Halogènes : tous interchangeables */
         const HALO_FAMILY = ['fluoro', 'chloro', 'bromo', 'iodo'];
 
-        
+        /* -------- Détection du préfixe de chaîne dans un mot -------- */
         function detectChainPrefix(word) {
             const lower = word.toLowerCase();
             for (let i = CHAIN_PREFIXES.length - 1; i >= 0; i--) {
@@ -4620,13 +4912,13 @@
             return null;
         }
 
-        
+        /* -------- Variations de NOM de chaîne (longueur, suffixe, cyclo) -------- */
         function chainNameVariants(word) {
             const out = new Set();
             const lower = word.toLowerCase();
             const cp = detectChainPrefix(word);
 
-            
+            /* A) Longueur de chaîne : ±1 et ±2 crans */
             if (cp) {
                 for (const di of [-2, -1, 1, 2]) {
                     const ni = cp.index + di;
@@ -4635,7 +4927,7 @@
                 }
             }
 
-            
+            /* B) Suffixe d'insaturation : -ène ↔ -yne (et -ane si sans locant) */
             for (const s of UNSAT_SUFFIXES) {
                 if (lower.endsWith(s) && lower.length > s.length + 1) {
                     for (const s2 of UNSAT_SUFFIXES) {
@@ -4645,11 +4937,11 @@
                     break;
                 }
             }
-            
+            /* Cas di/tri : diène ↔ diyne */
             if (lower.endsWith('diène')) out.add(word.slice(0, -5) + 'diyne');
             if (lower.endsWith('diyne')) out.add(word.slice(0, -5) + 'diène');
 
-            
+            /* C) Bascule cycle ↔ linéaire */
             if (lower.startsWith('cyclo')) {
                 out.add(word.slice(5));
             } else if (cp && cp.index >= 2) {
@@ -4659,7 +4951,7 @@
             return [...out];
         }
 
-        
+        /* -------- Variations d'ALKYLE : taille et squelette -------- */
         function alkylVariants(word) {
             const out = new Set();
             const lower = word.toLowerCase();
@@ -4667,11 +4959,11 @@
                 const fam = ALKYL_FAMILIES[fi];
                 for (const member of fam) {
                     if (lower.includes(member)) {
-                        
+                        // Même famille : isomères (propyl ↔ isopropyle)
                         for (const other of fam) {
                             if (other !== member) out.add(word.replace(member, other));
                         }
-                        
+                        // Familles voisines : taille ±1
                         if (fi > 0) out.add(word.replace(member, ALKYL_FAMILIES[fi - 1][0]));
                         if (fi < ALKYL_FAMILIES.length - 1) out.add(word.replace(member, ALKYL_FAMILIES[fi + 1][0]));
                         return [...out];
@@ -4681,7 +4973,7 @@
             return [...out];
         }
 
-        
+        /* -------- Variations d'HALOGÈNE : chloro → bromo, etc. -------- */
         function haloVariants(word) {
             const out = new Set();
             const lower = word.toLowerCase();
@@ -4696,7 +4988,7 @@
             return [...out];
         }
 
-        
+        /* -------- Variations d'INSATURATION : -ène ↔ -yne, -ényl ↔ -ynyl -------- */
         function unsatVariants(word) {
             const out = new Set();
             const lower = word.toLowerCase();
@@ -4707,7 +4999,7 @@
             return [...out];
         }
 
-        
+        /* -------- Variations d'INDICES : réduites au strict minimum -------- */
         function generateLocantVariants(token) {
             const variants = new Set();
             let m = token.match(/^(-?)(\d+(?:,\d+)*)-(.*)$/);
@@ -4725,7 +5017,7 @@
             return [...variants];
         }
 
-        
+        /* Pool générique de secours (utilisé SEULEMENT si le pool est trop petit) */
         const GENERIC_NAME_POOL = [
             'méthane', 'éthane', 'propane', 'butane', 'pentane', 'hexane', 'heptane', 'octane',
             'éthène', 'propène', 'but-1-ène', 'but-2-ène',
@@ -4733,16 +5025,18 @@
             'cyclopropane', 'cyclobutane', 'cyclopentane', 'cyclohexane',
         ];
 
-        
+        /* ============================================================
+           CONSTRUCTION DU POOL DE CHIPS (nouvelle version)
+           ============================================================ */
         function buildNamePool(mol, targetSize = 15) {
             const correct = mol.tokens.slice();
             const correctStr = correct.join('').toLowerCase().replace(/\s/g, '');
             const out = new Set(correct);
 
-            
+            /* 1) Distracteurs choisis à la main dans la molécule (haute qualité) */
             (mol.distractors || []).forEach(d => out.add(d));
 
-            
+            /* 2) Variations de NOM — priorité maximale */
             correct.forEach(tok => {
                 alkylVariants(tok).forEach(v => out.add(v));
                 haloVariants(tok).forEach(v => out.add(v));
@@ -4750,19 +5044,19 @@
                 unsatVariants(tok).forEach(v => out.add(v));
             });
 
-            
+            /* 3) Variations d'INDICES — UNE seule par token (au lieu de toutes) */
             correct.forEach(tok => {
                 const lv = shuffle(generateLocantVariants(tok));
                 if (lv.length) out.add(lv[0]);
             });
 
-            
+            /* 4) Nettoyage */
             [...out].forEach(x => {
                 if (!x || !x.trim()) out.delete(x);
                 if (x.toLowerCase().replace(/\s/g, '') === correctStr && !correct.includes(x)) out.delete(x);
             });
 
-            
+            /* 5) Si le pool est trop petit, compléter avec le pool générique */
             if (out.size < 8) {
                 for (const g of shuffle(GENERIC_NAME_POOL)) {
                     if (out.size >= 10) break;
@@ -4771,7 +5065,7 @@
                 }
             }
 
-            
+            /* 6) Troncature : priorité = correct + main-picked + reste aléatoire */
             let arr = [...out];
             const maxSize = Math.max(targetSize, correct.length + 8);
             if (arr.length > maxSize) {
@@ -4785,7 +5079,9 @@
             return shuffle(arr);
         }
 
-        
+        /* ============================================================
+           MOTEUR IUPAC
+           ============================================================ */
         const HALOGENS = { F: 'fluoro', Cl: 'chloro', Br: 'bromo', I: 'iodo' };
 
         function adjacencyOf(mol) {
@@ -4795,9 +5091,12 @@
             return adj;
         }
 
-        
+        /* Chaînes principales valides, calculées :
+           chemins de carbones avec le MAX de liaisons multiples, puis le plus long. */
         const _chainCache = {};
-        
+        /* ============================================================
+           محرك السلسلة الرئيسية: الروابط المتعددة -> الطول -> أقصى تفرعات
+           ============================================================ */
         function getValidChains(mol) {
             if (_chainCache[mol.id]) return _chainCache[mol.id];
             const adj = adjacencyOf(mol);
@@ -4820,15 +5119,15 @@
             };
             mol.atoms.filter(a => a.el === 'C').forEach(a => dfs([a.id], 0));
 
-            
+            // 1. أقصى عدد من الروابط غير المشبعة
             const maxMult = Math.max(...paths.map(p => p.mult));
             const m1 = paths.filter(p => p.mult === maxMult);
 
-            
+            // 2. أطول سلسلة
             const maxLen = Math.max(...m1.map(p => p.path.length));
             const m2 = m1.filter(p => p.path.length === maxLen);
 
-            
+            // 3. قاعدة فك التعادل: السلسلة التي تمتلك أكبر عدد من التفرعات (Most branched)
             const countBranches = (path) => {
                 let branches = 0;
                 path.forEach(cId => {
@@ -4845,7 +5144,9 @@
             return (_chainCache[mol.id] = { chains, maxMult, maxLen, maxBranches });
         }
 
-        
+        /* ============================================================
+           محرك الجذور المطور: يدعم الجذور المتفرعة وغير المشبعة
+           ============================================================ */
         function getSubstituents(mol, seq) {
             const adj = adjacencyOf(mol);
             const chainSet = new Set(seq);
@@ -4857,7 +5158,7 @@
                 const comp = [];
                 const queue = [a.id];
                 seen.add(a.id);
-                let attach = null; 
+                let attach = null; // ذرة السلسلة الرئيسية المرتبط بها الجذر
 
                 while (queue.length) {
                     const x = queue.shift();
@@ -4869,17 +5170,17 @@
                 }
                 if (attach === null) return;
 
-                
+                // جذر هالوجيني
                 if (comp.length === 1 && mol.atoms.find(z => z.id === comp[0]).el !== 'C') {
                     const atom = mol.atoms.find(z => z.id === comp[0]);
                     out.push({ name: HALOGENS[atom.el] || 'substituant', loc: seq.indexOf(attach) + 1, atoms: comp });
                     return;
                 }
 
-                
+                // الذرة الأولى في الجذر المتصلة مباشرة بالسلسلة الرئيسية (Root Carbon)
                 const rootId = comp.find(cId => (adj[cId] || []).includes(attach)) || comp[0];
 
-                
+                // فحص هل يحتوي الجذر على روابط غير مشبعة (C=C أو C≡C)
                 let hasDouble = false, hasTriple = false, unsatPos = 1;
                 mol.bonds.forEach(b => {
                     if (comp.includes(b[0]) && comp.includes(b[1])) {
@@ -4891,34 +5192,34 @@
 
                 let name = 'alkyl';
 
-                
+                // 1) جذور غير مشبعة (-ényle / -ynyle)
                 if (hasDouble) {
-                    if (comp.length === 2) name = 'éthényl'; 
+                    if (comp.length === 2) name = 'éthényl'; // أو vinyle
                     else if (comp.length === 3) name = `prop-${unsatPos}-ényl`;
                 }
                 else if (hasTriple) {
                     if (comp.length === 2) name = 'éthynyl';
                     else if (comp.length === 3) name = `prop-${unsatPos}-ynyl`;
                 }
-                
+                // 2) جذور ألكيلية مشبعة (Alkyles)
                 else {
                     const cCount = comp.length;
                     if (cCount === 1) name = 'méthyl';
                     else if (cCount === 2) name = 'éthyl';
                     else if (cCount === 3) {
-                        
+                        // حساب عدد ذرات الكربون المتصلة بذرة الجذر مباشرة
                         const rootNeighborsInComp = (adj[rootId] || []).filter(id => comp.includes(id));
                         name = (rootNeighborsInComp.length === 2) ? 'isopropyle' : 'propyle';
                     }
                     else if (cCount === 4) {
                         const rootNeighborsInComp = (adj[rootId] || []).filter(id => comp.includes(id));
-                        const rootDeg = rootNeighborsInComp.length; 
+                        const rootDeg = rootNeighborsInComp.length; // عدد الجيران داخل الجذر
 
                         if (rootDeg === 3) name = 'tert-butyle';
                         else if (rootDeg === 2) name = 'sec-butyle';
                         else {
-                            
-                            
+                            // تمييز isobutyle عن butyle الخطي
+                            // isobutyle: الجار الوحيد للـ root متصل بـ 3 كربونات
                             const onlyNeighbor = rootNeighborsInComp[0];
                             const neighborDeg = (adj[onlyNeighbor] || []).filter(id => comp.includes(id)).length;
                             name = (neighborDeg === 3) ? 'isobutyle' : 'butyle';
@@ -4998,12 +5299,14 @@
             }
             return best;
         }
-        
+        /* ============================================================
+   حساب الموضع المثالي لأرقام الترقيم (في الفراغ الأكثر أماناً وبعداً عن الروابط)
+   ============================================================ */
         function getOptimalLabelPos(mol, a, dist = 22) {
             const adj = adjacencyOf(mol);
             const nbrIds = adj[a.id] || [];
 
-            
+            // جمع زوايا جميع الروابط المتصلة بهذه الذرة (سلسلة + تفرعات)
             const bondAngles = nbrIds.map(nid => {
                 const nbr = mol.atoms.find(x => x.id === nid);
                 return nbr ? Math.atan2(nbr.y - a.y, nbr.x - a.x) : 0;
@@ -5014,7 +5317,7 @@
             let bestAngle = 0;
             let maxMinDiff = -1;
 
-            
+            // فحص 36 اتجاهاً حول الذرة (كل 10 درجات) للعثور على أكبر جيب فارغ
             for (let deg = 0; deg < 360; deg += 10) {
                 const rad = deg * (Math.PI / 180);
                 let minDiff = Math.PI;
@@ -5025,7 +5328,7 @@
                     if (diff < minDiff) minDiff = diff;
                 }
 
-                
+                // اختيار الزاوية التي تبتعد بأقصى مسافة عن أقرب رابطة
                 if (minDiff > maxMinDiff) {
                     maxMinDiff = minDiff;
                     bestAngle = rad;
@@ -5038,7 +5341,9 @@
             };
         }
 
-        
+        /* ============================================================
+           RENDU SVG
+           ============================================================ */
         function renderMolecule(mol, opts = {}) {
             const { chain = [], subs = [], bad = [], good = [], interactive = false } = opts;
 
@@ -5063,7 +5368,7 @@
 
             let svg = '<svg viewBox="' + minX + ' ' + minY + ' ' + vw + ' ' + vh + '" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">';
 
-            
+            // ── BONDS first (drawn under atoms) ──────────────────────────────
             mol.bonds.forEach(bd => {
                 const a1 = mol.atoms.find(a => a.id === bd[0]);
                 const a2 = mol.atoms.find(a => a.id === bd[1]);
@@ -5072,14 +5377,14 @@
                 const inChain = chainBondKeys.has(key);
                 const color = inChain ? '#58CC02' : '#4A4A4A';
                 const width = inChain ? 5.5 : 3.0;
-                
-                
+                // For topological style: bonds end AT the atom coordinate (no gap for C),
+                // but leave a small gap for heteroatoms (they show a label circle)
                 const r1 = a1.el !== 'C' ? 22 : 0;
                 const r2 = a2.el !== 'C' ? 22 : 0;
                 svg += bondPath(a1, a2, bd[2] || 1, color, width, r1, r2);
             });
 
-            
+            // ── ATOMS ────────────────────────────────────────────────────────
             mol.atoms.forEach(a => {
                 const isHetero = a.el !== 'C';
                 const inChain = chainSet.has(a.id);
@@ -5091,11 +5396,11 @@
 
                 svg += '<g class="atom-hit" ' + (interactive ? 'data-atom="' + a.id + '"' : '') + '>';
 
-                
+                // ── Transparent hit target (large, for touch) ────────────────
                 svg += '<circle cx="' + a.x + '" cy="' + a.y + '" r="32" fill="#000" opacity="0" class="atom-hit-circle" style="pointer-events:all;cursor:pointer;"/>';
 
                 if (isHetero) {
-                    
+                    // Heteroatoms: coloured filled circle with element label
                     let bgColor = HAL_COLORS[a.el] || '#CE82FF';
                     if (isBad) bgColor = '#FF4B4B';
                     if (isGood) bgColor = '#58CC02';
@@ -5104,23 +5409,23 @@
                     const fs = a.el.length > 1 ? 14 : 16;
                     svg += '<text x="' + a.x + '" y="' + (a.y + fs * 0.35) + '" text-anchor="middle" font-size="' + fs + '" font-weight="900" fill="#fff" font-family="-apple-system,sans-serif">' + a.el + '</text>';
                 } else {
-                    
-                    
-                    
+                    // Pure carbon atoms: no visible dot in topological style.
+                    // BUT when selected (chain / subs / etc.) show a tasteful indicator.
+                    // Pure carbon atoms:
                     if (inChain || isSub || isBad || isGood) {
                         const dotColor = isBad ? '#FF4B4B' : (isSub ? '#FFC800' : '#58CC02');
-                        
+                        // نقطة مفصل صغيرة وأنيقة جداً تبرز زاوية الكربون دون تشويه الخطوط
                         svg += '<circle class="atom-shape" cx="' + a.x + '" cy="' + a.y + '" r="5.5" fill="' + dotColor + '" stroke="#fff" stroke-width="1.5"/>';
                     } else {
-                        
+                        // مخفية تماماً قبل التحديد
 
-                        
+                        // رسم طبيعي بدون أي نقاط مرئية للكربون غير المحدد
                         svg += '<circle class="atom-shape" cx="' + a.x + '" cy="' + a.y + '" r="6" fill="transparent" stroke="none" stroke-width="0"/>';
                     }
                 }
 
-                
-                
+                // ── Chain numbering: elegant external label ──────────────────
+                // ── Chain numbering: elegant external label (مصحح بالكامل) ──
                 if (numbering[a.id]) {
                     const pos = getOptimalLabelPos(mol, a, 24);
                     svg += '<text x="' + pos.x + '" y="' + (pos.y + 4) + '" text-anchor="middle" font-size="13" font-weight="900" fill="#46A302" font-family="-apple-system,sans-serif" class="num-badge">' + numbering[a.id] + '</text>';
@@ -5144,7 +5449,7 @@
 
             const isChain = width > 4;
 
-            
+            // Wide invisible line for touch detection
             const hitLine = `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#000" opacity="0" stroke-width="28" class="bond-hit" style="pointer-events:stroke;cursor:pointer;"/>`;
 
             let inner = '';
@@ -5171,70 +5476,210 @@
             const gid = [a1.id, a2.id].sort().join('-');
             return `<g class="bond" data-bond="${gid}" data-order="${order}">${hitLine}${inner}</g>`;
         }
+        /* ===== Intégration du jeu expérimental V2 dans une iframe ===== */
+        function openV2Random() {
+            const wrap = document.getElementById('v2-frame-wrap');
+            const frame = document.getElementById('v2-frame');
+            if (!wrap || !frame) return;
+            /* ⚠️ Nom de fichier avec espace → %20 */
+            frame.src = 'NomenDuo%20v2.html?random=1&t=' + Date.now();
+            wrap.style.display = 'block';
+            try { SFX.play('start'); } catch (e) { }
+        }
+        function openV2Level(wi, li) {
+            const wrap = document.getElementById('v2-frame-wrap');
+            const frame = document.getElementById('v2-frame');
+            if (!wrap || !frame) return;
+            frame.src = 'NomenDuo%20v2.html?w=' + wi + '&l=' + li + '&t=' + Date.now();
+            wrap.style.display = 'block';
+            try { SFX.play('start'); } catch (e) { }
+        }
 
-        
+        function closeV2() {
+            const wrap = document.getElementById('v2-frame-wrap');
+            const frame = document.getElementById('v2-frame');
+            if (!wrap || !frame) return;
+            wrap.style.display = 'none';
+            frame.src = 'about:blank';
+        }
+        function showV2WinScreen(molName, stars) {
+
+
+            const nextLabel = '🎲 Défi suivant';
+
+            const wrap = el(
+                '<div class="fs-screen fs-win">'
+                + '<div class="fs-fx"></div>'
+                + '<div class="fs-content">'
+                + '<div class="fs-hero">'
+                + '<img class="fs-hero-img" src="duo-win.png" alt="" draggable="false" aria-hidden="true">'
+                + '<div class="fs-hero-shadow"></div>'
+                + '</div>'
+                + '<div class="fs-title">Niveau terminé !</div>'
+                + '<div class="fs-text">Tu maîtrises:</div>'
+                + '<div class="fs-text"> <b>' + escapeHtml(molName) + '</b></div>'
+                + '<div class="star-row">' + [0, 1, 2].map(i => '<span class="st ' + (i < stars ? 'on' : 'off') + '" data-i="' + i + '">★</span>').join('') + '</div>'
+                + '</div>'
+                + '<div class="fs-footer">'
+                + '<button class="btn-3d fs-btn-sec" id="btn-home-v2" style="flex:1">Missions</button>'
+                + '<button class="btn-3d fs-btn-main btn-gold" id="btn-next-v2" style="flex:1">' + nextLabel + '</button>'
+                + '</div>'
+                + '</div>'
+            );
+            document.body.appendChild(wrap);
+            // 👇 إخفاء إطار اللعبة الثانية فور بناء شاشة الفوز
+            const wrapFrame = document.getElementById('v2-frame-wrap');
+            if (wrapFrame) wrapFrame.style.display = 'none';
+
+            // إعادة استخدام كل تأثيرات الملف الأول هنا
+            const heroEl = wrap.querySelector('.fs-hero');
+            const fxEl = wrap.querySelector('.fs-fx');
+            spawnFsParticles(fxEl, heroEl, 'win');
+            triggerVictoryShockwave(heroEl);
+
+            SFX.play('fanfare'); vibrate([30, 40, 30, 40, 80]);
+
+            confetti({ count: 40, y: .45, power: 1.1, spread: 1.2 });
+            setTimeout(() => confetti({ count: 25, x: .5, y: .55, power: .9, spread: 1.0 }), 400);
+
+            wrap.querySelectorAll('.st.on').forEach((s, i) => {
+                s.style.animationDelay = (.55 + i * .38) + 's';
+                setTimeout(() => {
+                    SFX.play('star', i);
+                    const r = s.getBoundingClientRect();
+                    sparkBurst(r.left + r.width / 2, r.top + r.height / 2, '#FFC800');
+                }, (.55 + i * .38) * 1000);
+            });
+            wrap.querySelectorAll('.st.off').forEach(s => { s.style.animationDelay = '1.4s'; });
+
+            if (stars === 3) setTimeout(() => {
+                SFX.play('sparkle');
+                confetti({ count: 35, y: .4, power: 1.1 });
+                floatMsg('PARFAIT ! 🌟', '#E5A400');
+            }, 1500);
+
+            wrap.querySelector('#btn-home-v2').addEventListener('click', () => {
+                SFX.play('tap');
+                wrap.remove();
+                renderHome(); // العودة للقائمة الرئيسية
+            });
+
+            wrap.querySelector('#btn-next-v2').addEventListener('click', () => {
+                SFX.play('start');
+                wrap.remove();
+                openV2Random(); // إطلاق تحدي عشوائي جديد
+            });
+        }
+
+        window.addEventListener('message', (e) => {
+            if (!e.data || typeof e.data !== 'object') return;
+            if (e.data.type === 'v2-exit') {
+                closeV2();
+                renderHome(); // إعادة التحديث لإظهار أي تغييرات
+            } else if (e.data.type === 'v2-win') {
+                // حفظ التقدم إذا تم إرسال معرّف المستوى
+                if (e.data.worldId && e.data.levelIdx != null) {
+                    try {
+                        const v2prog = JSON.parse(localStorage.getItem('nomenduo_v2_prog') || '{}');
+                        const key = e.data.worldId + ':' + e.data.levelIdx;
+                        const prev = v2prog[key];
+                        v2prog[key] = { done: true, stars: Math.max(e.data.stars || 1, prev?.stars || 0) };
+                        localStorage.setItem('nomenduo_v2_prog', JSON.stringify(v2prog));
+                    } catch (err) { }
+                }
+                showV2WinScreen(e.data.molName, e.data.stars);
+            }
+        });
+
+        /* ============================================================
+           ACCUEIL
+           ============================================================ */
         function renderHome() {
             state.view = 'home';
             state.random = false;
-            const totalLevels = WORLDS.reduce((s, w) => s + w.levels.length, 0);
-            const doneCount = Object.values(state.progress).filter(p => p.done).length;
+            state.activeDb = state.activeDb || 'v1';
 
-            
-            let worldsHTML = '<div class="random-card">'
-                + '<div class="kicker">Mode libre</div>'
-                + '<h2>🎲 Jeu aléatoire</h2>'
-                + '<p></p>'
-                + '<button class="btn-3d btn-gold" id="btn-random">Lancer un défi</button>'
-                + '</div>';
+            /* دالة مساعدة لحساب الإحصائيات وبناء قائمة العوالم لقاعدة معينة */
+            function getDbData(dbKey) {
+                const isV1 = dbKey === 'v1';
+                const curWorlds = isV1 ? WORLDS : WORLDS_V2;
+                let curProg = {};
+                try {
+                    curProg = isV1
+                        ? state.progress
+                        : JSON.parse(localStorage.getItem('nomenduo_v2_prog') || '{}');
+                } catch (e) { }
 
-            let bannerShown = false;
-            WORLDS.forEach((w, wi) => {
-                if (w.section && !bannerShown) {
-                    bannerShown = true;
-                    worldsHTML += '<div class="section-banner">'
-                        + '<div class="kicker">Nouvelle section</div>'
-                        + '<h2>Synthèse des composés mixtes:</h2>'
+                const totalLevels = curWorlds.reduce((s, w) => s + w.levels.length, 0);
+                const doneCount = Object.values(curProg).filter(p => p.done).length;
 
+                let worldsHTML = '';
+                let bannerShown = false;
 
-                        + '</div>';
-                }
-                const wDone = w.levels.filter((_, li) => state.progress[w.id + ':' + li]?.done).length;
-                let levelsHTML = '';
-                w.levels.forEach((lv, li) => {
-                    const key = w.id + ':' + li;
-                    const p = state.progress[key];
-                    const mol = MOLECULES[lv.mol];
+                curWorlds.forEach((w, wi) => {
+                    if (isV1 && w.section && !bannerShown) {
+                        bannerShown = true;
+                        worldsHTML += '<div class="section-banner">'
+                            + '<div class="kicker">Nouvelle section</div>'
+                            + '<h2>Synthèse des composés mixtes:</h2>'
+                            + '</div>';
+                    }
 
+                    const wDone = w.levels.filter((_, li) => curProg[w.id + ':' + li]?.done).length;
+                    let levelsHTML = '';
 
+                    w.levels.forEach((lv, li) => {
+                        const key = w.id + ':' + li;
+                        const p = curProg[key];
+                        let formula = '', family = '';
 
-                    const stars = p?.stars || 0;
-                    const starsHTML = p?.done
-                        ? '<span class="level-stars">' + '★'.repeat(stars) + '☆'.repeat(3 - stars) + '</span>'
-                        : '<span class="level-arrow">›</span>';
+                        if (isV1) {
+                            const mol = MOLECULES[lv.mol];
+                            formula = mol?.formula || '';
+                            family = mol?.family || '';
+                        } else {
+                            const molKey = typeof lv === 'string' ? lv : lv.mol;
+                            const molData = MOLECULES_V2_NAMES[molKey] || {};
+                            formula = molData.formula || molKey;
+                            family = molData.family || 'Fonction';
+                        }
 
-                    levelsHTML += '<button class="level-row' + (p?.done ? ' done' : '') + '" data-w="' + wi + '" data-l="' + li + '">'
-                        + '<div class="level-badge">' + (p?.done ? '✓' : (li + 1)) + '</div>'
-                        + '<div class="level-meta"><h3>' + escapeHtml(mol.formula) + '</h3><p>' + (mol.family || '') + '</p></div>'
-                        + starsHTML
-                        + '</button>';
+                        const stars = p?.stars || 0;
+                        const starsHTML = p?.done
+                            ? '<span class="level-stars">' + '★'.repeat(stars) + '☆'.repeat(3 - stars) + '</span>'
+                            : '<span class="level-arrow">›</span>';
+
+                        levelsHTML += '<button class="level-row' + (p?.done ? ' done' : '') + '" data-db="' + (isV1 ? 'v1' : 'v2') + '" data-w="' + wi + '" data-l="' + li + '">'
+                            + '<div class="level-badge">' + (p?.done ? '✓' : (li + 1)) + '</div>'
+                            + '<div class="level-meta"><h3>' + escapeHtml(formula) + '</h3><p>' + escapeHtml(family) + '</p></div>'
+                            + starsHTML
+                            + '</button>';
+                    });
+
+                    const collapsedIds = JSON.parse(localStorage.getItem('nomenduo_collapsed') || '[]');
+                    const isCollapsed = collapsedIds.includes(w.id);
+
+                    worldsHTML += '<section class="world-section' + (isCollapsed ? ' collapsed' : '') + '" data-world="' + w.id + '">'
+                        + '<div class="world-title">'
+                        + '<span class="badge" style="background:' + w.color + '">' + w.icon + '</span>'
+                        + '<h2>' + w.title + '</h2>'
+                        + '<span class="count">' + wDone + '/' + w.levels.length + '</span>'
+                        + '<button class="world-toggle" data-toggle="' + w.id + '" aria-label="Replier / Déplier">'
+                        + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>'
+                        + '</button>'
+                        + '</div>'
+                        + '<div class="levels">' + levelsHTML + '</div>'
+                        + '</section>';
                 });
 
-                const collapsedIds = JSON.parse(localStorage.getItem('nomenduo_collapsed') || '[]');
-                const isCollapsed = collapsedIds.includes(w.id);
+                return { totalLevels, doneCount, worldsHTML };
+            }
 
-                worldsHTML += '<section class="world-section' + (isCollapsed ? ' collapsed' : '') + '" data-world="' + w.id + '">'
-                    + '<div class="world-title">'
-                    + '<span class="badge" style="background:' + w.color + '">' + w.icon + '</span>'
-                    + '<h2>' + w.title + '</h2>'
-                    + '<span class="count">' + wDone + '/' + w.levels.length + '</span>'
-                    + '<button class="world-toggle" data-toggle="' + w.id + '" aria-label="Replier / Déplier">'
-                    + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>'
-                    + '</button>'
-                    + '</div>'
-                    + '<div class="levels">' + levelsHTML + '</div>'
-                    + '</section>';
-            });
+            const initialData = getDbData(state.activeDb);
+            const isV1 = state.activeDb === 'v1';
 
+            /* بناء الواجهة الأساسية كاملة (مرة واحدة فقط) */
+            /* بناء الواجهة الأساسية كاملة (مرة واحدة فقط) */
             const home = el(
                 '<div class="home">'
                 + '<div class="home-hero">'
@@ -5242,44 +5687,109 @@
                 + '<h1>Nomen<span class="accent">Duo</span></h1>'
                 + '<p>Atelier nomenclature IUPAC</p>'
                 + '</div>'
-                + '<div class="home-stats">'
-                + '<div class="stat-chip"><span class="ico">🏆</span><div><b>' + doneCount + '</b> <span>niveaux</span></div></div>'
-                + '<div class="stat-chip"><span class="ico">🧪</span><div><b>' + totalLevels + '</b> <span>défis</span></div></div>'
+                + '<div class="random-cards-row">'
+                + '<div class="random-card">'
+                + '<div class="kicker">Mode libre V1</div>'
+                + '<h2>🎲 Défi V1</h2>'
+                + '<button class="btn-3d btn-gold" id="btn-random">Jouer</button>'
                 + '</div>'
-                + '<div class="worlds">' + worldsHTML + '</div>'
+                + '<div class="random-card" style="border-color:#CE82FF;box-shadow:0 5px 0 #A568CC">'
+                + '<div class="kicker" style="color:#A568CC">Mode libre V2</div>'
+                + '<h2 style="color:#5B2E8F">🧪 Défi V2</h2>'
+                + '<button class="btn-3d" id="btn-random-v2" style="background:#CE82FF;border-bottom-color:#A568CC;color:#fff">Jouer</button>'
+                + '</div>'
+                + '</div>'
+                + '<div class="db-switch-wrap">'
+                + '<div class="db-switch">'
+                + '<button class="db-switch-btn' + (isV1 ? ' active v1' : '') + '" id="tab-v1">🌿 Hydrocarbures (V1)</button>'
+                + '<button class="db-switch-btn' + (!isV1 ? ' active v2' : '') + '" id="tab-v2">🧪 Fonctions (V2)</button>'
+                + '</div>'
+                + '</div>'
+                + '<div class="worlds" id="worlds-container">' + initialData.worldsHTML + '</div>'
                 + '</div>'
             );
 
             $app.innerHTML = '';
             $app.appendChild(home);
-            home.querySelector('#btn-random').addEventListener('click', () => startRandom(null, null));
-            home.querySelectorAll('.level-row').forEach(b => {
-                b.addEventListener('click', () => openLevel(+b.dataset.w, +b.dataset.l, false));
-            });
-            home.querySelectorAll('.world-toggle').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const worldId = btn.dataset.toggle;
-                    const section = home.querySelector('.world-section[data-world="' + worldId + '"]');
-                    section.classList.toggle('collapsed');
 
-                    
-                    const collapsedIds = new Set(JSON.parse(localStorage.getItem('nomenduo_collapsed') || '[]'));
-                    if (section.classList.contains('collapsed')) collapsedIds.add(worldId);
-                    else collapsedIds.delete(worldId);
-                    localStorage.setItem('nomenduo_collapsed', JSON.stringify([...collapsedIds]));
+            /* ربط أزرار التحديات العشوائية */
+            home.querySelector('#btn-random').addEventListener('click', () => startRandom(null, null));
+            home.querySelector('#btn-random-v2').addEventListener('click', openV2Random);
+
+            /* دالة ربط أحداث النقر داخل قائمة العوالم */
+            function bindWorldsEvents(container) {
+                container.querySelectorAll('.level-row').forEach(b => {
+                    b.addEventListener('click', () => {
+                        const db = b.dataset.db;
+                        const wi = +b.dataset.w;
+                        const li = +b.dataset.l;
+                        if (db === 'v1') openLevel(wi, li, false);
+                        else openV2Level(wi, li);
+                    });
                 });
-            });
+
+                container.querySelectorAll('.world-toggle').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const worldId = btn.dataset.toggle;
+                        const section = container.querySelector('.world-section[data-world="' + worldId + '"]');
+                        section.classList.toggle('collapsed');
+                        const collapsedIds = new Set(JSON.parse(localStorage.getItem('nomenduo_collapsed') || '[]'));
+                        if (section.classList.contains('collapsed')) collapsedIds.add(worldId);
+                        else collapsedIds.delete(worldId);
+                        localStorage.setItem('nomenduo_collapsed', JSON.stringify([...collapsedIds]));
+                    });
+                });
+            }
+
+            bindWorldsEvents(home.querySelector('#worlds-container'));
+
+            /* ✅ التبديل السلس مع حماية من أي أخطاء */
+            function switchDatabase(dbKey) {
+                if (state.activeDb === dbKey) return;
+                state.activeDb = dbKey;
+                if (typeof SFX !== 'undefined') SFX.play('tap');
+
+                const btnV1 = home.querySelector('#tab-v1');
+                const btnV2 = home.querySelector('#tab-v2');
+
+                if (dbKey === 'v1') {
+                    btnV1.className = 'db-switch-btn active v1';
+                    btnV2.className = 'db-switch-btn';
+                } else {
+                    btnV1.className = 'db-switch-btn';
+                    btnV2.className = 'db-switch-btn active v2';
+                }
+
+                // جلب بيانات العوالم للقاعدة المحددة
+                const nextData = getDbData(dbKey);
+
+                // تحديث قائمة العوالم فوراً
+                const worldsBox = home.querySelector('#worlds-container');
+                if (worldsBox) {
+                    worldsBox.innerHTML = nextData.worldsHTML;
+                    bindWorldsEvents(worldsBox);
+                }
+            }
+
+            home.querySelector('#tab-v1').addEventListener('click', () => switchDatabase('v1'));
+            home.querySelector('#tab-v2').addEventListener('click', () => switchDatabase('v2'));
+
+            home.querySelector('#tab-v1').addEventListener('click', () => switchDatabase('v1'));
+            home.querySelector('#tab-v2').addEventListener('click', () => switchDatabase('v2'));
         }
 
-        
+        /* ============================================================
+           OUVERTURE D'UN NIVEAU
+           ============================================================ */
         function openLevel(wi, li, isRandom = false) {
             state._lastPct = null;
             const world = WORLDS[wi];
             const level = world.levels[li];
             const mol = MOLECULES[level.mol];
 
-            
+            /* 🔧 FIX : ignorer l'étape "chain" s'il n'y a pas de chaîne à choisir
+               (molécule à 1 seul carbone : méthane et dérivés) */
             const carbonCount = mol.atoms.filter(a => a.el === 'C').length;
             const needChainStep = carbonCount > 1;
 
@@ -5298,7 +5808,8 @@
             state.confirmedSubs = [];
             state.mistakes = 0;
 
-            
+            /* 🔧 Pré-remplir la "chaîne" avec l'unique carbone pour que les étapes
+               suivantes (subs, name) sachent quelle chaîne utiliser */
             if (!needChainStep) {
                 state.chainSequence = mol.atoms.filter(a => a.el === 'C').map(a => a.id);
             }
@@ -5306,7 +5817,11 @@
             renderPlay();
         }
 
-        
+        /* ============================================================
+           ÉCRAN DE JEU
+        /* ============================================================
+           ÉCRAN DE JEU (مصححة: تم حذف كود rad_num من هنا)
+           ============================================================ */
         function renderPlay() {
             state.view = 'play';
             const mol = currentMol();
@@ -5375,7 +5890,9 @@
             }
         }
 
-        
+        /* ============================================================
+           RENDU DES ÉTAPES (مصححة: هنا المكان الصحيح لـ rad_num)
+           ============================================================ */
         function renderStep(step, mol) {
             const q = state.stepState;
 
@@ -5413,7 +5930,7 @@
                 };
             }
 
-            
+            // ✅ هنا المكان الصحيح حيث q معرّف وموجود!
 
 
             if (step === 'name') {
@@ -5442,11 +5959,15 @@
             return { title: '', subtitle: '', molecule: '', answers: '' };
         }
 
-        
+        /* ============================================================
+           INTERACTIONS
+           ============================================================ */
         function attachStepListeners(step, mol) {
             const stage = document.getElementById('stage');
 
-            
+            /* ==========================================================
+               ÉTAPES : chain & subs — clic sur les atomes
+               ========================================================== */
             if (step === 'chain' || step === 'subs' || step === 'rad_num') {
                 const svg = stage.querySelector('svg');
 
@@ -5456,17 +5977,17 @@
                         const atom = mol.atoms.find(a => a.id === id);
                         if (!atom) return;
 
-                        
+                        /* ---------- ÉTAPE CHAIN ---------- */
                         if (step === 'chain') {
 
-                            
+                            // ❌ Halogène : interdit dans la chaîne
                             if (atom.el !== 'C') {
                                 SFX.play('wrong'); shakeApp(); vibrate(40);
                                 toast('❌ <b>' + atom.el + '</b> est un halogène : il ne peut pas faire partie de la chaîne principale.');
                                 return;
                             }
 
-                            
+                            // ✅ Animation seulement si l'atome est valide
                             triggerSvgAtomRipple(svg, atom.x, atom.y);
                             tapAtomFx(g);
 
@@ -5495,14 +6016,14 @@
                             }
                             state.stepState.tapped = seq;
 
-                            
-                            
+                            // ✅ Tint des liaisons appartenant à la chaîne
+                            // ✅ Tint des liaisons appartenant à la chaîne
                             const chainBondKeys = new Set();
                             for (let i = 0; i < seq.length - 1; i++) {
                                 chainBondKeys.add([seq[i], seq[i + 1]].sort().join('-'));
                             }
 
-                            
+                            // ✅ إغلاق الحلقة: إذا اكتمل عدد ذرات الحلقة، أضف الرابطة الختامية
                             if (mol.ringOrder && seq.length === mol.ringOrder.length && sameSet(seq, mol.ringOrder)) {
                                 chainBondKeys.add([seq[seq.length - 1], seq[0]].sort().join('-'));
                             }
@@ -5510,7 +6031,7 @@
                                 const inChain = chainBondKeys.has(bondG.dataset.bond);
                                 const order = parseInt(bondG.dataset.order || '1', 10);
 
-                                
+                                // سُمك مخصص لكل نوع رابطة يمنع الاندماج
                                 let strokeW = inChain ? '5.5' : '3.0';
                                 if (order === 2) strokeW = inChain ? '3.0' : '2.5';
                                 if (order === 3) strokeW = inChain ? '2.6' : '2.2';
@@ -5521,7 +6042,7 @@
                                 });
                             });
 
-                            
+                            // ✅ Mise à jour visuelle des atomes — style topologique
                             const HAL_COLORS = { O: '#FF4B4B', N: '#1CB0F6', Cl: '#0D9488', Br: '#A16207', F: '#EC4899', I: '#9333EA', S: '#FFC800' };
 
                             stage.querySelectorAll('[data-atom]').forEach(elG => {
@@ -5531,7 +6052,7 @@
                                 const isHetero = aData.el !== 'C';
                                 const isSelected = seq.includes(aId);
 
-                                
+                                // Update the visible shape circle
                                 const visShape = elG.querySelector('.atom-shape');
                                 if (visShape && !isHetero) {
                                     if (isSelected) {
@@ -5547,9 +6068,9 @@
                                     }
                                 }
 
-                                
+                                // Heteroatoms keep their element colour — no change needed
 
-                                
+                                // ── External chain-number label (text, not badge circle) ──
                                 elG.querySelectorAll('.num-badge').forEach(b => b.remove());
 
 
@@ -5575,12 +6096,12 @@
                             updateVerifyState();
                         }
 
-                        
+                        /* ---------- ÉTAPE SUBS ---------- */
                         if (step === 'subs') {
                             const chainSet = new Set(state.chainSequence);
-                            if (chainSet.has(id)) return;   
+                            if (chainSet.has(id)) return;   // Atome de la chaîne → ignoré
 
-                            
+                            // ✅ Animation seulement si l'atome est valide
                             triggerSvgAtomRipple(svg, atom.x, atom.y);
                             tapAtomFx(g);
 
@@ -5597,19 +6118,19 @@
                             }
                             state.stepState.subs = arr;
 
-                            
+                            // Mise à jour visuelle — style topologique
                             const shape = g.querySelector('.atom-shape');
                             if (shape) {
                                 const isSub = arr.includes(id);
                                 const HAL_COLORS = { O: '#FF4B4B', N: '#1CB0F6', Cl: '#0D9488', Br: '#A16207', F: '#EC4899', I: '#9333EA', S: '#FFC800' };
                                 if (atom.el === 'C') {
-                                    
+                                    // Carbon: show/hide a small yellow dot
                                     shape.setAttribute('r', isSub ? '9' : '6');
                                     shape.setAttribute('fill', isSub ? '#FFC800' : 'transparent');
                                     shape.setAttribute('stroke', isSub ? '#fff' : 'none');
                                     shape.setAttribute('stroke-width', isSub ? '2' : '0');
                                 } else {
-                                    
+                                    // Heteroatom: keep element colour, tint yellow when selected
                                     const restoreColor = HAL_COLORS[atom.el] || '#CE82FF';
                                     shape.setAttribute('fill', isSub ? '#FFC800' : restoreColor);
                                 }
@@ -5624,7 +6145,9 @@
                 });
             }
 
-            
+            /* ==========================================================
+               ÉTAPE : name — clic sur les morceaux (chips)
+               ========================================================== */
             if (step === 'name') {
                 const chipsBox = document.getElementById('chips');
                 const slot = document.getElementById('name-slot');
@@ -5693,7 +6216,9 @@
             btn.disabled = !ready;
         }
 
-        
+        /* ============================================================
+           VÉRIFICATION
+           ============================================================ */
         function verifyStep() {
             const step = state.steps[state.stepIdx];
             const mol = currentMol();
@@ -5823,14 +6348,14 @@
                     title = 'Sélection vide';
                     text = 'Tu dois numéroter la chaîne du radical.';
                 }
-                
+                // ⚠️ الفخ الأكبر: هل بدأ من C1' الحقيقي؟
                 else if (tapped[0] !== radData.rootId) {
                     diag = "Règle du C1'";
                     title = "Erreur sur le C1'";
                     text = "<b>Le carbone 1' doit obligatoirement être le point d'attache</b> à la chaîne principale. Tu ne peux pas commencer par l'autre extrémité !";
                     hint = "Repère l'atome du radical directement relié au carbone vert de la chaîne.";
                 }
-                
+                // هل اختار أطول مسار داخل الجذر؟
                 else if (!radData.validSequences.some(seq => seq.every((id, idx) => id === tapped[idx]))) {
                     diag = 'Longueur du radical';
                     title = 'Chaîne du radical incorrecte';
@@ -5886,7 +6411,7 @@
                         diag = 'Assemblage du nom';
 
                     }
-                    
+                    /* ✨ Nouvelle comparaison structurée */
                     compare = {
                         student: studentStr || '(vide)',
                         correct: mol.name
@@ -5908,7 +6433,9 @@
             showSheet({ ok, title, text, hint, diag, onContinue: ok ? nextStep : null, compare });
         }
 
-        
+        /* ============================================================
+           FEEDBACK
+           ============================================================ */
         function showSheet({ ok, title, text, hint, diag, onContinue, compare }) {
             const world = WORLDS[state.worldIdx];
             const tipHTML = '';
@@ -5945,7 +6472,7 @@
             );
             document.body.appendChild(wrap);
 
-            
+            /* effets de réussite / d'échec */
             if (ok) {
                 SFX.play('correct'); flashScreen('good'); vibrate([15, 30, 15]);
                 confetti({ count: 46, y: .78, power: .85 });
@@ -5986,7 +6513,7 @@
             );
             document.body.appendChild(wrap);
 
-            
+            // Particules descendantes (lignes et coeurs brisés)
             const heroEl = wrap.querySelector('.fs-hero');
             const fxEl = wrap.querySelector('.fs-fx');
             spawnFsParticles(fxEl, heroEl, 'lose');
@@ -5997,13 +6524,15 @@
             wrap.querySelector('#sheet-btn').addEventListener('click', () => {
                 SFX.play('tap');
                 wrap.remove();
-                state.hearts = 5;
+                state.hearts = 3;
                 saveAll();
                 renderHome();
             });
         }
 
-        
+        /* ============================================================
+           RAPPEL
+           ============================================================ */
         const PREFIXES = [
             [1, 'Méth-'], [2, 'Éth-'], [3, 'Prop-'], [4, 'But-'],
             [5, 'Pent-'], [6, 'Hex-'], [7, 'Hept-'], [8, 'Oct-'],
@@ -6025,13 +6554,15 @@
                 + '</div>'
             );
             document.body.appendChild(wrap);
-            
+            // تفعيل السحب للأسفل لإغلاق نافذة التذكير
             enableSheetSwipeDown(wrap, wrap.querySelector('.sheet'), () => SFX.play('close'));
             wrap.querySelector('#sheet-btn').addEventListener('click', () => wrap.remove());
             wrap.addEventListener('click', (e) => { if (e.target === wrap) wrap.remove(); });
 
         }
-        
+        /* ============================================================
+           CONFIRMATION DE SORTIE
+           ============================================================ */
         function showQuitConfirm() {
             const wrap = el(
                 '<div class="sheet-wrap">'
@@ -6052,7 +6583,9 @@
             wrap.addEventListener('click', (e) => { if (e.target === wrap) wrap.remove(); });
         }
 
-        
+        /* ============================================================
+           ENCHAÎNEMENT
+           ============================================================ */
         function nextStep() {
             if (state.steps[state.stepIdx] === 'subs') {
                 state.confirmedSubs = state.stepState.subs || [];
@@ -6102,20 +6635,20 @@
             );
             document.body.appendChild(wrap);
 
-            
+            // Remplir l'arrière-plan de particules en évitant le héros
             const heroEl = wrap.querySelector('.fs-hero');
             const fxEl = wrap.querySelector('.fs-fx');
             spawnFsParticles(fxEl, heroEl, 'win');
 
-            
+            // pulsation de victoire sur le héros
             triggerVictoryShockwave(heroEl);
 
-            
-            
+            /* célébration : fanfare, étoiles une à une, confettis */
+            /* célébration : fanfare, étoiles une à une, confettis ALLÉGÉS */
             state._lastPct = null;
             SFX.play('fanfare'); vibrate([30, 40, 30, 40, 80]);
 
-            
+            // دفعتين خفيفتين بدلاً من 3 دفعات ضخمة
             confetti({ count: 40, y: .45, power: 1.1, spread: 1.2 });
             setTimeout(() => confetti({ count: 25, x: .5, y: .55, power: .9, spread: 1.0 }), 400);
 
@@ -6131,7 +6664,7 @@
 
             if (stars === 3) setTimeout(() => {
                 SFX.play('sparkle');
-                confetti({ count: 35, y: .4, power: 1.1 }); 
+                confetti({ count: 35, y: .4, power: 1.1 }); // تقليل من 90 إلى 35
                 floatMsg('PARFAIT ! 🌟', '#E5A400');
             }, 1500);
 
@@ -6139,8 +6672,8 @@
             wrap.querySelector('#btn-next').addEventListener('click', () => {
                 SFX.play('start');
                 wrap.remove();
-                if (isRandom) startRandom(curW, curL);            
-                else if (hasNext) openLevel(curW, curL + 1, false);  
+                if (isRandom) startRandom(curW, curL);            /* autre défi ALÉATOIRE */
+                else if (hasNext) openLevel(curW, curL + 1, false);  /* niveau suivant de la liste */
                 else renderHome();
             });
         }
@@ -6148,7 +6681,7 @@
         function triggerVictoryShockwave(originEl) {
             if (!originEl) return;
 
-            
+            // وميض أخضر خفيف
             const flash = document.createElement('div');
             flash.style.cssText = 'position:fixed;inset:0;z-index:120;pointer-events:none;'
                 + 'background:rgba(88,204,2,.28);'
@@ -6156,7 +6689,7 @@
             document.body.appendChild(flash);
             setTimeout(() => flash.remove(), 600);
 
-            
+            // نبضة للبطاقة
             originEl.animate([
                 { transform: 'scale(1)' },
                 { transform: 'scale(1.045)' },
@@ -6174,13 +6707,13 @@
         function enableSheetSwipeDown(sheetWrap, sheetEl, onDismiss) {
             let startY = 0, currentY = 0, isDragging = false;
 
-            
+            // إضافة المقبض البصري
             const handle = document.createElement('div');
             handle.className = 'sheet-drag-handle';
             sheetEl.insertBefore(handle, sheetEl.firstChild);
 
             const onPointerDown = (e) => {
-                
+                // نسمح بالسحب من المقبض أو الجزء العلوي من البطاقة
                 if (sheetEl.scrollTop > 5 && e.target !== handle) return;
                 startY = e.clientY || (e.touches && e.touches[0].clientY);
                 isDragging = true;
@@ -6192,7 +6725,7 @@
                 currentY = e.clientY || (e.touches && e.touches[0].clientY);
                 const diffY = currentY - startY;
 
-                if (diffY > 0) { 
+                if (diffY > 0) { // سحب للأسفل فقط
                     sheetEl.style.transform = `translateY(${diffY}px)`;
                     sheetWrap.style.backgroundColor = `rgba(60,60,60,${Math.max(0.05, 0.5 - diffY / 600)})`;
                 }
@@ -6204,14 +6737,14 @@
                 sheetEl.classList.remove('dragging');
                 const diffY = currentY - startY;
 
-                if (diffY > 110) { 
+                if (diffY > 110) { // إذا تجاوز السحب 110 بكسل -> إغلاق
                     sheetEl.style.transform = 'translateY(100%)';
                     sheetWrap.style.opacity = '0';
                     setTimeout(() => {
                         sheetWrap.remove();
                         if (onDismiss) onDismiss();
                     }, 250);
-                } else { 
+                } else { // العودة للوضع الطبيعي إذا لم تكن المسافة كافية
                     sheetEl.style.transform = '';
                     sheetWrap.style.backgroundColor = '';
                 }
@@ -6230,7 +6763,7 @@
             const splash = document.createElement('div');
             splash.id = 'splash-screen';
 
-            
+            // توزيع الصيغ الكيميائية الطافية عشوائياً في الخلفية
             formulas.forEach((txt, idx) => {
                 const span = document.createElement('span');
                 span.className = 'floating-formula';
@@ -6255,7 +6788,7 @@
 
             document.body.appendChild(splash);
 
-            
+            // تشغيل شريط التحميل تدريجياً
             requestAnimationFrame(() => {
                 setTimeout(() => {
                     const bar = document.getElementById('splash-fill');
@@ -6263,7 +6796,7 @@
                 }, 100);
             });
 
-            
+            // إخفاء الشاشة بعد اكتمال التحميل والانتقال للتطبيق
             setTimeout(() => {
                 splash.style.opacity = '0';
                 splash.style.transform = 'scale(1.06)';
@@ -6273,12 +6806,14 @@
                 }, 500);
             }, 2100);
         }
-        
+        /* ============================================================
+           محرك التحقق من صحة مسار وترقيم الجذر المعقد
+           ============================================================ */
         function getValidRadicalChain(mol, chainSeq) {
             const adj = adjacencyOf(mol);
             const chainSet = new Set(chainSeq);
 
-            
+            // 1. إيجاد الذرة الأولى في الجذر (المتصلة مباشرة بالسلسلة الرئيسية)
             let rootId = null;
             let parentAttach = null;
 
@@ -6295,7 +6830,7 @@
 
             if (!rootId) return null;
 
-            
+            // 2. إيجاد كل ذرات هذا الجذر المعين
             const radAtoms = [];
             const queue = [rootId];
             const seen = new Set([rootId]);
@@ -6311,7 +6846,7 @@
                 });
             }
 
-            
+            // 3. أطول مسار يبدأ حصراً من rootId (الكربون 1')
             const paths = [];
             const dfs = (path) => {
                 paths.push(path.slice());
@@ -6332,18 +6867,20 @@
             return {
                 rootId,
                 parentAttach,
-                validSequences: bestPaths 
+                validSequences: bestPaths // المسارات المقبولة (التي تبدأ كلها بـ C1')
             };
         }
-        
-        
+        /* ============================================================
+           LANCEMENT & PRELOAD & SERVICE WORKER
+           ============================================================ */
+        // Préchargement immédiat des images pour éviter tout délai d'affichage
         try {
             new Image().src = 'duo-win.png';
             SFX.preloadFile('tuco-get-out.mp3');
 
         } catch (e) { }
 
-        
+        // Enregistrement du Service Worker avec détection de mise à jour (Style Duolingo)
         function showUpdatePrompt(onUpdate) {
             if (document.getElementById('pwa-update-toast')) return;
             const toast = document.createElement('div');
@@ -6389,7 +6926,7 @@
 
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./service-worker.js').then((reg) => {
-                    
+                    // Si un nouveau worker est déjà en attente
                     if (reg.waiting) {
                         showUpdatePrompt(() => {
                             reg.waiting.postMessage({ type: 'SKIP_WAITING' });
@@ -6397,7 +6934,7 @@
                         return;
                     }
 
-                    
+                    // Détection quand un nouveau SW est téléchargé
                     reg.addEventListener('updatefound', () => {
                         const newWorker = reg.installing;
                         if (!newWorker) return;
@@ -6415,7 +6952,7 @@
             });
         }
 
-        
+        // تشغيل شاشة الدخول أولاً ثم فتح الشاشة الرئيسية
         launchSplashScreen(() => {
             renderHome();
             SFX.play('start');
