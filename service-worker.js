@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nomenduo-v6'; // Version bumped to force the update
+const CACHE_NAME = 'nomenduo-v7'; // Version bumped to force the update
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -7,6 +7,8 @@ const ASSETS_TO_CACHE = [
   './icon-192-v2.png',
   './icon-512-v2.png',
   './tuco-get-out.mp3' 
+  './NomenDuo v2.html' 
+  
   // Removed duo-lose.png just in case it doesn't exist on your server
 ];
 
