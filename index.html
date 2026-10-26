@@ -6556,7 +6556,60 @@
                 chain: ['cy1','cy2','cy3','cy4','cy5','cy6'],
                 tokens: ['cyclohexane', 'carbaldéhyde'],
                 distractors: ['cyclohexanal', 'benzaldéhyde', 'cyclopentanecarbaldéhyde']
-            }
+            },
+            chlorobenzene: {
+    id: 'chlorobenzene', name: 'chlorobenzène', formula: 'C₆H₅Cl',
+    family: 'aromatique monosubstitué', priorityFunction: 'benzene',
+    isAromatic: true,
+    functionChoices: [{ id: 'benzene', label: 'Benzène substitué', suffix: '...benzène', picto: '⬡' }],
+    atoms: [
+        { id: 'b1', el: 'C', x: 150, y: 90 }, { id: 'b2', el: 'C', x: 230, y: 130 },
+        { id: 'b3', el: 'C', x: 230, y: 220 }, { id: 'b4', el: 'C', x: 150, y: 260 },
+        { id: 'b5', el: 'C', x: 70, y: 220 }, { id: 'b6', el: 'C', x: 70, y: 130 },
+        { id: 'cl', el: 'Cl', x: 150, y: 20 }
+    ],
+    bonds: [['b1','b2',1],['b2','b3',1],['b3','b4',1],['b4','b5',1],['b5','b6',1],['b6','b1',1],['b1','cl',1]],
+    chain: ['b1','b2','b3','b4','b5','b6'],
+    tokens: ['chloro', 'benzène'],
+    distractors: ['bromo', 'fluoro', 'iodo', 'toluène', 'phénol']
+},
+nitrobenzene: {
+    id: 'nitrobenzene', name: 'nitrobenzène', formula: 'C₆H₅NO₂',
+    family: 'aromatique monosubstitué', priorityFunction: 'benzene',
+    isAromatic: true,
+    functionChoices: [{ id: 'benzene', label: 'Benzène substitué', suffix: '...benzène', picto: '⬡' }],
+    atoms: [
+        { id: 'b1', el: 'C', x: 150, y: 90 }, { id: 'b2', el: 'C', x: 230, y: 130 },
+        { id: 'b3', el: 'C', x: 230, y: 220 }, { id: 'b4', el: 'C', x: 150, y: 260 },
+        { id: 'b5', el: 'C', x: 70, y: 220 }, { id: 'b6', el: 'C', x: 70, y: 130 },
+        { id: 'no', el: 'NO₂', x: 150, y: 20 }
+    ],
+    bonds: [['b1','b2',1],['b2','b3',1],['b3','b4',1],['b4','b5',1],['b5','b6',1],['b6','b1',1],['b1','no',1]],
+    chain: ['b1','b2','b3','b4','b5','b6'],
+    tokens: ['nitro', 'benzène'],
+    distractors: ['amino', 'chloro', 'bromo', 'aniline', 'toluène']
+},
+benzene1ethyl4methyl: {
+    id: 'benzene1ethyl4methyl', name: '1-éthyl-4-méthylbenzène', formula: 'C₉H₁₂',
+    family: 'aromatique disubstitué', priorityFunction: 'benzene',
+    isAromatic: true,
+    functionChoices: [{ id: 'benzene', label: 'Benzène substitué', suffix: '...benzène', picto: '⬡' }],
+    atoms: [
+        { id: 'b1', el: 'C', x: 150, y: 90 }, { id: 'b2', el: 'C', x: 230, y: 130 },
+        { id: 'b3', el: 'C', x: 230, y: 220 }, { id: 'b4', el: 'C', x: 150, y: 260 },
+        { id: 'b5', el: 'C', x: 70, y: 220 }, { id: 'b6', el: 'C', x: 70, y: 130 },
+        { id: 'e1', el: 'C', x: 150, y: 10 }, { id: 'e2', el: 'C', x: 220, y: -30 },
+        { id: 'm1', el: 'CH₃', x: 150, y: 340 }
+    ],
+    bonds: [
+        ['b1','b2',1],['b2','b3',1],['b3','b4',1],['b4','b5',1],['b5','b6',1],['b6','b1',1],
+        ['b1','e1',1],['e1','e2',1],['b4','m1',1]
+    ],
+    chain: ['b1','b2','b3','b4','b5','b6'],
+    tokens: ['1-éthyl', '-4-méthyl', 'benzène'],
+    distractors: ['-4-éthyl', '-1-méthyl', '2-éthyl', '-5-méthyl', 'toluène']
+},
+
         };
 
 
@@ -7186,12 +7239,23 @@
         }
 
         function openLevel(wi, li) {
-            const world = WORLDS[wi];
-            const level = world.levels[li];
-            const mol = MOLECULES[level.mol];
-            state.worldIdx = wi;
-            state.levelIdx = li;
-            state.steps = prepareSteps(mol, level.steps);
+    const world = WORLDS[wi];
+    const level = world.levels[li];
+    const mol = MOLECULES[level.mol];
+
+
+    if (!mol) {
+        console.error('[NomenDuo] Molécule introuvable :', level.mol);
+        toast('Molécule introuvable : ' + level.mol);
+        exitV2Home();
+        return;
+    }
+
+    state.worldIdx = wi;
+    state.levelIdx = li;
+    state.steps = prepareSteps(mol, level.steps);
+
+
             state.stepIdx = 0;
             state.stepState = {};
 
